@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>徐豪杰写字的地方</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.jayxhj.com/"/>
+  <updated>2016-04-26T12:03:07.000Z</updated>
+  <id>http://blog.jayxhj.com/</id>
+  
+  <author>
+    <name>jayxhj</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>获取当前日期在本月的第几周</title>
+    <link href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/"/>
+    <id>http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/</id>
+    <published>2016-04-26T11:44:42.000Z</published>
+    <updated>2016-04-26T12:03:07.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;a href=&quot;# 获取当前日期在本月的第几周&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;/a&gt;获取当前日期在本月的第几周 &lt;/h1&gt;&lt;p&gt; 使用 &lt;strong&gt;date()&lt;/strong&gt; 函数可以获取某个日期的当前星期数，此星期数为当前日期在一整年中的星期数。假如要获取当前日期在当前月份的星期数，只需用当前日期的星期数减去当前月份第一天的星期数加 1 即可。&lt;/p&gt;
+&lt;h2 id=&quot;获取当前日期的星期数&quot;&gt;&lt;a href=&quot;# 获取当前日期的星期数&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期的星期数&quot;&gt;&lt;/a&gt;获取当前日期的星期数&lt;/h2&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;echo&lt;/span&gt; date(&lt;span class=&quot;string&quot;&gt;&#39;W&#39;&lt;/span&gt;,time());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;获取当前日期是本月的第几周&quot;&gt;&lt;a href=&quot;# 获取当前日期是本月的第几周&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期是本月的第几周&quot;&gt;&lt;/a&gt;获取当前日期是本月的第几周&lt;/h2&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; int $date 时间戳&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt; int 当前日期在本月的第几周&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;weekOfMonth&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;variable&quot;&gt;$date&lt;/span&gt;)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;variable&quot;&gt;$firstOfMonth&lt;/span&gt; = strtotime(date(&lt;span class=&quot;string&quot;&gt;&quot;Y-m-01&quot;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$date&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; intval(date(&lt;span class=&quot;string&quot;&gt;&quot;W&quot;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$date&lt;/span&gt;)) - intval(date(&lt;span class=&quot;string&quot;&gt;&quot;W&quot;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$firstOfMonth&lt;/span&gt;)) + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;a href=&quot;# 获取当前日期在本月的第几周&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;/a&gt;获取当前日期在本月的第几周 &lt;/h1&gt;&lt;p&gt; 使用 &lt;strong&gt;date()&lt;/stro
+    
+    </summary>
+    
+      <category term="php" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="php" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lumen 常用开发技巧</title>
+    <link href="http://blog.jayxhj.com/2016/04/lumen-tricks/"/>
+    <id>http://blog.jayxhj.com/2016/04/lumen-tricks/</id>
+    <published>2016-04-09T14:09:26.000Z</published>
+    <updated>2016-04-09T15:22:26.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;密码加密与验证&quot;&gt;&lt;a href=&quot;# 密码加密与验证&quot; class=&quot;headerlink&quot; title=&quot;密码加密与验证&quot;&gt;&lt;/a&gt;密码加密与验证 &lt;/h1&gt;&lt;p&gt; 加密&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* 密码入库加密&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; string $password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt; string&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;passwordEncrypt&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; app(&lt;span class=&quot;string&quot;&gt;&#39;hash&#39;&lt;/span&gt;)-&amp;gt;make(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;密码验证&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* 密码验证&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; string $password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; string $hashedPassword 加密后的密码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt; bool&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;passwordValidate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$hashedPassword&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; app(&lt;span class=&quot;string&quot;&gt;&#39;hash&#39;&lt;/span&gt;)-&amp;gt;check(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$hashedPassword&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;查询数据库判断是否有记录&quot;&gt;&lt;a href=&quot;# 查询数据库判断是否有记录&quot; class=&quot;headerlink&quot; title=&quot;查询数据库判断是否有记录&quot;&gt;&lt;/a&gt;查询数据库判断是否有记录 &lt;/h2&gt;&lt;p&gt; 如果使用 Eloquent 的 &lt;a href=&quot;https://laravel.com/docs/5.2/eloquent#query-scopes&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Query Scopes&lt;/a&gt; ，查询时使用链式方法调用，通常是这么查询，&lt;code&gt;$modelObj = Model::id($id)-&amp;gt;get()&lt;/code&gt; 来查询指定条件的结果集。但是这么查出来的，实际上返回的是 &lt;code&gt;Illuminate\Support\Collection&lt;/code&gt; 对象。那么下面的方法，比较适合判断查出来的结果是否存在。&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$modelObj&lt;/span&gt; = Model::id(&lt;span class=&quot;variable&quot;&gt;$id&lt;/span&gt;)-&amp;gt;get();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (! &lt;span class=&quot;variable&quot;&gt;$modelObj&lt;/span&gt;-&amp;gt;isEmpty()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;variable&quot;&gt;$modelObj&lt;/span&gt;-&amp;gt;toArray();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 或者这样&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;variable&quot;&gt;$modelObj&lt;/span&gt;-&amp;gt;count()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;variable&quot;&gt;$modelObj&lt;/span&gt;-&amp;gt;toArray();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;密码加密与验证&quot;&gt;&lt;a href=&quot;# 密码加密与验证&quot; class=&quot;headerlink&quot; title=&quot;密码加密与验证&quot;&gt;&lt;/a&gt;密码加密与验证 &lt;/h1&gt;&lt;p&gt; 加密&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="lumen" scheme="http://blog.jayxhj.com/tags/lumen/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 lumen 中设置日期与数据库时区</title>
+    <link href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/"/>
+    <id>http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/</id>
+    <published>2016-03-24T11:17:10.000Z</published>
+    <updated>2016-03-25T10:28:30.000Z</updated>
+    
+    <content type="html">&lt;p&gt;项目使用了 Laravel 的精简版 Lumen 来做 api 和 sso 的服务。今天在提交代码时发现，生成的 database migration 代码时间相差八个小时。看来是时区设置的问题，查找了一下，发现有好几个地方都有时区的设置，那就简单总结一下。&lt;/p&gt;
+&lt;h2 id=&quot;PHP- 时区设置&quot;&gt;&lt;a href=&quot;#PHP- 时区设置&quot; class=&quot;headerlink&quot; title=&quot;PHP 时区设置&quot;&gt;&lt;/a&gt;PHP 时区设置&lt;/h2&gt;&lt;p&gt;PHP 里可以在 php.ini 中设置 &lt;strong&gt;&lt;code&gt;date.timezone&lt;/code&gt;&lt;/strong&gt; 选项来设置时区，也可以在脚本中动态制定时区，如使用 &lt;strong&gt;&lt;code&gt;date_default_timezone_set()&lt;/code&gt;&lt;/strong&gt; 来动态指定时区。使用脚本指定时会覆盖 php.ini 中的设置。时区列表可以使用 &lt;strong&gt;&lt;code&gt;\DateTimeZone::listIdentifiers()&lt;/code&gt;&lt;/strong&gt; 来获取。也可以到 &lt;a href=&quot;http://lxr.php.net/xref/PHP_5_6/ext/date/lib/timezonemap.h&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;timezonemap.h&lt;/a&gt; 来查看对应的可选项。&lt;/p&gt;
+&lt;p&gt;中国的时区设置可以使用以下选项：&lt;br&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Chongqing&quot;&lt;/span&gt;                &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Chungking&quot;&lt;/span&gt;                &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Harbin&quot;&lt;/span&gt;                   &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Macao&quot;&lt;/span&gt;                    &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Macau&quot;&lt;/span&gt;                    &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Shanghai&quot;&lt;/span&gt;                 &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Asia/Taipei&quot;&lt;/span&gt;                   &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;PRC&quot;&lt;/span&gt;                           &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &lt;span class=&quot;string&quot;&gt;&quot;cst&quot;&lt;/span&gt;,   &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,  &lt;span class=&quot;number&quot;&gt;28800&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;ROC&quot;&lt;/span&gt;                           &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;lumen- 时区设置&quot;&gt;&lt;a href=&quot;#lumen- 时区设置&quot; class=&quot;headerlink&quot; title=&quot;lumen 时区设置&quot;&gt;&lt;/a&gt;lumen 时区设置&lt;/h2&gt;&lt;p&gt;lumen 的时区设置有数据库操作的时区设置以及与使用时间相关的函数的时区设置。&lt;/p&gt;
+&lt;h3 id=&quot;日期相关设置&quot;&gt;&lt;a href=&quot;# 日期相关设置&quot; class=&quot;headerlink&quot; title=&quot;日期相关设置&quot;&gt;&lt;/a&gt;日期相关设置 &lt;/h3&gt;&lt;p&gt; 在 lumen 中应用程序的入口，会 new 一个 Application 实例，这个实例会读取 env 配置文件中的 &lt;strong&gt;APP_TIMEZONE&lt;/strong&gt; 配置，若没有配置则会使用 UTC 时间。Application 位于 &lt;code&gt;/path/to/project/vendor/laravel/lumen-framework/src/Application.php&lt;/code&gt; 。所以最好是在 .env 中设置时区 &lt;code&gt;APP_TIMEZONE=PRC&lt;/code&gt; 。&lt;/p&gt;
+&lt;h3 id=&quot;数据库&quot;&gt;&lt;a href=&quot;# 数据库&quot; class=&quot;headerlink&quot; title=&quot;数据库&quot;&gt;&lt;/a&gt;数据库 &lt;/h3&gt;&lt;p&gt; 数据库的时区设置可以在 config 的 database 文件中设置。database 文件分两个，一个是框架级别，一个是项目级别。框架级别的文件位于 &lt;code&gt;/path/to/project/vendor/laravel/lumen-framework/config/database.php&lt;/code&gt; ，而项目级别的文件位于 &lt;code&gt;/path/to/project/config/database.php&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;此配置是和 MySQL 相关的，所以关键字当然是去 MySQL 中找。在 &lt;a href=&quot;https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQL 时区设置&lt;/a&gt; 文档中可以看到，有以下三种配置&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1. SYSTEM 表示与系统时区相同&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2. &#39;+10:00&#39; or &#39;-6:00&#39; 表示与 UTC 时间的一个偏移量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3. &#39;Europe/Helsinki&#39;, &#39;US/Eastern&#39;, or &#39;MET&#39; 表示命名时区，命名时区必须在 mysql 库下的 time_zone_name 有注册&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;导入时区的命令为 &lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;shell&amp;gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root --database=mysql -p&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;建议是在项目级别设置时区。在 .env 中指定 &lt;code&gt;DB_TIMEZONE=+08:00&lt;/code&gt; 和在 database 中指定 &lt;code&gt;&amp;#39;timezone&amp;#39;  =&amp;gt; env(&amp;#39;DB_TIMEZONE&amp;#39;, &amp;#39;+08:00&amp;#39;)&lt;/code&gt; 均可。&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;# 总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结 &lt;/h2&gt;&lt;p&gt; 时区设置分为 PHP 时区设置和 MySQL 的时区设置。PHP 时区设置涉及到 php.ini 配置以及运行时配置，而在 lumen 中还涉及到环境变量的配置。lumen 中既可以在 config 目录下的文件中指定，也可以在 .env 文件中指定。建议既指定 PHP 的配置又指定环境变量的配置，环境变量的配置可供整个应用程序使用，是项目级别的共享配置。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;项目使用了 Laravel 的精简版 Lumen 来做 api 和 sso 的服务。今天在提交代码时发现，生成的 database migration 代码时间相差八个小时。看来是时区设置的问题，查找了一下，发现有好几个地方都有时区的设置，那就简单总结一下。&lt;/p&gt;
+&lt;h2
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="laravel" scheme="http://blog.jayxhj.com/tags/laravel/"/>
+    
+      <category term="lumen" scheme="http://blog.jayxhj.com/tags/lumen/"/>
+    
+      <category term="php" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="timezone" scheme="http://blog.jayxhj.com/tags/timezone/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</title>
+    <link href="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/"/>
+    <id>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</id>
+    <published>2016-03-20T10:32:36.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;反引号 &lt;code&gt;` &lt;/code&gt; (backtick) 与单引号 &lt;code&gt;&amp;#39;&lt;/code&gt;(single quote) 以及双引号 &lt;code&gt;&amp;quot;&lt;/code&gt; (double quote) 在 PHP 及 MySQL 中都有不同的含义，下面将分别说明并给出它们在 PHP 和 MySQL 结合使用时的一些注意事项。&lt;/p&gt;
+&lt;h2 id=&quot;在 -PHP- 中&quot;&gt;&lt;a href=&quot;# 在 -PHP- 中&quot; class=&quot;headerlink&quot; title=&quot;在 PHP 中&quot;&gt;&lt;/a&gt;在 PHP 中 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;` &lt;/code&gt; 在 PHP 中是 &lt;a href=&quot;http://php.net/manual/zh/language.operators.execution.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 执行运算符&lt;/a&gt;，效果与调用 &lt;a href=&quot;http://php.net/manual/zh/function.shell-exec.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;shell_exec()&lt;/a&gt;  相同 。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;#39;&lt;/code&gt; 在 PHP 中用来输出字面量值，被单引号括起来的内容会被原样输出。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;quot;&lt;/code&gt; 在 PHP 中可以用来解析变量。&lt;/p&gt;
+&lt;h2 id=&quot;在 -MySQL- 中&quot;&gt;&lt;a href=&quot;# 在 -MySQL- 中&quot; class=&quot;headerlink&quot; title=&quot;在 MySQL 中&quot;&gt;&lt;/a&gt;在 MySQL 中&lt;/h2&gt;&lt;p&gt;&lt;code&gt;` &lt;/code&gt; 被用来在查询，告诉解析器反引号内的内容表示一个字面量，直接读取而不用做变量替换。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;quot;&lt;/code&gt; 与 &lt;code&gt;&amp;#39;&lt;/code&gt; 用来均被用来解析 MySQL 字符串及 &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.7/en/string-literals.html#character-escape-sequences&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;特殊字符&lt;/a&gt; ，不过这与 MySQL 的 SQL mode 设置有关。当 &lt;code&gt;ANSI_QUOTES&lt;/code&gt; 开启时，&lt;code&gt;&amp;quot;&lt;/code&gt; 将被当作标识符。&lt;/p&gt;
+&lt;h3 id=&quot;SQL-mode&quot;&gt;&lt;a href=&quot;#SQL-mode&quot; class=&quot;headerlink&quot; title=&quot;SQL mode&quot;&gt;&lt;/a&gt;SQL mode&lt;/h3&gt;&lt;p&gt;MySQL 中开启 ANSI mode 时将会使用 &lt;code&gt;&amp;#39;&lt;/code&gt; 来告诉解析器，&lt;code&gt;&amp;#39;&lt;/code&gt; 内包裹的字符串字面量直接读取，无需解析。&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mysql&amp;gt; SET SESSION sql_mode =&#39;ANSI_QUOTES&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Query OK, 0 rows affected (0.01 sec)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql&amp;gt; SELECT &#39;hello&#39;, &#39;&quot;hello&quot;&#39;, &#39;&quot;&quot;hello&quot;&quot;&#39;, &#39;hel&#39;&#39;lo&#39;,&#39;\&#39;hello&#39;,&#39;\r&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+-------+---------+-----------+--------+--------+---+&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;| hello | &quot;hello&quot; | &quot;&quot;hello&quot;&quot; | hel&#39;lo |&#39;hello |   |&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+-------+---------+-----------+--------+--------+---+&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; |hello | &quot;hello&quot; | &quot;&quot;hello&quot;&quot; | hel&#39;lo |&#39;hello |&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+-------+---------+-----------+--------+--------+---+&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1 row in set (0.01 sec)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql&amp;gt; SELECT &quot;hello&quot;, &#39;&quot;hello&quot;&#39;, &#39;&quot;&quot;hello&quot;&quot;&#39;, &#39;hel&#39;&#39;lo&#39;,&#39;\&#39;hello&#39;,&#39;\r&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERROR 1054 (42S22): Unknown column &#39;hello&#39; in &#39;field list&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql&amp;gt; SELECT hello, &#39;&quot;hello&quot;&#39;, &#39;&quot;&quot;hello&quot;&quot;&#39;, &#39;hel&#39;&#39;lo&#39;,&#39;\&#39;hello&#39;,&#39;\r&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERROR 1054 (42S22): Unknown column &#39;hello&#39; in &#39;field list&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql&amp;gt; SELECT `hello`, &#39;&quot;hello&quot;&#39;, &#39;&quot;&quot;hello&quot;&quot;&#39;, &#39;hel&#39;&#39;lo&#39;,&#39;\&#39;hello&#39;,&#39;\r&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERROR 1054 (42S22): Unknown column &#39;hello&#39; in &#39;field list&#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;PHP- 执行 -MySQL- 查询&quot;&gt;&lt;a href=&quot;#PHP- 执行 -MySQL- 查询&quot; class=&quot;headerlink&quot; title=&quot;PHP 执行 MySQL 查询&quot;&gt;&lt;/a&gt;PHP 执行 MySQL 查询 &lt;/h2&gt;&lt;p&gt; 为了防止 SQL 注入，最好使用预处理语句及参数绑定来执行查询。建议使用 &lt;a href=&quot;http://php.net/manual/en/book.pdo.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PDO&lt;/a&gt; 或者 &lt;a href=&quot;http://php.net/manual/en/book.mysqli.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQLi&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;PDO    &lt;/p&gt;
+  &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$dbh&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; PDO(&lt;span class=&quot;string&quot;&gt;&#39;mysql:host=localhost;dbname=test&#39;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$user&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$pass&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$stmt&lt;/span&gt; = &lt;span class=&quot;variable&quot;&gt;$dbh&lt;/span&gt;-&amp;gt;prepare(&lt;span class=&quot;string&quot;&gt;&quot;INSERT INTO REGISTRY (name, value) VALUES (:name, :value)&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$stmt&lt;/span&gt;-&amp;gt;bindParam(&lt;span class=&quot;string&quot;&gt;&#39;:name&#39;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$name&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$stmt&lt;/span&gt;-&amp;gt;bindParam(&lt;span class=&quot;string&quot;&gt;&#39;:value&#39;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$value&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;MySQLi&lt;/p&gt;
+  &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$mysqli&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; mysqli(&lt;span class=&quot;string&quot;&gt;&quot;localhost&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;user&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;password&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;database&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$stmt&lt;/span&gt; = &lt;span class=&quot;variable&quot;&gt;$mysqli&lt;/span&gt;-&amp;gt;prepare(&lt;span class=&quot;string&quot;&gt;&quot;INSERT INTO `test`(`id`) VALUES (?)&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$stmt&lt;/span&gt;-&amp;gt;bind_param(&lt;span class=&quot;string&quot;&gt;&quot;i&quot;&lt;/span&gt;, &lt;span class=&quot;variable&quot;&gt;$id&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;实践&quot;&gt;&lt;a href=&quot;# 实践&quot; class=&quot;headerlink&quot; title=&quot;实践&quot;&gt;&lt;/a&gt;实践&lt;/h2&gt;&lt;p&gt;SQL 标准规定使用 &lt;code&gt;&amp;#39;&lt;/code&gt; 来包裹字符串，但不同的数据库有不同的实现，最好的方式，当然是使用 PDO ，这样就不用对 sql 语句单独进行处理，而且在转换数据库时业务逻辑中的 sql 也无需修改和转换。&lt;/p&gt;
+&lt;p&gt;最好的实践其实应该在代码设计上规避错误：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;取名不与 &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.5/en/reserved-words.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQL 保留字&lt;/a&gt; 冲突 &lt;/li&gt;
+&lt;li&gt;清楚 MySQL 服务器 SQL mode &lt;strong&gt;&lt;code&gt;SELECT @@sql_mode&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;` &lt;/code&gt; 包裹表名及列名&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;&amp;#39;&lt;/code&gt; 包裹查询条件&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;反引号 &lt;code&gt;` &lt;/code&gt; (backtick) 与单引号 &lt;code&gt;&amp;#39;&lt;/code&gt;(single quote) 以及双引号 &lt;code&gt;&amp;quot;&lt;/code&gt; (double quote) 在 PHP 及 MySQL 中都有不同的含义，下面将分
+    
+    </summary>
+    
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/tags/mysql/"/>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="quote" scheme="http://blog.jayxhj.com/tags/quote/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决 PHP &quot;headers already sent&quot; 错误</title>
+    <link href="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/"/>
+    <id>http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/</id>
+    <published>2016-03-09T05:32:16.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;这篇文章是 stackoverflow 上的一个问题的回答，答案集中了其它答案的想法，并做了归纳，所以翻译过来，以后遇到 “headers already sent” 的错误就可以直接一一排查，或者干脆在代码动手及设计上避免这类问题了。&lt;/p&gt;
+&lt;h2 id=&quot;发送 -header- 前不要有任何输出&quot;&gt;&lt;a href=&quot;# 发送 -header- 前不要有任何输出&quot; class=&quot;headerlink&quot; title=&quot;发送 header 前不要有任何输出&quot;&gt;&lt;/a&gt;发送 header 前不要有任何输出 &lt;/h2&gt;&lt;p&gt; 发送或者修改 HTTP 头信息的方法必须在任何输出被输出之前被调用。否则调用将会出错：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Warning: Cannot &lt;strong&gt;modify&lt;/strong&gt; header information - headers already sent (&lt;strong&gt;output&lt;/strong&gt; started at script:line)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这些方法可以修改（modify） HTTP 头信息：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://php.net/header&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;header&lt;/a&gt; / &lt;a href=&quot;http://php.net/header_remove&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;header_remove&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://php.net/session_start&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;session_start&lt;/a&gt; / &lt;a href=&quot;http://php.net/session_regenerate_id&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;session_regenerate_id&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://php.net/setcookie&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;setcookie&lt;/a&gt; / &lt;a href=&quot;http://php.net/setrawcookie&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;setrawcookie&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;输出（output）可以是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无意的：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;?php&lt;/code&gt; 之前或者 &lt;code&gt;?&amp;gt;&lt;/code&gt; 之后的空格&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/ 位元組順序記號&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;UTF-8 BOM&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;有意的：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;print&lt;/code&gt; ，&lt;code&gt;echo&lt;/code&gt; 以及其他能产生输出的方法&lt;/li&gt;
+&lt;li&gt;在 &lt;code&gt;&amp;lt;?php&lt;/code&gt; 前原始的 &lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt; 区块&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;为什么这个错误会产生&quot;&gt;&lt;a href=&quot;# 为什么这个错误会产生&quot; class=&quot;headerlink&quot; title=&quot;为什么这个错误会产生&quot;&gt;&lt;/a&gt;为什么这个错误会产生 &lt;/h2&gt;&lt;p&gt; 为了理解为什么 HTTP header 必须在输出之前发送出去，我们有必要了解看一下一个典型的 HTTP 相应。PHP 脚本主要用来生成 HTML ，但它也会发送一系列的 HTTP/CGI 头信息到 web 服务器：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;HTTP/1.1 200 OK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Powered-By: PHP/5.3.7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Vary: Accept-Encoding&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Content-Type: text/html; charset=utf-8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;PHP page output page&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;h1&lt;/span&gt;&amp;gt;&lt;/span&gt;Content&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;h1&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;Some more output follows...&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;and &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;/&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;internal-icon-delayed&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;页面或者输出总是紧跟在头信息后面。PHP 必须先把头信息发送给 web 服务器，并且它只能发送一次，在这之后就再也不能修改头信息了。&lt;/p&gt;
+&lt;p&gt;当 PHP 第一次接收到输出时（&lt;code&gt;print&lt;/code&gt; ,&lt;code&gt;echo&lt;/code&gt;,&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;） 它会清掉所有收集到的头信息。在此之后它能把输出所有想输出的内容，但是再想发送 HTTP 头信息就不可能了。&lt;/p&gt;
+&lt;h2 id=&quot;怎么找到到底是哪里提前产生了输出？&quot;&gt;&lt;a href=&quot;# 怎么找到到底是哪里提前产生了输出？&quot; class=&quot;headerlink&quot; title=&quot;怎么找到到底是哪里提前产生了输出？&quot;&gt;&lt;/a&gt;怎么找到到底是哪里提前产生了输出？&lt;/h2&gt;&lt;p&gt;&lt;code&gt;header()&lt;/code&gt; 头信息包含所有与问题产生相关的信息：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Warning: Cannot modify header information - headers already sent by (output started at /www/usr2345/htdocs/auth.php:52) in /www/usr2345/htdocs/index.php on line 100&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在上面的警告中，&lt;code&gt;line 100&lt;/code&gt; 指向调用 &lt;code&gt;header()&lt;/code&gt; 失败的脚本行数。&lt;/p&gt;
+&lt;p&gt;圆括号里的 &lt;code&gt;output started&lt;/code&gt;  这条信息更加重要。它指出了先于 header() 前的输出的源头。在这个例子中是 &lt;code&gt;auth.php&lt;/code&gt; 的 第 52 行，这就是你要去找的过早的输出的地方。&lt;/p&gt;
+&lt;p&gt;典型的原因有这些：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;print&lt;/strong&gt;,&lt;strong&gt;echo&lt;/strong&gt;&lt;br&gt;有意的 &lt;code&gt;print&lt;/code&gt; 和 &lt;code&gt;echo&lt;/code&gt; 语句输出将会中断输出 HTTP 头信息的机会。应用程序流必须重组以避免这种行为，可以使用 &lt;a href=&quot;http://php.net/function&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;function&lt;/a&gt; 和模版来重组，从而保证 &lt;code&gt;header()&lt;/code&gt; 调用是在信息被写出之前。&lt;br&gt;产生输出的方法包括：    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;print, echo, printf, vprintf&lt;/li&gt;
+&lt;li&gt;trigger_error, ob_flush, ob_end_flush, var_dump, print_r&lt;/li&gt;
+&lt;li&gt;readfile, passthru, flush, imagepng, imagejpeg    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以及其他用户自定义的方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;原始的 HTML&lt;/strong&gt;&lt;br&gt;在一个 PHP 文件中未被解析的 HTML 区块也是输出。脚本中各种可能触发调用 &lt;code&gt;header()&lt;/code&gt; 的条件都必须在任何 &lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt; 区块前声明。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&amp;lt;?php 前的空格导致的 &lt;code&gt;&amp;quot;script.php line 1&amp;quot;&lt;/code&gt; 警告 &lt;/strong&gt;&lt;br&gt; 如果警告指向第 &lt;strong&gt;1&lt;/strong&gt; 行的输出，那么它很有可能指向的是在 &lt;code&gt;&amp;lt;?php&lt;/code&gt; 之前的空格，文本或者 HTML 。    &lt;/p&gt;
+ &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 在 &amp;lt;?php 前有个空格&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;同样它可能出现在附加的脚本或者脚本区块上:&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;PHP 确实在闭合标签后占据了一个换行符，但是它不会在上面的空白处插入换行符、制表符或者空格（也就是说这是我们自己造成的）。    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;UTF-8 BOM&lt;/strong&gt;&lt;br&gt;换行符或者空格可能导致问题，但是不可见的字符序列同样可以。最著名的就是大多数文本编辑器并不会显示的 &lt;strong&gt;UTF-8 BOM&lt;/strong&gt; 。它是在 UTF-8 编码的文档里可选甚至是多余的，被标示为 &lt;code&gt;EF BB BF&lt;/code&gt; 的字节序列。但是 PHP 必须把它当作原始的输出来处理。它可能以 &lt;code&gt;ï»¿&lt;/code&gt; 这样的符号输出（如果客户端以 Latin-1 来解释这个文档）或者其他这样的“非法输出”。&lt;br&gt;以某种图形化的编辑器或者基于 JAVA 的 IDE 查看这类文件时，你可能察觉不到 &lt;strong&gt;UTF-8 BOM&lt;/strong&gt; 的存在。它们没有把 &lt;strong&gt;UTF-8 BOM&lt;/strong&gt; 形象化（受制于 Unicode 标准）。然而大多数程序编辑器和控制台编辑程序会这样处理：&lt;br&gt;&lt;img src=&quot;http://i.stack.imgur.com/aXgWY.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;像这样就能简单地提早发现问题了。其他的编辑器在设置某些选项后也能纠正这样的问题（Windows 上的 Notepad++ 可以识别并且 &lt;a href=&quot;http://stackoverflow.com/questions/3589358/fix-utf8-bom&quot;target=&quot;_blank&quot;rel=&quot;external&quot;&gt;纠正 BOM 问题 &lt;/a&gt; ），另一个发现 BOM 的方法就是借助十六进制的编辑器。在 *nix 系统上，大都提供了 &lt;a href=&quot;http://linux.die.net/man/1/hexdump&quot;target=&quot;_blank&quot;rel=&quot;external&quot;&gt;&lt;code&gt;hexdump&lt;/code&gt;&lt;/a&gt;  ，如果没有的话，其他图形化的变种也可以用来简化审计这些问题的步骤：&lt;br&gt;&lt;img src=&quot;http://i.stack.imgur.com/QyqUr.png&quot;alt=&quot;&quot;&gt;&lt;br&gt; 一个简单的修正方法就是将文本编辑器设置为  &lt;strong&gt;以 UTF-8 (no BOM) 保存文件&lt;/strong&gt;（&lt;strong&gt;save files as UTF-8 (no BOM)&lt;/strong&gt;）或者其他类似的设置。    &lt;/p&gt;
+&lt;h3 id=&quot;修正程序&quot;&gt;&lt;a href=&quot;# 修正程序&quot; class=&quot;headerlink&quot; title=&quot;修正程序&quot;&gt;&lt;/a&gt;修正程序 &lt;/h3&gt;&lt;p&gt; 有很多自动化的工具可以检测并修改文本文件（&lt;a href=&quot;http://stackoverflow.com/questions/1068650/using-awk-to-remove-the-byte-order-mark&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;sed&lt;/code&gt;&lt;/a&gt; / &lt;a href=&quot;http://stackoverflow.com/questions/1068650/using-awk-to-remove-the-byte-order-mark&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;awk&lt;/code&gt;&lt;/a&gt; 或者 &lt;code&gt;recode&lt;/code&gt; ）。PHP 里有 &lt;a href=&quot;http://freshcode.club/projects/phptags&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;phptags&lt;/code&gt;&lt;/a&gt; 。它可以把打开标签和关闭标签重写成长标签（&amp;lt;?php）或者短标签（&amp;lt;?）的形式。也可以轻松地解决前导或尾随的空格、Unicode 和 UTF-x BOM 问题：    &lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;phptags  --whitespace  *.php&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;同样，你可以在某个目录或整个项目目录使用这个命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;?&amp;gt; 后的空白 &lt;/strong&gt;&lt;br&gt; 如果错误代码在闭合标签 &amp;gt;? 这一行的前面，那么这就是 &amp;gt;? 后的空格或者原始文本输出导致的问题。PHP 的结束标记并不会在遇到闭合标签时终止执行脚本，任何 ?&amp;gt; 之后的文本或者空格字符都会被当作页面内容输出。&lt;br&gt;通用的被鼓励的做法，特别是针对新手，是避免在 PHP 文件后加上闭合标签 &lt;strong&gt;?&amp;gt;&lt;/strong&gt; 。这样就能避免一部分产生这类问题的情况。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;错误源提示：”Unknown on line 0”&lt;/strong&gt;&lt;br&gt;如果没有给出具体的错误源，那么这就是典型的 PHP 扩展或者 &lt;code&gt;php.ini&lt;/code&gt; 设置的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;偶尔是 &lt;code&gt;gzip&lt;/code&gt; 编码设置或者是 &lt;a href=&quot;http://stackoverflow.com/questions/622192/php-warning-headers-already-sent-in-unknown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;ob_gzhandler&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;也有可能是 php.ini 设置里模块加载了两次导致 PHP 产生了启动 / 警告信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;先前的错误导致输出了错误信息 &lt;/strong&gt;&lt;br&gt; 如果前面的 PHP 语句或者表达式造成了 warning 或者 notice 信息导致输出，这些输出也被认为是过早地输出。&lt;br&gt;在这种情况下你需要避免错误，推后这些语句的执行，或者抑制这些信息的输出，可以使用 &lt;code&gt;isset()&lt;/code&gt; 进行判断，或者使用抑制符 &lt;code&gt;@&lt;/code&gt;，前提是它们不会阻止后续的调试。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;没有错误信息输出&quot;&gt;&lt;a href=&quot;# 没有错误信息输出&quot; class=&quot;headerlink&quot; title=&quot;没有错误信息输出&quot;&gt;&lt;/a&gt;没有错误信息输出 &lt;/h2&gt;&lt;p&gt; 如果你禁用了 php.ini 里的 &lt;code&gt;error_reporting&lt;/code&gt; 或者 &lt;code&gt;display_errors&lt;/code&gt; 设置，那么将不会产生 warning 。但是忽略错误并不会让问题消失，头信息仍然不能在过早的输出输出之前发送出去。&lt;/p&gt;
+&lt;p&gt;所以当 &lt;code&gt;header(&amp;quot;Location: ...&amp;quot;)&lt;/code&gt; 跳转静默地失败时，建议你去查看 warnings 。在脚本的最前面用下面的两条命令重新开启错误报告设置：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;error_reporting(E_ALL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ini_set(&quot;display_errors&quot;, 1);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;或者如果其他的设置都失败了那就设置  &lt;code&gt;set_error_handler(&amp;quot;var_dump&amp;quot;);&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;至于跳转的 header ，在执行至最后的代码时你应该遵循下面的这种风格：&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;exit&lt;/span&gt;(header(&lt;span class=&quot;string&quot;&gt;&quot;Location: /finished.html&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最好是提供一个方法，特别是当 &lt;code&gt;header()&lt;/code&gt; 执行失败时打印出用户信息。&lt;/p&gt;
+&lt;h2 id=&quot;变通方法：输出缓冲&quot;&gt;&lt;a href=&quot;# 变通方法：输出缓冲&quot; class=&quot;headerlink&quot; title=&quot;变通方法：输出缓冲&quot;&gt;&lt;/a&gt;变通方法：输出缓冲&lt;/h2&gt;&lt;p&gt;PHP 的输出缓冲的方法是缓解这种问题的一种变通方法。它运行起来可靠，但是你绝不要使用它来替代你架构良好应用程序结构，从控制逻辑中分离输出。它的真实目的是用来减轻大块数据传输至服务器时的压力。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://php.net/manual/en/outcontrol.configuration.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;output_buffering 设置&lt;/code&gt;&lt;/a&gt; 在 &lt;a href=&quot;http://www.php.net/manual/en/configuration.file.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;php.ini&lt;/a&gt; 或者 &lt;a href=&quot;http://www.php.net/manual/en/configuration.changes.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;.htaccess&lt;/a&gt; 或者甚至在最新的 FPM/FastCGI  的 &lt;a href=&quot;http://php.net/manual/en/configuration.file.per-user.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;.user.ini&lt;/a&gt; 中设置；&lt;/li&gt;
+&lt;li&gt;同样你可以在脚本的最前面使用 &lt;a href=&quot;http://php.net/ob_start&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;ob_start()&lt;/code&gt;&lt;/a&gt; 来设置，但是它并没那么可靠：  &lt;ul&gt;
+&lt;li&gt;即使 &lt;code&gt;&amp;lt;?php ob_start(); ?&amp;gt;&lt;/code&gt; 在第一个脚本里，空格或者 BOM 也有可能在此之前被输出&lt;/li&gt;
+&lt;li&gt;它可以隐藏 HTML 输出里的空格（将空格放到 buffer 中），但是只要应用程序逻辑企图发送二进制内容（比如生成的图片），缓冲里的无关的输出就会成为问题（这样 ob_clean() 方法就成为下一步的变通方法了）。&lt;/li&gt;
+&lt;li&gt;缓冲有大小限制，并且在默认配置下很容易超出，并且这种情况并不少见，一旦发生也不太容易追踪。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因此这两个方法变得不可靠了，特别是当你需要更改开发环境或者生产环境的配置的时候。这就是为什么输出缓冲被认为只是一种蹩脚的变通方法。&lt;/p&gt;
+&lt;p&gt;建议参考官方手册里的基本 &lt;a href=&quot;http://www.php.net/manual/en/outcontrol.examples.basic.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用方法&lt;/a&gt; ，以及它的优缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/2832010/what-is-output-buffering&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;输出缓冲是什么&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/2148114/why-use-output-buffering-in-php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;为什么使用 output buffering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/4731375/is-using-output-buffering-considered-a-bad-practice&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用输出缓冲是不好的实践吗？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/2919569/use-case-for-output-buffering-as-the-correct-solution-to-headers-already-sent&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;正确使用 output buffering 解决 “header already sent” 的例子&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;但是在其他的服务器上是好的？&quot;&gt;&lt;a href=&quot;# 但是在其他的服务器上是好的？&quot; class=&quot;headerlink&quot; title=&quot;但是在其他的服务器上是好的？&quot;&gt;&lt;/a&gt;&lt;strong&gt;但是在其他的服务器上是好的？&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;如果你之前没有收到过头信息的 warning ，那么 php.ini 里的 &lt;a href=&quot;http://php.net/manual/zh/outcontrol.configuration.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;output_buffering&lt;/a&gt; 设置改变了。在现在的／不同的服务器上很有可能没有设置。&lt;/p&gt;
+&lt;h2 id=&quot;使用 -headers-sent- 检查&quot;&gt;&lt;a href=&quot;# 使用 -headers-sent- 检查&quot; class=&quot;headerlink&quot; title=&quot;使用 headers_sent() 检查&quot;&gt;&lt;/a&gt;&lt;strong&gt;使用 &lt;code&gt;headers_sent()&lt;/code&gt; 检查 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; 你可以使用 &lt;a href=&quot;http://php.net/headers_sent&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;headers_sent&lt;/code&gt;&lt;/a&gt; 来检查是否可以发送头信息。这种方法可以有效地检查以便输出一个错误信息或是应用其他的逻辑。&lt;br&gt;不错的回退变通方法有：    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;HTML&lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag&lt;/strong&gt;&lt;br&gt;  如果你的应用程序很难在结构上解决这个问题，有个简单但显得不专业的做法是在 HTML &lt;meta&gt; 标签中来跳转网页。可以这样实现：    &lt;/p&gt;
+  &lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;meta&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;http-equiv&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Location&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;content&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;http://example.com/&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  或者加上一个延迟时间&lt;/p&gt;
+  &lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;meta&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;http-equiv&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Refresh&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;content&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;2; url=../target.html&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;JavaScript 跳转&lt;br&gt;  另一个可选的方法就是使用 &lt;a href=&quot;http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-in-jquery-javascript&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JavaScript 跳转&lt;/a&gt; 来实现网页跳转：&lt;/p&gt;
+  &lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;script&amp;#62; location.replace(&amp;#34;target.html&amp;#34;); &amp;#60;/script&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这种方式相比较 &lt;meta&gt; 方法起来更兼容 HTML 标准，它只依赖于可以运行 JavaScript 的客户端。&lt;/p&gt;
+&lt;p&gt;这两种方式在 HTTP header() 调用失败时都提供了可以接受的回退方式。理想化的处理方式应该是将跳转与其它方式结合，给出对用户友好的辅助信息并且提供一个可点的链接以供后续操作。&lt;/p&gt;
+&lt;h2 id=&quot;为什么 -setcookie- 和 -session-start- 都会被影响&quot;&gt;&lt;a href=&quot;# 为什么 -setcookie- 和 -session-start- 都会被影响&quot; class=&quot;headerlink&quot; title=&quot;为什么 setcookie() 和 session_start() 都会被影响&quot;&gt;&lt;/a&gt;&lt;strong&gt;为什么 &lt;code&gt;setcookie()&lt;/code&gt; 和 &lt;code&gt;session_start()&lt;/code&gt; 都会被影响&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;setcookie()&lt;/code&gt; 和 &lt;code&gt;session_start()&lt;/code&gt; 都需要发送一个 &lt;code&gt;set-cookie:&lt;/code&gt; 的 HTTP 头信息。这种情况就和前面输出 header() 的情况类似，所以同样会出现由于过早地输出错误信息导致的错误。&lt;/p&gt;
+&lt;p&gt;（当然它们受影响也有可能是因为客户端禁止了 cookie 导致的，设置可能是代理的问题。很明显，session 也取决去剩余磁盘空间大小或者 php.ini 里的其它设置）&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;原文链接：&lt;a href=&quot;http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章是 stackoverflow 上的一个问题的回答，答案集中了其它答案的想法，并做了归纳，所以翻译过来，以后遇到 “headers already sent” 的错误就可以直接一一排查，或者干脆在代码动手及设计上避免这类问题了。&lt;/p&gt;
+&lt;h2 id=&quot;发送 -he
+    
+    </summary>
+    
+      <category term="翻译文章" scheme="http://blog.jayxhj.com/categories/%E7%BF%BB%E8%AF%91%E6%96%87%E7%AB%A0/"/>
+    
+    
+      <category term="HTTP" scheme="http://blog.jayxhj.com/tags/http/"/>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="header()" scheme="http://blog.jayxhj.com/tags/header/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解 Exit Code 并学会如何在 Bash 脚本中使用</title>
+    <link href="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/"/>
+    <id>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</id>
+    <published>2016-02-27T10:51:02.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Exit-Codes- 是什么&quot;&gt;&lt;a href=&quot;#Exit-Codes- 是什么&quot; class=&quot;headerlink&quot; title=&quot;Exit Codes 是什么&quot;&gt;&lt;/a&gt;Exit Codes 是什么 &lt;/h2&gt;&lt;p&gt; 在 Unix 和 Linux 系统中，程序可以在执行终止后传递值给其父进程。这个值被称为退出码（exit code）或退出状态（exit status）。在 POSIX 系统中，惯例做法是当程序成功执行时传递 0 ，当程序执行失败时传递 1 或比 1 大的值。&lt;/p&gt;
+&lt;p&gt;传递状态码为何重要？如果你在命令行脚本上下文中查看状态码，答案显而易见。任何有用的脚本，它将不可避免地要么被其他脚本所使用，要么被 bash 单行脚本包裹所使用。特别是脚本被用来与自动化工具 SaltStack 或者监测工具 Nagios 配合使用。这些工具会执行脚本并检查它的状态，来确定脚本是否执行成功。&lt;/p&gt;
+&lt;p&gt;其中最重要的原因是，即使你不定义状态码，它仍然存在于你的脚本中。如果你不定义恰当的退出码，执行失败的脚本可能会返回成功的状态，这样会导致问题，问题大小取决于你的脚本做了什么。&lt;/p&gt;
+&lt;h2 id=&quot;如果不指定退出码会发生什么&quot;&gt;&lt;a href=&quot;# 如果不指定退出码会发生什么&quot; class=&quot;headerlink&quot; title=&quot;如果不指定退出码会发生什么&quot;&gt;&lt;/a&gt;如果不指定退出码会发生什么 &lt;/h2&gt;&lt;p&gt; 在 Linux 里，任何在命令行中执行的脚本都有退出码。在 Bash 脚本中，如果脚本里没有指定退出码，退出码将会是脚本最后一个命令执行后产生的状态码。为了更好地解释退出码，下面将给出一个脚本来说明。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脚本&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;shebang&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch /root/&lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; created file&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;上面的脚本既会执行 &lt;code&gt;touch&lt;/code&gt; 命令也会执行 &lt;code&gt;echo&lt;/code&gt; 命令。当我们以非 root 用户执行这个脚本时 touch 命令将会执行失败，理想情况下，当我们执行 touch 命令失败时我们希望通过脚本的退出码来表明有命令执行失败。我们可以通过打印 Bash 的特殊变量 &lt;code&gt;$?&lt;/code&gt;  来获取退出码。这个变量将会打印出脚本最后一个命令执行的退出码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行输出&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch: cannot touch &lt;span class=&quot;string&quot;&gt;&#39;/root/test&#39;&lt;/span&gt;: Permission denied&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;created file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; $?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;你可以看到，当执行 &lt;code&gt;./tmp.sh&lt;/code&gt; 后退出码是 &lt;code&gt;0&lt;/code&gt; ，而 0 代表脚本执行成功，虽然 touch 命令执行失败了。上面的脚本执行了两个命令：&lt;code&gt;touch&lt;/code&gt;、&lt;code&gt;echo&lt;/code&gt;。因为我们没有指定退出码所以脚本以最后一个命令执行后的状态码退出。在这个例子中，最后运行的是 &lt;code&gt;echo&lt;/code&gt; 命令，这个命令确实执行成功了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脚本&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;shebang&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch /root/&lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果我们去掉脚本中的 &lt;code&gt;echo&lt;/code&gt; 命令，我们将看到 &lt;code&gt;touch&lt;/code&gt; 命令的退出码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行结果&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch: cannot touch &lt;span class=&quot;string&quot;&gt;&#39;/root/test&#39;&lt;/span&gt;: Permission denied&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; $?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;你可以看到，因为最后运行的命令是 &lt;code&gt;touch&lt;/code&gt; ，所以脚本的退出码正确地反应了脚本的状态：执行失败。&lt;/p&gt;
+&lt;h2 id=&quot;在你的 -Bash- 脚本中使用退出码&quot;&gt;&lt;a href=&quot;# 在你的 -Bash- 脚本中使用退出码&quot; class=&quot;headerlink&quot; title=&quot;在你的 Bash 脚本中使用退出码&quot;&gt;&lt;/a&gt;在你的 Bash 脚本中使用退出码 &lt;/h2&gt;&lt;p&gt; 当从我们的脚本中去掉 &lt;code&gt;echo&lt;/code&gt; 命令后脚本跑通了并且返回了恰当的退出码。当我们想在 &lt;code&gt;touch&lt;/code&gt; 命令执行成功执行一个操作，而在执行失败时执行另一个操作会发生什么。比如脚本执行成功时输出至 &lt;code&gt;stdout&lt;/code&gt; ，执行失败时输出至 &lt;code&gt;stderr&lt;/code&gt; 这种操作。&lt;/p&gt;
+&lt;h3 id=&quot;测试退出码&quot;&gt;&lt;a href=&quot;# 测试退出码&quot; class=&quot;headerlink&quot; title=&quot;测试退出码&quot;&gt;&lt;/a&gt;测试退出码 &lt;/h3&gt;&lt;p&gt; 前面的代码中，我们使用了特殊变量 &lt;code&gt;$?&lt;/code&gt; 来打印脚本的退出码。我们同样可以在脚本中使用它来测试 &lt;code&gt;touch&lt;/code&gt; 命令是否执行成功。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脚本&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;shebang&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch /root/&lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&amp;gt; /dev/null&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; [$? &lt;span class=&quot;operator&quot;&gt;-eq&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Successfully created file&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Could not create file&quot;&lt;/span&gt; &amp;gt;&amp;amp;&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;在上面的修改版代码中，如果 &lt;code&gt;touch&lt;/code&gt; 的退出码是 &lt;code&gt;0&lt;/code&gt; ，脚本将会输出成功的消息。如果退出码是除 0 以外的其他数字，这表示执行失败，脚本将会打印失败的消息到 &lt;code&gt;stderr&lt;/code&gt; 。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Could not create file&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;在程序中提供你自己的退出码&quot;&gt;&lt;a href=&quot;# 在程序中提供你自己的退出码&quot; class=&quot;headerlink&quot; title=&quot;在程序中提供你自己的退出码&quot;&gt;&lt;/a&gt;在程序中提供你自己的退出码 &lt;/h3&gt;&lt;p&gt; 在上面的程序中，虽然 &lt;code&gt;touch&lt;/code&gt; 命令执行失败时将会提供一个错误信息提示，但它仍给出了表示执行成功的状态码 0 。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Could not create file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; $?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;既然脚本执行失败了，但它仍然传递执行成功的退出码给其他需要执行此脚本程序显然很不适合。为添加我们自己的退出码到这个程序里，我们可以简单地通过 &lt;code&gt;exit&lt;/code&gt; 来实现。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脚本&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;shebang&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;touch /root/&lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&amp;gt; /dev/null&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; [$? &lt;span class=&quot;operator&quot;&gt;-eq&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Successfully created file&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Could not create file&quot;&lt;/span&gt; &amp;gt;&amp;amp;&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;通过脚本里的 &lt;code&gt;exit&lt;/code&gt; 命令，我们可以在 &lt;code&gt;touch&lt;/code&gt; 命令执行成功时输出成功的消息并返回状态码 0 。当 &lt;code&gt;touch&lt;/code&gt; 执行失败时我们将打印失败的消息至 &lt;code&gt;stderr&lt;/code&gt; 并返回一个表示失败的状态码 1 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行结果&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Could not create file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; $?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;在命令行中使用退出码&quot;&gt;&lt;a href=&quot;# 在命令行中使用退出码&quot; class=&quot;headerlink&quot; title=&quot;在命令行中使用退出码&quot;&gt;&lt;/a&gt;在命令行中使用退出码 &lt;/h3&gt;&lt;p&gt; 现在我们的脚本既可以通知用户也能通知程序命令是否执行成功，我们可以使用这个脚本配合其他的管理工具，或者简单地通过 Bash 单行命令使用它。&lt;br&gt;&lt;strong&gt;Bash One Liner:&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./tmp.sh &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;bam&quot;&lt;/span&gt; || (sudo ./tmp.sh &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;bam&quot;&lt;/span&gt; || &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;fail&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Could not create file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Successfully created file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bam&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;上面的命令组使用了在 Bash 里称为 &lt;strong&gt;list constructs&lt;/strong&gt; 的工具。它允许你通过 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;（代表 &lt;strong&gt;and&lt;/strong&gt;） 和 &lt;code&gt;||&lt;/code&gt; (代表 &lt;strong&gt;or&lt;/strong&gt;） 将命令串到一起。上面的命令将会执行 &lt;code&gt;./tmp.sh&lt;/code&gt; 脚本，如果退出码是 0 命令 &lt;code&gt;echo &amp;quot;bam&amp;quot;&lt;/code&gt; 将被执行。但如果 &lt;code&gt;./tmp.sh&lt;/code&gt; 的退出码为 1 ，圆括号里的命令将在之后被执行。圆括号里的命令通过 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 、 &lt;code&gt;||&lt;/code&gt; 被串到一起。&lt;/p&gt;
+&lt;p&gt;list constructs 使用退出码来知晓一个命令是否执行成功。如果脚本不恰当地使用退出码，其他使用更高阶的命令（比如 list constructs）调用此脚本的用户就可能得到与预期不符的结果。&lt;/p&gt;
+&lt;h2 id=&quot;更多关于退出码的信息&quot;&gt;&lt;a href=&quot;# 更多关于退出码的信息&quot; class=&quot;headerlink&quot; title=&quot;更多关于退出码的信息&quot;&gt;&lt;/a&gt;更多关于退出码的信息 &lt;/h2&gt;&lt;p&gt;Bash 里的 &lt;code&gt;exit&lt;/code&gt; 命令接受不了从 &lt;code&gt;0 - 255&lt;/code&gt; 的整形数值，大多数情况下 &lt;code&gt;0&lt;/code&gt; 和 &lt;code&gt;1&lt;/code&gt; 就够用了，不过其他的数值也提供了，为更具体的错误信息做储备。The Linux Documentation Project 有一个不错的 &lt;a href=&quot;http://www.tldp.org/LDP/abs/html/exitcodes.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 保留状态码&lt;/a&gt; 列表，告诉大家这些状态码作何使用。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;原文链接：&lt;a href=&quot;http://bencane.com/2014/09/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://bencane.com/2014/09/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Exit-Codes- 是什么&quot;&gt;&lt;a href=&quot;#Exit-Codes- 是什么&quot; class=&quot;headerlink&quot; title=&quot;Exit Codes 是什么&quot;&gt;&lt;/a&gt;Exit Codes 是什么 &lt;/h2&gt;&lt;p&gt; 在 Unix 和 Linux 系统中
+    
+    </summary>
+    
+      <category term="翻译文章" scheme="http://blog.jayxhj.com/categories/%E7%BF%BB%E8%AF%91%E6%96%87%E7%AB%A0/"/>
+    
+    
+      <category term="bash" scheme="http://blog.jayxhj.com/tags/bash/"/>
+    
+      <category term="exit code" scheme="http://blog.jayxhj.com/tags/exit-code/"/>
+    
+      <category term="shell" scheme="http://blog.jayxhj.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Chrome 扩展程序 JSON Viewer 进行调试</title>
+    <link href="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/"/>
+    <id>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</id>
+    <published>2016-01-23T11:05:50.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;PHP 调试时有很多种方法，其中最简单的无非是 echo 与 var_dump 、 print_r 以及 debug_backtrace 了。这篇文章要介绍的是平常用的比较多的，适合在调 HTTP 接口以及平常开发中需要输出变量内容的情况。其实在 IDE 中比较适合使用 XDebug 或者断点调试，这样能在运行时直接查看当前上下文的各个变量，不过这种情况不在此篇讨论之列，后续我也将介绍相关的方法，来完善这个系列。&lt;/p&gt;
+&lt;p&gt; 现在步入正题。在平常和前端的配合中经常会有一些 RESTful 接口输出，而其中最常用的内容传输格式就是 JSON ，JSON 在 PHP 中可以很方便地转化为对象或者数组，在打印变量时使用 JSON 再配合浏览器的扩展进行解析，无疑能提高开发效率。&lt;/p&gt;
+&lt;h1 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h1&gt;&lt;p&gt; 先用两张图来了解一下 JSON 的格式，这样就不会混淆其在 PHP 中所代表的意思。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 对象是一个无序的“‘名称 / 值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称 / 值’ 对”之间使用“,”（逗号）分隔。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.json.org/object.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.json.org/array.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 值（value）可以是双引号括起来的字符串（string）、数值 (number)、true、false、 null、对象（object）或者数组（array）。这些结构可以嵌套。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://www.json.org/value.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Chrome- 扩展&quot;&gt;&lt;a href=&quot;#Chrome- 扩展&quot; class=&quot;headerlink&quot; title=&quot;Chrome 扩展&quot;&gt;&lt;/a&gt;Chrome 扩展 &lt;/h1&gt;&lt;p&gt;JSON viewer 扩展的地址是 &lt;a href=&quot;https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;JSON view GitHub 官网介绍了其有如下 feature&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; 语法高亮 &lt;/li&gt;
+&lt;li&gt;23 个内置的主题 &lt;/li&gt;
+&lt;li&gt; 节点可折叠 &lt;/li&gt;
+&lt;li&gt; 可点击的 url&lt;/li&gt;
+&lt;li&gt; 在控制台「console」输入 json 回车中查看你的 JSON （通过访问 id 为 json 的 HTML 元素）&lt;/li&gt;
+&lt;li&gt; 显示行号选项 &lt;/li&gt;
+&lt;li&gt; 在 url 中加入时间戳 header&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; 等等。&lt;/p&gt;
+&lt;h1 id=&quot;PHP- 配合 -JSON-viewer- 进行输出调试&quot;&gt;&lt;a href=&quot;#PHP- 配合 -JSON-viewer- 进行输出调试&quot; class=&quot;headerlink&quot; title=&quot;PHP 配合 JSON viewer 进行输出调试&quot;&gt;&lt;/a&gt;PHP 配合 JSON viewer 进行输出调试 &lt;/h1&gt;&lt;p&gt;PHP 中用来处理 JSON 使用最多的是 json_encode 和 json_decode ，比如你有 array 有如下结构 &lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$arr&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;array&lt;/span&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;string&quot;&gt;&#39;key1&#39;&lt;/span&gt;  =&amp;gt; &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;       =&amp;gt; &lt;span class=&quot;string&quot;&gt;&#39;string&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;string&quot;&gt;&#39;array&#39;&lt;/span&gt; =&amp;gt; &lt;span class=&quot;keyword&quot;&gt;array&lt;/span&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;string&quot;&gt;&#39;value1&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;string&quot;&gt;&#39;value2&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        );&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt; 如果使用 var_dump 输出，那么长的是这样 &lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;Array&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [key1] =&amp;gt; &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] =&amp;gt; string&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [&lt;span class=&quot;keyword&quot;&gt;array&lt;/span&gt;] =&amp;gt; &lt;span class=&quot;keyword&quot;&gt;Array&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] =&amp;gt; value1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] =&amp;gt; value2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt; 当层级不够多，数组元素不够多，肉眼观察根本不是问题，但是一旦数据变得复杂，输出将会非常难看且不易查找，这时候一个美观的输出外带查看层级和数据复制功能会显得很方便，此时，你只需要 &lt;code&gt;echo json_encode($arr);exit;&lt;/code&gt; ，扩展会自动解析 JSON 。&lt;/p&gt;
+&lt;p&gt; 最终你得到的可能是这样的 UI：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/tulios/json-viewer/master/screenshot.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt; 好了，其实还有很多输出调试工具，比如 symfony 的 &lt;a href=&quot;https://github.com/symfony/var-dumper&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;var-dumper&lt;/a&gt; 既能输出 HTML 的调试信息，又能在 cli 下输出带格式的调试信息。还有 debug helper &lt;a href=&quot;https://github.com/raveren/kint/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kint&lt;/a&gt; 、Yii 的 &lt;a href=&quot;https://github.com/malyshev/yii-debug-toolbar&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yii-debug-toolbar&lt;/a&gt; 以及强大的 XDebug 。&lt;/p&gt;
+&lt;hr&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PHP 调试时有很多种方法，其中最简单的无非是 echo 与 var_dump 、 print_r 以及 debug_backtrace 了。这篇文章要介绍的是平常用的比较多的，适合在调 HTTP 接口以及平常开发中需要输出变量内容的情况。其实在 IDE 中比较适合使用 X
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>FaceBook 命令行 UI PathPicker</title>
+    <link href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/"/>
+    <id>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</id>
+    <published>2016-01-17T09:40:38.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。&lt;/p&gt;
+&lt;p&gt;试想以下场景：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;你完成一个功能会涉及到不少文件，你得小心翼翼地一个个文件选择，防止不必要的文件出现在同一个待提交列表中；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;你改了很多文件，然后执行了 &lt;code&gt;git add .&lt;/code&gt; ，这时你有两个选择，要么 &lt;code&gt;git rest&lt;/code&gt; 不想在这次提交中包含的文件，要么一个个选择，然后 添加到 &lt;code&gt;git commit&lt;/code&gt; 的后面。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;于是 PathPicker 出现了，专为解决此种费力不讨好的事情，UI 选择器，命令行，一起上。&lt;/p&gt;
+&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;# 介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。  &lt;/p&gt;
+&lt;p&gt;PathPicker 做以下事情：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过管道处理输入中所有表现出文本特性的文件&lt;/li&gt;
+&lt;li&gt;在一个方便选择的 UI 容器里展现管道输入&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;然后你可以对输入做以下事情：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用你最喜欢的编辑器处理选择的所有文件&lt;/li&gt;
+&lt;li&gt;利用输入执行任意命令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面通过一段视频来了解 PathPicker：&lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://asciinema.org/a/19519.js&quot; id=&quot;asciicast-19519&quot; async&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;PathPicker- 是怎么运行的&quot;&gt;&lt;a href=&quot;#PathPicker- 是怎么运行的&quot; class=&quot;headerlink&quot; title=&quot;PathPicker 是怎么运行的&quot;&gt;&lt;/a&gt;PathPicker 是怎么运行的&lt;/h2&gt;&lt;p&gt;PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。  它主要有以下三个步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先在 bash 脚本中，它将所有的标准输入重定向到一个 Python 模块，然后通过解析取出其中所包含的文件名候选列表。每个候选文件名都将被用来与文件系统做比对确保其存在，再然后，会把处理结果保存至临时文件并终止 python 脚本的运行。&lt;/li&gt;
+&lt;li&gt;第二部，bash 脚本会切换至命令行输入模式，并且另一个 python 模块会读取出已保存的条目并使用 &lt;code&gt;curses&lt;/code&gt; 在一个 UI 选择器展现它们。&lt;/li&gt;
+&lt;li&gt;最后，python 脚本会输出一条命令至 bash 文件，最终被原始的 bash 脚本解析执行。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;使用示例&quot;&gt;&lt;a href=&quot;# 使用示例&quot; class=&quot;headerlink&quot; title=&quot;使用示例&quot;&gt;&lt;/a&gt;使用示例 &lt;/h2&gt;&lt;p&gt; 当改了很多文件需要提交提交时，查看当前状态 &lt;code&gt;git status&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前.jpg&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前 -300x166.jpg&quot; alt=&quot;PathPicker-git add 前&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;将输出重定向至 PathPicker &lt;code&gt;git stataus | fpp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后.png&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后 -300x135.png&quot; alt=&quot;PathPicker-git status|fpp 后&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;已选中为绿色&lt;/li&gt;
+&lt;li&gt;已选中且当前光标悬停显示为红色&lt;/li&gt;
+&lt;li&gt;未选中且当前光标悬停显示为蓝色&lt;/li&gt;
+&lt;li&gt;无法选中的光标无法跳到此项，显示为纯文本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;提交选定的文件 &lt;code&gt;git commit $F&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F.png&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F-300x135.png&quot; alt=&quot;PathPicker-git commit $F&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PathPicker 官网见 &lt;a href=&quot;http://facebook.github.io/PathPicker/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://facebook.github.io/PathPicker/&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。&lt;/p&gt;
+&lt;p&gt;试想以下场景：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;你完成一个功
+    
+    </summary>
+    
+      <category term="工具技巧" scheme="http://blog.jayxhj.com/categories/%E5%B7%A5%E5%85%B7%E6%8A%80%E5%B7%A7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Git 常用操作</title>
+    <link href="http://blog.jayxhj.com/2015/12/git-commands/"/>
+    <id>http://blog.jayxhj.com/2015/12/git-commands/</id>
+    <published>2015-12-10T12:15:55.000Z</published>
+    <updated>2016-05-10T03:28:18.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Git 常用操作&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;Git- 常用操作&quot;&gt;&lt;a href=&quot;#Git- 常用操作&quot; class=&quot;headerlink&quot; title=&quot;Git 常用操作&quot;&gt;&lt;/a&gt;Git 常用操作&lt;/h1&gt;&lt;h2 id=&quot;Git- 忽略已追踪文件的修改&quot;&gt;&lt;a href=&quot;#Git- 忽略已追踪文件的修改&quot; class=&quot;headerlink&quot; title=&quot;Git 忽略已追踪文件的修改&quot;&gt;&lt;/a&gt;Git 忽略已追踪文件的修改&lt;/h2&gt;&lt;p&gt;&lt;code&gt;git update-index –assume-unchanged /path/to/file&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Git- 取消忽略文件的修改 - 再次追踪此文件&quot;&gt;&lt;a href=&quot;#Git- 取消忽略文件的修改 - 再次追踪此文件&quot; class=&quot;headerlink&quot; title=&quot;Git 取消忽略文件的修改(再次追踪此文件)&quot;&gt;&lt;/a&gt;Git 取消忽略文件的修改(再次追踪此文件)&lt;/h2&gt;&lt;p&gt;&lt;code&gt;git update-index --no-assume-unchanged /path/to/file&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;导入 -Git- 仓库至 -Bitbucket&quot;&gt;&lt;a href=&quot;# 导入 -Git- 仓库至 -Bitbucket&quot; class=&quot;headerlink&quot; title=&quot;导入 Git 仓库至 Bitbucket&quot;&gt;&lt;/a&gt;导入 Git 仓库至 Bitbucket&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;create repository in &lt;a href=&quot;https://bitbucket.org/repo/create&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Bitbucket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;do upstreaming in local&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /path/to/my/repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git remote add origin https://username@bitbucket.org/username/reponame.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git push -u origin --all &lt;span class=&quot;comment&quot;&gt;# pushes up the repo and its refs for the first time&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git push -u origin --tags &lt;span class=&quot;comment&quot;&gt;# pushes up any tags`&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;分支重命名&quot;&gt;&lt;a href=&quot;# 分支重命名&quot; class=&quot;headerlink&quot; title=&quot;分支重命名&quot;&gt;&lt;/a&gt;分支重命名&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;修改当前分支 &lt;code&gt;git branch -m &amp;lt;newname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;未提交至 remote &lt;code&gt;git branch -m &amp;lt;oldname&amp;gt; &amp;lt;newname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;已提交至 remote 需新加分支 &lt;code&gt;git push origin &amp;lt;newname&amp;gt;:&amp;lt;newname&amp;gt;&lt;/code&gt; 并删除旧的远程分支 &lt;code&gt;git push origin :&amp;lt;newname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;从某个分支上线&quot;&gt;&lt;a href=&quot;# 从某个分支上线&quot; class=&quot;headerlink&quot; title=&quot;从某个分支上线&quot;&gt;&lt;/a&gt;从某个分支上线 &lt;/h2&gt;&lt;p&gt; 场景：当需要从某个分支的指定版本上线，又需要保留当前分支的修改&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;checkout 到指定分支 &lt;code&gt;git checkout [revision]&lt;/code&gt; [revision] 代表指定 commit 的 hash&lt;/li&gt;
+&lt;li&gt;以当前 commit 创建分支 &lt;code&gt;git checkout -b [branchName]&lt;/code&gt; [branchName] 为分支名&lt;/li&gt;
+&lt;li&gt;推送至远程 &lt;code&gt;git push origin branchName:branchName&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;添加多个远程分支&quot;&gt;&lt;a href=&quot;# 添加多个远程分支&quot; class=&quot;headerlink&quot; title=&quot;添加多个远程分支&quot;&gt;&lt;/a&gt;添加多个远程分支&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git remote &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt;-url origin --push --add &amp;lt;a remote&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git remote &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt;-url origin --push --add &amp;lt;another remote&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Git 常用操作&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;Git- 常用操作&quot;&gt;&lt;a href=&quot;#Git- 常用操作&quot; class=&quot;headerlink&quot; title=&quot;Git 常用操作&quot;&gt;&lt;/a&gt;Git 常用操作&lt;/h1&gt;&lt;h2 id=&quot;Git- 忽略已追踪文件的修改&quot;&gt;&lt;
+    
+    </summary>
+    
+      <category term="工具技巧" scheme="http://blog.jayxhj.com/categories/%E5%B7%A5%E5%85%B7%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="Git" scheme="http://blog.jayxhj.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 单机多实例主从</title>
+    <link href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/"/>
+    <id>http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/</id>
+    <published>2015-09-22T14:37:32.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;environment&quot;&gt;&lt;a href=&quot;#environment&quot; class=&quot;headerlink&quot; title=&quot;environment&quot;&gt;&lt;/a&gt;environment&lt;/h2&gt;&lt;p&gt;  [root@iZ25qtxg0q6Z ~]# uname -a&lt;br&gt;  Linux iZ25qtxg0q6Z 2.6.32-431.23.3.el6.x86_64 #1 SMP Thu Jul 31 17:20:51 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux&lt;br&gt;  [root@iZ25qtxg0q6Z ~]# cat /etc/redhat-release&lt;br&gt;  CentOS release 6.7 (Final)&lt;br&gt;  [root@iZ25qtxg0q6Z ~]# mysql –version&lt;br&gt;  mysql Ver 14.14 Distrib 5.1.73, for redhat-linux-gnu (x86_64) using readline 5.1&lt;/p&gt;
+&lt;h2 id=&quot;set-up-replication-steps&quot;&gt;&lt;a href=&quot;#set-up-replication-steps&quot; class=&quot;headerlink&quot; title=&quot;set-up replication steps&quot;&gt;&lt;/a&gt;set-up replication steps&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;enable binary logging of master&lt;/li&gt;
+&lt;li&gt;stop writing &lt;code&gt;FLUSH TABLES WITH READ LOCK;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;obtain binary log file name and position for slave&lt;/li&gt;
+&lt;li&gt;transfer data from master to slave (mysqldump 、 mysqlimport)&lt;/li&gt;
+&lt;li&gt;on the master &lt;code&gt;UNLOCK TABLES;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Setting the Replication Slave Configuration&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CHANGE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;MASTER&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TO&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MASTER_HOST=&lt;span class=&quot;string&quot;&gt;&#39;master_host_name&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MASTER_USER=&lt;span class=&quot;string&quot;&gt;&#39;replication_user_name&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MASTER_PASSWORD=&lt;span class=&quot;string&quot;&gt;&#39;replication_password&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MASTER_LOG_FILE=&lt;span class=&quot;string&quot;&gt;&#39;recorded_log_file_name&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MASTER_LOG_POS=recorded_log_position;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;check master and slave status &lt;code&gt;SHOW VARIABLES LIKE &amp;#39;server_id&amp;#39;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;in slave &lt;code&gt;START SLAVE&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;安装过程中的命令及问题解决方法&quot;&gt;&lt;a href=&quot;# 安装过程中的命令及问题解决方法&quot; class=&quot;headerlink&quot; title=&quot;安装过程中的命令及问题解决方法&quot;&gt;&lt;/a&gt;安装过程中的命令及问题解决方法&lt;/h2&gt;&lt;h3 id=&quot;mysql-secure-installation&quot;&gt;&lt;a href=&quot;#mysql-secure-installation&quot; class=&quot;headerlink&quot; title=&quot;mysql_secure_installation&quot;&gt;&lt;/a&gt;mysql_secure_installation&lt;/h3&gt;&lt;p&gt;mysql_secure_installation 作用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set root password,&lt;/li&gt;
+&lt;li&gt;disallowing root login remotely,&lt;/li&gt;
+&lt;li&gt;removing anonymous user accounts after first installation&lt;/li&gt;
+&lt;li&gt;removing test database which can be accessed by any users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是 mysql_secure_installation 无法指定命令参数（&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.1/en/mysql-secure-installation.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;5.7&lt;/a&gt; 可以指定参数以后可以直接指定，之前的版本无法指定），会使用默认的配置，导致新安装的实例安全配置无法更新 &lt;br&gt; 配置位置 &lt;code&gt;/var/lib/mysql/mysql2.sock&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;有两种方法可以解决执行 mysql_secure_installation 时应用到指定实例：&lt;br&gt;  &lt;code&gt;[root@iZ25qtxg0q6Z ~]# which mysql_secure_installation
+  /usr/bin/mysql_secure_installation&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在配置文件中制定，修改为对应的实例配置&lt;/li&gt;
+&lt;li&gt;使用 &lt;a href=&quot;http://dba-valley.blogspot.jp/2013/03/mysql-secure-installation-for-non.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 软链&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;启动 -mysql-instanse&quot;&gt;&lt;a href=&quot;# 启动 -mysql-instanse&quot; class=&quot;headerlink&quot; title=&quot;启动 mysql instanse&quot;&gt;&lt;/a&gt;启动 mysql instanse&lt;/h3&gt;&lt;p&gt;&lt;code&gt;mysqld_safe --defaults-file=/etc/my2.cnf&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;主从数据保持一致（导出导入）&quot;&gt;&lt;a href=&quot;# 主从数据保持一致（导出导入）&quot; class=&quot;headerlink&quot; title=&quot;主从数据保持一致（导出导入）&quot;&gt;&lt;/a&gt;主从数据保持一致（导出导入）&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;导出数据 &lt;code&gt;mysqldump --all-databases --master-data --events &amp;amp;gt; dbdump.db -p&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;导入至指定实例 &lt;code&gt;mysqlimport -uroot -P 3380 -h 127.0.0.1 dbdump.db -p&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;stop-mysql-instance-by-specifing-sockct&quot;&gt;&lt;a href=&quot;#stop-mysql-instance-by-specifing-sockct&quot; class=&quot;headerlink&quot; title=&quot;stop mysql instance by specifing sockct&quot;&gt;&lt;/a&gt;stop mysql instance by specifing sockct&lt;/h3&gt;&lt;p&gt;&lt;code&gt;mysqladmin -S /var/lib/mysql/mysql2.sock shutdown -p&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;userful-links&quot;&gt;&lt;a href=&quot;#userful-links&quot; class=&quot;headerlink&quot; title=&quot;userful links&quot;&gt;&lt;/a&gt;userful links&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/15439307/mysql-secure-installation-cant-connect-to-local-mysql-server-through-socket&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;mysql 安全设置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://dba-valley.blogspot.jp/2013/03/mysql-secure-installation-for-non.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用软链&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;kill process&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.xaprb.com/blog/2007/08/01/why-mysql-server-not-configured-as-slave/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;config slave error handlering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/105776/how-do-i-restore-a-mysql-dump-file&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;restore mysqldump file&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ghostchina.com/how-to-reset-mysqls-root-password/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;reset mysql root password&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://sharadchhetri.com/2013/12/02/create-multiple-mysql-instance-centos-6-4-red-hat-6-4/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;create-multiple-mysql-instance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.1/en/multiple-unix-servers.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;multiple-mysql-servers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.1/en/replication-howto-newservers.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Setting Up Replication with New Master and Slaves&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;environment&quot;&gt;&lt;a href=&quot;#environment&quot; class=&quot;headerlink&quot; title=&quot;environment&quot;&gt;&lt;/a&gt;environment&lt;/h2&gt;&lt;p&gt;  [root@iZ25qtxg0q6Z ~]# uname -a&lt;
+    
+    </summary>
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/categories/mysql/"/>
+    
+    
+      <category term="Master" scheme="http://blog.jayxhj.com/tags/master/"/>
+    
+      <category term="Slave" scheme="http://blog.jayxhj.com/tags/slave/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 索引类型</title>
+    <link href="http://blog.jayxhj.com/2014/08/index-type/"/>
+    <id>http://blog.jayxhj.com/2014/08/index-type/</id>
+    <published>2014-08-08T08:07:59.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;hr&gt;
+&lt;p&gt;有必要对数据库的索引类型及其实现做个了解及总结。&lt;/p&gt;
+&lt;h3 id=&quot;Question&quot;&gt;&lt;a href=&quot;#Question&quot; class=&quot;headerlink&quot; title=&quot;Question:&quot;&gt;&lt;/a&gt;Question:&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;书中所说索引分为单列索引，主键索引以及联合索引；&lt;/li&gt;
+&lt;li&gt;在数据库的 GUI 软件中却可以对一个表设置三种类型的索引：分别为 normal、unique、full text；&lt;/li&gt;
+&lt;li&gt;在 MySQL manual 中创建 index 的语法为&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; [&lt;span class=&quot;keyword&quot;&gt;UNIQUE&lt;/span&gt;|FULLTEXT|SPATIAL] &lt;span class=&quot;keyword&quot;&gt;INDEX&lt;/span&gt; index_name&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[&lt;span class=&quot;keyword&quot;&gt;USING&lt;/span&gt; index_type]    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ON&lt;/span&gt; tbl_name (index_col_name,...)    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index_col_name:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;col_name [(&lt;span class=&quot;keyword&quot;&gt;length&lt;/span&gt;)] [&lt;span class=&quot;keyword&quot;&gt;ASC&lt;/span&gt; | &lt;span class=&quot;keyword&quot;&gt;DESC&lt;/span&gt;]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Answer&quot;&gt;&lt;a href=&quot;#Answer&quot; class=&quot;headerlink&quot; title=&quot;Answer:&quot;&gt;&lt;/a&gt;Answer:&lt;/h3&gt;&lt;p&gt;疑惑解决: 第一种分法是按照列的数量进行分类，第二、三种是按照索引类型进行分类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;normal index 为普通索引&lt;/li&gt;
+&lt;li&gt;primary index 为主键索引，索引列的值必须唯一且不为空&lt;/li&gt;
+&lt;li&gt;unique index 为唯一索引，索引列必须唯一但可以为空&lt;/li&gt;
+&lt;li&gt;fulltext index 为全文索引，只能对 CHAR,VARCHAR 和 TEXT 列编制索引，并且只能在 MyISAM 表中编制&lt;/li&gt;
+&lt;li&gt;spatial index 为空间索引，只能对空间列编制索引，并且只能在 MyISAM 表中编制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;续&quot;&gt;&lt;a href=&quot;# 续&quot; class=&quot;headerlink&quot; title=&quot;续&quot;&gt;&lt;/a&gt;续 &lt;/h3&gt;&lt;p&gt; 有时间再对其具体实现及背后使用的算法做了解及总结。&lt;br&gt;可能的关键字如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;HASH&lt;/li&gt;
+&lt;li&gt;B-TREE&lt;/li&gt;
+&lt;li&gt;B+TREE&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;有必要对数据库的索引类型及其实现做个了解及总结。&lt;/p&gt;
+&lt;h3 id=&quot;Question&quot;&gt;&lt;a href=&quot;#Question&quot; class=&quot;headerlink&quot; title=&quot;Question:&quot;&gt;&lt;/a&gt;Question:&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;书
+    
+    </summary>
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/categories/mysql/"/>
+    
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/tags/mysql/"/>
+    
+      <category term="index" scheme="http://blog.jayxhj.com/tags/index/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为网站全站链接添加参数</title>
+    <link href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/"/>
+    <id>http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/</id>
+    <published>2014-07-19T08:40:06.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;需求&quot;&gt;&lt;a href=&quot;# 需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求 &lt;/h3&gt;&lt;p&gt; 为网站链接添加参数，可以统计用户在网站中的流向，以及确定网站经常访问的部分。&lt;/p&gt;
+&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;# 解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在程序生成链接的时候附带转向，这样需要改变所有生成链接的地方&lt;/li&gt;
+&lt;li&gt;使用 jQuery 在网站加载时动态改变网站页面内所有链接&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;利弊&quot;&gt;&lt;a href=&quot;# 利弊&quot; class=&quot;headerlink&quot; title=&quot;利弊&quot;&gt;&lt;/a&gt;利弊 &lt;/h3&gt;&lt;p&gt; 使用第一种方案时当需要改变某一页面的来源时，所有与本页面有关的链接都需要改动，好处是页面输出到浏览器后即为用户最终所得，不存在链接参数错误的问题。&lt;br&gt;使用第二种方案好处是修改页面链接时只需在页面标签的父级标签添加某一属性（如例子给出的 from），即可定位相当精准，但弊端在于此方法必须在页面 DOM 树加载完成之后执行，假如中途 DOM 树出问题或者标签属性输出不全可能导致链接错误，另外当标签内的链接由 JavaScript 单独进行定义时需额外修改，这是两种方案都要面对的问题。&lt;/p&gt;
+&lt;h3 id=&quot;使用 jQuery 实现的版本&quot;&gt;&lt;a href=&quot;# 使用 jQuery 实现的版本&quot; class=&quot;headerlink&quot; title=&quot;使用 jQuery 实现的版本&quot;&gt;&lt;/a&gt;使用 jQuery 实现的版本 &lt;/h3&gt;&lt;h4 id=&quot;思路：&quot;&gt;&lt;a href=&quot;# 思路：&quot; class=&quot;headerlink&quot; title=&quot;思路：&quot;&gt;&lt;/a&gt; 思路：&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;查找所有 a 节点&lt;/li&gt;
+&lt;li&gt;获取其父类，一级一级往上找，使用 closest()查找，获取其 from 参数值&lt;/li&gt;
+&lt;li&gt;判断 a 节点的 href 属性是否包含?，包含则直接添加 &amp;amp;from ，否则添加?&amp;amp;from。如果添加 href 为 javascript: 或者 javascript:void(0) 时则不改变其 href 属性 &lt;br&gt; 前提：链接不是 javascript: 且链接父级标签含有属性 from&lt;br&gt;如网页链接为 www.jayxhj.com&lt;br&gt;标签层级为&lt;br&gt;&lt;code&gt;&amp;lt;p from=&amp;quot;top&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;/test&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;则执行 addparam()之后变为&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;p from=&amp;quot;top&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;/test?f=top&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;样例:www.baidu.com 转换后为 www.baidu.com?f=top&lt;br&gt;www.baidu.com?r=test 转换后为 www.baidu.com?r=test&amp;amp;f=top&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addparam&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    $(&lt;span class=&quot;string&quot;&gt;&quot;a&quot;&lt;/span&gt;).each(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; realhref = $.trim($(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;).attr(&lt;span class=&quot;string&quot;&gt;&#39;href&#39;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; href = &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (realhref.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;?&#39;&lt;/span&gt;) === -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            href = realhref;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (realhref.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt;) === -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (realhref.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;f=&#39;&lt;/span&gt;) === -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    href = realhref;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; hrefarr = realhref.split(&lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; length = hrefarr.length - &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; length; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                        href += hrefarr[i] + &lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    href = href.substring(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, href.length - &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; hrefarr = realhref.split(&lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (realhref.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;f=&#39;&lt;/span&gt;) === -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    href = realhref;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; length = hrefarr.length - &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; length; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                        href += hrefarr[i] + &lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    href = href.substring(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, href.length - &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (!~href.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;javascript:&#39;&lt;/span&gt;) &amp;amp;&amp;amp; href !== &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; parent = $(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;).parents();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; j = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; j &amp;lt;= parent.length; j++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; ($(parent[j]).attr(&lt;span class=&quot;string&quot;&gt;&#39;from&#39;&lt;/span&gt;)) != &lt;span class=&quot;string&quot;&gt;&#39;undefined&#39;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    $(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;).attr(&lt;span class=&quot;string&quot;&gt;&#39;href&#39;&lt;/span&gt;, href + (href.indexOf(&lt;span class=&quot;string&quot;&gt;&#39;?&#39;&lt;/span&gt;) === -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; ? &lt;span class=&quot;string&quot;&gt;&#39;?&#39;&lt;/span&gt; : &lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;&#39;&lt;/span&gt; ) + &lt;span class=&quot;string&quot;&gt;&#39;f=&#39;&lt;/span&gt; + $(parent[j]).attr(&lt;span class=&quot;string&quot;&gt;&#39;from&#39;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    &lt;span class=&quot;keyword&quot;&gt;break&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;具体可参看 &lt;a href=&quot;http://www.gu360.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 股票雷达网站&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;需求&quot;&gt;&lt;a href=&quot;# 需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求 &lt;/h3&gt;&lt;p&gt; 为网站链接添加参数，可以统计用户在网站中的流向，以及确定网站经常访问的部分。&lt;/p&gt;
+&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#
+    
+    </summary>
+    
+      <category term="技术实现" scheme="http://blog.jayxhj.com/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的 web 开发学习之路</title>
+    <link href="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/"/>
+    <id>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</id>
+    <published>2014-07-08T15:37:00.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;最初了解到 web 是从自己使用网站，又因为专业的缘故，所以对编程对 web 开发逐步有了概念。学校论坛算是启蒙，因为管理着后台，其实并不怎么需要编码，无非是挖掘 Discuz 的功能，整合现有资源，并应用到论坛，服务论坛上的用户，比如找朋友、签到打卡、搬运工（学校通知、考试安排等）这些功能。&lt;/p&gt;
+&lt;p&gt;学校的课程体系中包含 HTML、CSS、JavaScript、JSP 动态网页、XML、JAVA 这些课程，正是这些课程让我逐步对 web 开发感兴趣，让我花时间去了解在这之外的东西，才慢慢地走上了 web 开发之路。但不得不说道路是曲折的，有过弯路有过徘徊，还好度过了那个时期，没有中途离开，否则也就没有这篇文章了。&lt;/p&gt;
+&lt;h2 id=&quot;一无所知&quot;&gt;&lt;a href=&quot;# 一无所知&quot; class=&quot;headerlink&quot; title=&quot;一无所知&quot;&gt;&lt;/a&gt;&lt;strong&gt;一无所知 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 静态网页–&amp;gt; 动态网站&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;最开始对 web 的理解就是网页，互相连接起来的网页，才有可能形成 world，大家都在使用才能 wide，所以加上网页就形成了 WWW。后来又发现网站都是动态的啊，纯静态网站那是十多年前的事情了呢，于是知道原来有动态网站和动态语言。最先看到的当属 asp 了，在 &lt;a href=&quot;http://www.w3school.com.cn/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;w3school&lt;/a&gt; 上，形形色色的网页都是 asp 后缀的呢。于是开始在 &lt;strong&gt;w3chool&lt;/strong&gt; 上学习 HTML 与 CSS，刚开始的过程无疑是新奇有趣又略有困难的，很多概念不懂，需要不断回顾再学习。这时候 JavaScript 是让我觉得神奇的语言，因为不需要服务器，只需要浏览器的引擎即可操纵网页，轻易修改。&lt;/p&gt;
+&lt;p&gt;动态网页最先接触的是 JSP，因为恰好学习 Java，使用 JSP 无疑是比较好的选择，使用一本叫作 &lt;strong&gt;《Servlet/JSP 深入详解》&lt;/strong&gt; 的书籍作为入门以及应付考试。了解了 9 大内置对象，了解了如何使用 JSP 与后台 JAVA 进行交互，但始终没有用它做点什么东西出来。后来还是跟着解丹老师做某一个项目，使用 FLEX 作为前端代替了 JSP，这是后话。&lt;/p&gt;
+&lt;h2 id=&quot;逐步形成概念&quot;&gt;&lt;a href=&quot;# 逐步形成概念&quot; class=&quot;headerlink&quot; title=&quot;逐步形成概念&quot;&gt;&lt;/a&gt;&lt;strong&gt;逐步形成概念 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 网站组成&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于身处计算机专业，又待在网络中心，与学校论坛的前辈们在一个地方做事情，所以难免学着去了解 Discuz 这个系统。因为种种原因，加入了论坛团队，担任技术组组长一职。论坛可谓我网站启蒙。因为网站的运行运营以及各种困难问题的解决离不开团队成员的配合与努力，这段期间可谓各自努力学习，都希望把前人所作的工作做好同时让论坛在学校火热起来，其实还有一个目的，就是让我们院系能在学校被熟悉起来，因为曾说自己是信工的，被问居然还有这个院系！！&lt;/p&gt;
+&lt;p&gt;由于论坛工作的原因，那时对网站粗浅的理解就是网站是社区。由于要和其他院系以及学校组织做活动，因此得准备活动的素材来应对这些活动。所以对网站的组成做了初步的了解。最先做的大概就是 Banner 了，使用阿里妈妈的工具做，只需找好素材，然后根据活动主题做相应改变。&lt;/p&gt;
+&lt;p&gt;网站大概由前后端以及相应的组件组成，这些组件包括 Banner、flash 广告，图片轮播等等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;网站思考&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这段时期我对网站做了相应的思考，其实论坛说到底是一种以话题做主线的社区，大家因为相同的志趣而集合到一起，因为相同的话题而产生交流。失去了话题论坛活跃度必然降低，所以可以看到，学校论坛中学校通知、租房、杏林广播、聚餐吃饭、爆照这些话题是经久不衰，其他话题如灌水吐槽等不能长久，但是可以作为润滑剂，毕竟干货以及热门话题需要时间，不会一直都有，既需要引导也需要刻意制造。&lt;/p&gt;
+&lt;h2 id=&quot;技能学习&quot;&gt;&lt;a href=&quot;# 技能学习&quot; class=&quot;headerlink&quot; title=&quot;技能学习&quot;&gt;&lt;/a&gt;&lt;strong&gt;技能学习 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 静态部分学习&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于动态网站课程的学习，于是顺带地学习了&lt;strong&gt;HTML、CSS、jQuery&lt;/strong&gt;。但也只是很粗浅的入门。一方面原因是眼界不够，觉得无非就这些知识，类似于 XX 天精通 XXX，但实际上有很大的误导，因为任何一门技术研究起来实际上都不是三言两语就可以解释清楚的。比如你学习了 HTML，觉得它无非标签的嵌套以及网页的布局，有什么难的呢。可是写过之后会知道根本不是这样。问题：行内元素和块级元素有什么区别，它们能相互嵌套吗？如果只是学习了标签是不会知道这个问题的答案的。即使了解了这个问题的答案，又会发现它们嵌套后在不同浏览器下效果是不同的，因为浏览器的解析引擎不一样，效果就有所区别了。&lt;/p&gt;
+&lt;p&gt;实习时由于要做一个内部的系统，其中有个需求是根据日期选择数据，这种需求如果是自己来实现必然费时，而如果使用 jQuery 的组件就是几段代码的工作量。jQuery 给我最大的益处就是其丰富的 DOM 对象 API，基于这些 API，对 DOM 元素的操作变得无比简单，而且由于其对多浏览器的支持，可以简单地开发出适配手机端的网页。&lt;/p&gt;
+&lt;p&gt;技能的学习让我深深觉得，每一门技术都有好坏，重要的根据需求选择技术并根据应用场景合理地配置，以便达到开发的目的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;服务器配置&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;每一种服务背后都有前人巨大的工作量作为铺垫，比如 Apache、Memcache、Redis、Nginx 等。&lt;/p&gt;
+&lt;p&gt;最初搭建论坛使用的是 WAMP 套件，因为不熟悉 Linux 而且 Windows 服务器也够用，所以长久以来也没有更换。&lt;/p&gt;
+&lt;p&gt;搭建起网站并运行起来最基本的就是设置网站文件目录，并支持动态语言文件的解析，即转发给指定的解析引擎进行解析并返回。套件的好处就是这些设置有可视化的界面，而且有基本够用的设置，不怎么需要额外修改，坏处是可定制性差一点，但是每个阶段有每个阶段的重点。&lt;/p&gt;
+&lt;p&gt;实际上做 WEB 开发最好还是在 Linux 平台下。因为常用的服务大都是在 Linux 下进行更新，Windows 系统下这些服务一般也会有人维护，但总是会慢一拍，而且有些服务根本不能在 Windows 下运行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;域名、空间以及 DNS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;最初由于想使用自己的名字作为网站名搭建博客程序，就去了解了空间及域名。后来由于使用 jayxhj 网名，就购买了 &lt;a href=&quot;http://www.jayxhj.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jayxhj.com&lt;/a&gt; 这个域名。空间最初准备使用万网的空间以及域名，后来发现实在太贵，一年保守估计 1K 以上，索性购买美国的空间，使用的是 &lt;a href=&quot;https://my.laoxuehost.net/aff.php?aff=1356&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 老薛主机&lt;/a&gt;, 优点是不需要备案，而且客服支持不错。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;工具&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;最初接触网站并上传文件使用的是 &lt;a href=&quot;http://www.flashfxp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;FlashFXP&lt;/a&gt;, 后来才了解到使用 SVN 或者 Git 利用 hook 机制上传代码既方便快捷又能回溯，而且由于天然的版本机制，对代码控制和 new feature 的并入是非常好的选择。&lt;/p&gt;
+&lt;h2 id=&quot;WEB 开发体系逐步形成&quot;&gt;&lt;a href=&quot;#WEB 开发体系逐步形成&quot; class=&quot;headerlink&quot; title=&quot;WEB 开发体系逐步形成&quot;&gt;&lt;/a&gt;&lt;strong&gt;WEB 开发体系逐步形成 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; 由于大四实习的需要，在找到 &lt;a href=&quot;http://www.zhihu.com/question/24193398/answer/27126834&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;实习 &lt;/a&gt; 后得以有机会了解到真实的网站开发以及团队协作的流程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;技术选择&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对于个人而言，选择一门主要的语言，使用合适的工具，了解足够多的技术并应用，业余学习新技术新语言，无疑是大多数开发者的常态。而对于公司而言，最初会选择一定的技术满足线上的需求，当选择的技术无法支撑需求时会考虑进行优化或者重构以及更换技术方案。由于论坛的接触，以及 PHP 天然地适合 web 开发，于是我选择了 PHP 作为自己的主要开发语言。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开发流程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;最初加入的是 &lt;a href=&quot;http://www.gu360.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;股票雷达&lt;/a&gt;，公司是创业型互联网金融公司，十人左右的团队，每个人负责一大块，PHP 这边有三个人，iOS 开发一人，技术总监一人，Java 开发一人，产品经理一人，CEO 一人，再加上实习几人，平常的业务会外包给别人做。&lt;/p&gt;
+&lt;p&gt;公司使用 Asana 作为团队协作工具，任务的分发以及任务的标记完成，使得需求转化成具体可操作的技术任务。一般是由产品经理与 CEO 推出需求，然后与开发人员协商，给出工作安排，CEO 负责资源的配置，即将任务合理分发，产品经理跟进项目的执行并及时反馈，再根据反馈及时调整，以合理控制项目进度。当前端切好页面并调好效果时一般总监会把架构设计好了，后端也把基本的代码设计及接口做好了，这时候就是前后端的整合，整合完成后移交给产品经理做基本测试，然后就是 beta 版发布，发布之后就是根据运营数据做调整，同时跟进开发新的功能，以及修复过去开发的产品的缺陷及 bug。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开发框架的选择&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;有句话叫作：不要重复造轮子。由于有太多的框架给我们选择，所以从头开发实无必要。框架好在把路由、逻辑分发、代码包含、分层架构做的非常好，而且内置变量还能让开发过程更简洁高效，代码可读性也更好，最重要的是 OOP 的框架能让开发者注重逻辑的实现而无需纠结于细节。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;团队配合&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;无论是即时交流还是延时交流，这些都涉及到工具的选用，比如团队协作工具，比如企业邮箱选择，比如 bug 管理，比如 IM，比如版本控制。实习给我最大的感触就是不论什么事情，要尽心尽力，及时沟通，搞的定的及时做好后期继续优化，搞不定的请教别人，而不是拖到 deadline。因为项目的完成一般是需要协作的，涉及到常见的业务逻辑问题，肯定需要多人的参与，这时及时的沟通就显得尤为重要。工作不比学校，别人为你的工作付出了薪水，所以理应尽最大努力保质完成，即使不能完成也要能找到最好的平衡点，让项目流畅运转。&lt;/p&gt;
+&lt;h2 id=&quot;WEB 开发提高&quot;&gt;&lt;a href=&quot;#WEB 开发提高&quot; class=&quot;headerlink&quot; title=&quot;WEB 开发提高&quot;&gt;&lt;/a&gt;&lt;strong&gt;WEB 开发提高 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; 就好比 PHP 不仅仅是一门脚本或者模板语言，要想学好技术，绝不能仅仅局限在某一门技术上，因为技术的应用范围有限，没有哪个技术能通吃所有方面，在合适的场景下选用合适的技术考虑实现难易综合成本才是比较明智的选择。而技术上的积累，在深度和广度上的平衡，最终会带来质变。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Linux 基础&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;推荐学习 &lt;a href=&quot;http://book.douban.com/subject/4889838/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;鸟哥的 Linux 私房菜. 基础学习篇&lt;/a&gt;，无论是计算机基础知识的回顾，还是 Linux 的基本概念，这本书都讲的浅显易懂又不致枯燥无味。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;面向对象开发&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;面向对象最大的特点就是封装继承与多态。使用面向对象开发能较容易地实现代码的封装与隔离，使用封装实现数据与数据处理的结合，使用继承可以方便扩展已有封装模块，而多态则实现多变的需求，统一的接口，不同的实现。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MVC&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;建议看看这个回答&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.zhihu.com/question/24291079/answer/27308007&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;三层构架和 MVC 不同&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;数据库&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;无论是关系型数据库还是非关系型数据库（Not Only SQL），数据库都是应用的核心，而且往往应用的瓶颈集中在数据库，这也是 NoSQL 兴起的一大原因，互联网巨大的用户量与数据量使得传统的关系型数据库不堪重负，而 NoSQL 能分担部分压力且表现良好。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码结构与分层设计&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;代码结构的设计可以使得资源放在合适的目录，且结构清晰的代码能降低后期维护的成本。提前画好层次结构图，理清代码的设计思路，将应用分层设计，把接口定义良好，可以为后续的开发减轻不少压力。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;新技术的学习&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;新技术的学习无疑是不被社会淘汰最有可能的途经。因为淘汰的常常是不肯学习的人，多学习多思考，跟上先进技术，才能有更好的为应用带来本质的改进。&lt;/p&gt;
+&lt;p&gt;比如 Node.js 与 PHP 的配合可以使得 API 设计变得更为合理，使用 MongoDB 作为日志分析收集器等等。这些技术的应用往往来自现实中的需求，而只要你的公司你的产品在成长，这些问题迟早会遇到。&lt;/p&gt;
+&lt;p&gt;涨薪是原动力，做更好的应用是实际需求，更好的服务用户是愿景。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;只有从初级工程师一级一级往上爬，当技术积累到一定程度，能带领一个团队做事时，这时候是技术人证明自己的时候，通过好的产品来诠释自己，让同行让团队尊重，也是对自身最好的嘉奖。&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;# 总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;&lt;strong&gt;总结 &lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; 一路走来，最大的感觉是成就感与辛苦是同在的。通过实习找到了互联网公司，敲开了互联网之路。而这一路上难免会有犹豫和徘徊，学校非主流语言，不太好的成绩，这些在后来并不被重视的东西当初却是让我对自己产生怀疑的源泉。但好在互联网这一行，不讲出身不相信命运，相信的是个人的努力，相信的是努力之后的结果。现在仍有太多的东西需要学习，仍有不少东西值得去尝试，好在，热血常在，心未凉，一切都值得去探索。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最初了解到 web 是从自己使用网站，又因为专业的缘故，所以对编程对 web 开发逐步有了概念。学校论坛算是启蒙，因为管理着后台，其实并不怎么需要编码，无非是挖掘 Discuz 的功能，整合现有资源，并应用到论坛，服务论坛上的用户，比如找朋友、签到打卡、搬运工（学校通知、考
+    
+    </summary>
+    
+      <category term="编程学习与开发" scheme="http://blog.jayxhj.com/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="markdown" scheme="http://blog.jayxhj.com/tags/markdown/"/>
+    
+      <category term="web" scheme="http://blog.jayxhj.com/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>找工作及基本技能储备</title>
+    <link href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/"/>
+    <id>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</id>
+    <published>2014-05-21T13:25:12.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;面试准备&quot;&gt;&lt;a href=&quot;# 面试准备&quot; class=&quot;headerlink&quot; title=&quot;面试准备&quot;&gt;&lt;/a&gt;面试准备&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;技能准备：数据库、数据结构、算法、HTTP、程序语言&lt;/li&gt;
+&lt;li&gt;目标公司寻找及相关技能准备&lt;/li&gt;
+&lt;li&gt;应聘方式：内推、校园招聘、社会招聘&lt;/li&gt;
+&lt;li&gt;自我项目展示：博客、论坛、开源项目参与等&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;网站搭建&quot;&gt;&lt;a href=&quot;# 网站搭建&quot; class=&quot;headerlink&quot; title=&quot;网站搭建&quot;&gt;&lt;/a&gt;网站搭建&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;域名购买、DNS 配置&lt;/li&gt;
+&lt;li&gt;开发环境 (IDE、编辑器 VIM emacs、调试环境 WAMP、设备)&lt;/li&gt;
+&lt;li&gt;需求分析及了解&lt;/li&gt;
+&lt;li&gt;原型设计&lt;/li&gt;
+&lt;li&gt;前端界面设计&lt;/li&gt;
+&lt;li&gt;后台程序开发&lt;/li&gt;
+&lt;li&gt;代码调试&lt;/li&gt;
+&lt;li&gt;网站上线&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;团队构成&quot;&gt;&lt;a href=&quot;# 团队构成&quot; class=&quot;headerlink&quot; title=&quot;团队构成&quot;&gt;&lt;/a&gt;团队构成&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;技术研发部：开发部、前端&lt;/li&gt;
+&lt;li&gt;无线部门&lt;/li&gt;
+&lt;li&gt;运行维护部门&lt;/li&gt;
+&lt;li&gt;测试部门&lt;/li&gt;
+&lt;li&gt;产品设计部：设计部、产品部&lt;/li&gt;
+&lt;li&gt;人力资源部&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;PHP 笔试题、知识结构、进阶书籍&quot;&gt;&lt;a href=&quot;#PHP 笔试题、知识结构、进阶书籍&quot; class=&quot;headerlink&quot; title=&quot;PHP 笔试题、知识结构、进阶书籍&quot;&gt;&lt;/a&gt;PHP 笔试题、知识结构、进阶书籍&lt;/h2&gt;&lt;h3 id=&quot;PHP 基础&quot;&gt;&lt;a href=&quot;#PHP 基础&quot; class=&quot;headerlink&quot; title=&quot;PHP 基础&quot;&gt;&lt;/a&gt;PHP 基础&lt;/h3&gt;&lt;p&gt;PHP 手册（时常翻阅）、《PHP 和 MySQL web 开发》、《PHP 经典实例》、《PHP 与 MYSQL 权威指南》、《PHP 必须知道的 300 个问题》、《PHP 实战 1200 例》、《PHP 模块开发大全》、《PHP MVC 开发实战》一般来说所有的 PHP 应用程序可以在 CMS/Shop/BBS 这三种网站的模块中找到逻辑。&lt;/p&gt;
+&lt;h3 id=&quot;PHP 提高&quot;&gt;&lt;a href=&quot;#PHP 提高&quot; class=&quot;headerlink&quot; title=&quot;PHP 提高&quot;&gt;&lt;/a&gt;PHP 提高&lt;/h3&gt;&lt;p&gt;《高性能 PHP》《PHP 应用程序安全编程》《PHP 开发与最佳实践》《PHP MVC 开发实战》 《精粹 PHP》。&lt;/p&gt;
+&lt;h3 id=&quot;软件架构&quot;&gt;&lt;a href=&quot;# 软件架构&quot; class=&quot;headerlink&quot; title=&quot;软件架构&quot;&gt;&lt;/a&gt;软件架构&lt;/h3&gt;&lt;p&gt;soap  mvc socket 了解就行了  框架了解就行了&lt;br&gt;MongoDB、Redis、memcache 知道基本的使用就行  分布式 主从和优化&lt;/p&gt;
+&lt;h3 id=&quot;数据库方面&quot;&gt;&lt;a href=&quot;# 数据库方面&quot; class=&quot;headerlink&quot; title=&quot;数据库方面&quot;&gt;&lt;/a&gt;数据库方面 &lt;/h3&gt;&lt;p&gt; 基础：MySQL 手册 、《MySQL 经典》、《SQL 基础教程》&lt;br&gt;提高：《高性能 MySQL》 、《高可用 MySQL》、《MySQL 的架构设计和性能调优》&lt;/p&gt;
+&lt;h3 id=&quot;中间件方面&quot;&gt;&lt;a href=&quot;# 中间件方面&quot; class=&quot;headerlink&quot; title=&quot;中间件方面&quot;&gt;&lt;/a&gt;中间件方面 &lt;/h3&gt;&lt;p&gt; 了解 CDN 、Vanish、 Squid 、 thrift 、PHPRPC&lt;/p&gt;
+&lt;h3 id=&quot;HTTP&quot;&gt;&lt;a href=&quot;#HTTP&quot; class=&quot;headerlink&quot; title=&quot;HTTP&quot;&gt;&lt;/a&gt;HTTP&lt;/h3&gt;&lt;p&gt;《图解 HTTP》、《HTTP 权威指南》&lt;/p&gt;
+&lt;h3 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h3&gt;&lt;p&gt;《鸟哥的 Linux 私房菜: 基础学习篇》、《Linux 系统命令及 Shell 脚本实践指南》&lt;/p&gt;
+&lt;h3 id=&quot;架构方面&quot;&gt;&lt;a href=&quot;# 架构方面&quot; class=&quot;headerlink&quot; title=&quot;架构方面&quot;&gt;&lt;/a&gt;架构方面&lt;/h3&gt;&lt;p&gt;《构建高性能 web 站点》 《负载均衡优化策略》&lt;/p&gt;
+&lt;h3 id=&quot;算法数据结构&quot;&gt;&lt;a href=&quot;# 算法数据结构&quot; class=&quot;headerlink&quot; title=&quot;算法数据结构&quot;&gt;&lt;/a&gt;算法数据结构 &lt;/h3&gt;&lt;p&gt; 严蔚敏的《数据结构》&lt;br&gt;链表、栈、二叉树、&lt;br&gt;排序的那些东西一般排序（快速  二分查找）&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;面试准备&quot;&gt;&lt;a href=&quot;# 面试准备&quot; class=&quot;headerlink&quot; title=&quot;面试准备&quot;&gt;&lt;/a&gt;面试准备&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;技能准备：数据库、数据结构、算法、HTTP、程序语言&lt;/li&gt;
+&lt;li&gt;目标公司寻找及相关技能准备&lt;/li&gt;
+
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="技能" scheme="http://blog.jayxhj.com/tags/%E6%8A%80%E8%83%BD/"/>
+    
+      <category term="求职" scheme="http://blog.jayxhj.com/tags/%E6%B1%82%E8%81%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>email 中 To、Cc、Bcc 字段的作用</title>
+    <link href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/"/>
+    <id>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</id>
+    <published>2014-03-30T05:01:43.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt; 你应该确保你的邮件正确地发给了你想要的人。To、Cc、Bcc 域允许你指定合适的策略让收件人接收信息。&lt;/p&gt;
+&lt;p&gt;To 字段是为那些与邮件信息极度相关且随时需要作出回应的人准备的。如果你认为谁与此极度相关，你应该把他们包含在 To 域中。&lt;/p&gt;
+&lt;p&gt; 在邮件的开头把所有你认为相关的人都写进来是个不错的方法，这样你可以让别人知道谁参与了此事。&lt;/p&gt;
+&lt;p&gt; 比如这样的开头：Hi Bill, Ted, Mary, Suzy,&lt;br&gt; 如果你的收件人超过了四个，那么你最好以 Hi all or Hello team  开头，而不是以上面的方式。&lt;/p&gt;
+&lt;p&gt; 只要你喜欢，你可以添加尽可能多的邮件地址到 To 字段中。有人错误地认为 Cc 域是用来解决收件人过多时的解决方法。&lt;/p&gt;
+&lt;p&gt;Cc 域（抄送）用来发送给那些你认为应该知道这件事情但又不是特别相关的人：他们仅仅需要知道事情的进展而不需要为此做出回应。&lt;/p&gt;
+&lt;p&gt; 对于那些在 80 年代之后出生的人来说，“抄送”来源于用打字机写信。你需要把两张纸同时放入打字机中，中间放一张复写纸。信的内容通过复写纸被复印到底下的那张纸中。这样在底下就留下了与第一个信件相同的副本。&lt;/p&gt;
+&lt;p&gt; 你有很多种使用 Cc 域的理由 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; 他保证被包含进来的人在这个环内（常被用来让经理们与及时跟进此议题）&lt;/li&gt;
+&lt;li&gt; 他让人们明白他们是应该对此作出回应还是仅仅只需知道就好了 &lt;/li&gt;
+&lt;li&gt; 他允许你让收件人知晓其他的人也知道正在发生什么（万一你想让别人重视这件事情，或者把他作为重要的事情对待）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bcc 域（密送）被用来当你希望其他人收到这个邮件，但是你不想除收件人以外的人知道他收到了这封邮件。&lt;/p&gt;
+&lt;p&gt; 当人们收到邮件，他们能看到 To，Cc 域但是看不到 Bcc 域的收件人。当你发送邮件给成千上万的人时，使用 Bcc 无疑是不错的选择。你不想让收件人知道其他收件人的邮件地址，所以你使用它，而不是 To，或 Cc。&lt;/p&gt;
+&lt;p&gt; 总结下来就是这样：&lt;br&gt;To  发送给那些需要响应的人 &lt;br&gt;Cc  发送给那些需要知晓事情进展但是不需要做出行动的人 &lt;br&gt;Bcc 发送给那些不需要知道其他收件人的人或者用于大量的邮件发送 &lt;/p&gt;
+&lt;p&gt; 原文地址:&lt;a href=&quot;http://www.writebetteremails.com/to-cc.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.writebetteremails.com/to-cc.htm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 看国内各大邮箱服务提供商，基本提供了以上三种发送方式，To 对应在收件人中填写多个邮箱地址，Cc 对应于添加抄送，Bcc 对应于添加密送，当然还有分别发送（QQ 邮箱）或群发单显（网易和新浪），这种服务将多个发送任务放入队列中分别发送，收件人会依次收到相同的邮件。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 你应该确保你的邮件正确地发给了你想要的人。To、Cc、Bcc 域允许你指定合适的策略让收件人接收信息。&lt;/p&gt;
+&lt;p&gt;To 字段是为那些与邮件信息极度相关且随时需要作出回应的人准备的。如果你认为谁与此极度相关，你应该把他们包含在 To 域中。&lt;/p&gt;
+&lt;p&gt; 在邮件的开头
+    
+    </summary>
+    
+      <category term="翻译文章" scheme="http://blog.jayxhj.com/categories/%E7%BF%BB%E8%AF%91%E6%96%87%E7%AB%A0/"/>
+    
+    
+      <category term="email" scheme="http://blog.jayxhj.com/tags/email/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>substr() 与 mb_substr() 的区别</title>
+    <link href="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/"/>
+    <id>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</id>
+    <published>2013-11-23T07:36:23.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt; 这两个函数都是获取子字符串，而 mb_substr() 一般在字符串中包含中文的情况下使用。其中有个很重要的区别是 mb_substr() 按字来切分字符串，不管中英文。&lt;br&gt; 例子如下 &lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;中文 test 英文 abc&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var_dump(strlen(&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$price&lt;/span&gt; = mb_substr (&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, strlen (&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt; ), &lt;span class=&quot;string&quot;&gt;&#39;utf-8&#39;&lt;/span&gt; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var_dump(&lt;span class=&quot;variable&quot;&gt;$price&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$price&lt;/span&gt; = mb_substr (&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, strlen (&lt;span class=&quot;variable&quot;&gt;$operation&lt;/span&gt; )-&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;utf-8&#39;&lt;/span&gt; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var_dump(&lt;span class=&quot;variable&quot;&gt;$price&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;// 输出为 &lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int &lt;span class=&quot;number&quot;&gt;19&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;string ‘中文 test 英文 abc’ (length=&lt;span class=&quot;number&quot;&gt;19&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;string ‘中文 test 英文 abc’ (length=&lt;span class=&quot;number&quot;&gt;19&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt; 大家有没有注意到，第二个函数我使用的是的 $length 参数长度为字符串长减 8 啊，为何结果却一样呢？&lt;/p&gt;
+&lt;p&gt; 这就是我今天要说的区别：mb_substr() 将字符按字符数读取，故读取字符串”中文 test 英文 abc”的长度为 11，而实际上中文字符串占三个字节，所以输出长度为 19。&lt;/p&gt;
+&lt;p&gt; 如果需要按字节来截取包含中文的字符串可以使用 mb_strcut() 函数。另外需要注意的是 mb 开头的函数都必须启用 PHP 的 php_mbstring.dll 扩展才可使用。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 这两个函数都是获取子字符串，而 mb_substr() 一般在字符串中包含中文的情况下使用。其中有个很重要的区别是 mb_substr() 按字来切分字符串，不管中英文。&lt;br&gt; 例子如下 &lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="mb_strcut()" scheme="http://blog.jayxhj.com/tags/mb-strcut/"/>
+    
+      <category term="mb_substr()" scheme="http://blog.jayxhj.com/tags/mb-substr/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分组求和，将一列的数据求和</title>
+    <link href="http://blog.jayxhj.com/2013/11/group-then-sum/"/>
+    <id>http://blog.jayxhj.com/2013/11/group-then-sum/</id>
+    <published>2013-11-05T02:04:02.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。&lt;br&gt;后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和 &lt;/strong&gt;。&lt;br&gt; 需求：将某列数据求和 &lt;br&gt; 例子：数据库内容为：&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05100823-8881d57158a1458aa88c20fbe0a02682.png&quot; alt=&quot;数据库内容&quot;&gt;&lt;/p&gt;
+&lt;p&gt;根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05101102-0e51609e1b494e0b91d0480c9b61bcc4.png&quot; alt=&quot;根据 record_type 分组&quot;&gt;&lt;/p&gt;
+&lt;p&gt;再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05101232-3342a407272040cbbd228885e608c4b4.png&quot; alt=&quot;根据 record_date 进行分组&quot;&gt;&lt;/p&gt;
+&lt;p&gt;总结：当需要进行对某一列的具有相似条件（对应于 where 中的条件）的数据进行合并时，使用 group by 将记录分组，再使用聚合函数对数据进行需要的操作。这样就可以使用一条语句将所有的数据进行分组求和。&lt;/p&gt;
+&lt;p&gt;创建例子中的数据的 SQL 语句为&lt;br&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!32312 IF NOT EXISTS*/&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!40100 DEFAULT CHARACTER SET utf8 */&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;comment&quot;&gt;/*Table structure for table `test` */&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;DROP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt; (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; AUTO_INCREMENT,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PRIMARY &lt;span class=&quot;keyword&quot;&gt;KEY&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;keyword&quot;&gt;ENGINE&lt;/span&gt;=&lt;span class=&quot;keyword&quot;&gt;InnoDB&lt;/span&gt; AUTO_INCREMENT=&lt;span class=&quot;number&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;CHARSET&lt;/span&gt;=utf8;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*Data for the table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;insert&lt;/span&gt;  &lt;span class=&quot;keyword&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;values&lt;/span&gt; (&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;10000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;20000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;4000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;40000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt;);&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;查询语句为&lt;br&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;c&lt;/span&gt;) &lt;span class=&quot;string&quot;&gt;&#39;c 列数据的和&#39;&lt;/span&gt;,&lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;d&lt;/span&gt;)&lt;span class=&quot;string&quot;&gt;&#39;d 列数据的和&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; record_date &lt;span class=&quot;keyword&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-13&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-16&#39;&lt;/span&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type &lt;span class=&quot;keyword&quot;&gt;ASC&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。&lt;br&gt;后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和 &lt;/strong&gt;。&lt;br&gt; 需求：将某列数据求和 &lt;br&gt; 例子：数据库内容为：&lt;br&gt;&lt;img 
+    
+    </summary>
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>32 位 Windows7 下 PHP5.5 与 Apache2.4 的集成</title>
+    <link href="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/"/>
+    <id>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</id>
+    <published>2013-09-18T02:20:58.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;PHP 官网提示：如果你的 Apache 是在 apache.org 上下载的，那么你必须使用旧的 VC6 编译版本的 PHP，不能使用 VC9 + apache.org 二进制版本的 PHP(意思就是如果想安装 PHP5.5 必须使用&lt;a href=&quot;http://www.apachelounge.com/download/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.apachelounge.com/download/&lt;/a&gt; 网站的 Apache 安装包)。&lt;/p&gt;
+&lt;p&gt;如果想安装更高版本的 PHP，那么需要下载 VC11 builds of Apache for x86 and x64。下载 5.5 版本的 PHP，最好下载线程安全的版本。下面介绍安装步骤。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;配置 Apache2.4：解压下载的 apache2.4，在附件中找到命令提示符，以管理员身份运行，切换到 apache 的 bin 目录，命令为 cd  c:/Apache24/bin ，安装 apache24 服务，命令为 httpd.exe -k install ，这样点击目录里的 ApacheMonitor.exe 就可以开启 apche 了，在浏览器输入 127.0.0.1 可测试，若出现 &lt;strong&gt;It Works！&lt;/strong&gt; 表示 apache 配置成功。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;配置 PHP5.5 : 将下载的 PHP5.5 的文件解压到某一目录，将目录里的 php.ini-production 文件另存为 php.ini，修改其中的 doc_dir, 如 doc_root =”C:/Apache24/htdocs”，extension_dir = “d:/php/ext”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改 Apache 的 httpd.conf 文件，添加如下语句&lt;/p&gt;
+&lt;figure class=&quot;highlight apacheconf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;&lt;span class=&quot;common&quot;&gt;LoadModule&lt;/span&gt;&lt;/span&gt; php5_module &lt;span class=&quot;string&quot;&gt;&quot;c:/php/php5apache2.dll&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;AddHandler&lt;/span&gt; application/x-httpd-php .php&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;configure the path to php.ini&lt;br&gt;&lt;code&gt;PHPIniDir &amp;quot;C:/php&amp;quot;&lt;/code&gt;&lt;br&gt;这样当处理的网页为.php 后缀时将交给 php 引擎进行处理。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;测试：在 htdocs 目录中添加 test 文件，文件内容为 &amp;lt; ?php phpinfo();?&amp;gt;, 若出现 php 的配置信息则代表 php 与 apache 配置成功。&lt;br&gt;注意：由于 php5.5 由 VC11 编译完成，需要 Visual C++ 运行库的支持，下载地址为 x86 or x64。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;链接汇总：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apache2.4：[&lt;a href=&quot;http://www.apachelounge.com/download/](http://www.apachelounge.com/download/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.apachelounge.com/download/](http://www.apachelounge.com/download/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PHP5.5：&lt;a href=&quot;http://windows.php.net/download/#php-5.5&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://windows.php.net/download/#php-5.5&lt;/a&gt;  建议下载 Thread-safe 版本&lt;/li&gt;
+&lt;li&gt;Visual C++ 运行库&lt;a href=&quot;hthttp://www.microsoft.com/en-us/download/details.aspx?id=30679&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.microsoft.com/en-us/download/details.aspx?id=30679&lt;/a&gt; 如果网站加载缓慢，建议直接百度 Visual C++ 2012 运行库下载即可。&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PHP 官网提示：如果你的 Apache 是在 apache.org 上下载的，那么你必须使用旧的 VC6 编译版本的 PHP，不能使用 VC9 + apache.org 二进制版本的 PHP(意思就是如果想安装 PHP5.5 必须使用&lt;a href=&quot;http://www
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="Apache" scheme="http://blog.jayxhj.com/tags/apache/"/>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="PHP5.5" scheme="http://blog.jayxhj.com/tags/php5-5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一次电话面试</title>
+    <link href="http://blog.jayxhj.com/2013/09/telephone-interview/"/>
+    <id>http://blog.jayxhj.com/2013/09/telephone-interview/</id>
+    <published>2013-09-16T14:31:08.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;这是第一次在网上投简历有结果，上午十一点对方公司打电话过来说下午两点安排技术人员和我电话面试，下午两点一到对方电话就打过来了，效率很高很守时，我非常喜欢。&lt;br&gt;下面的是面试的内容，最大的感触就是基础得练扎实，得多实践。&lt;/p&gt;
+&lt;p&gt;自我介绍&lt;/p&gt;
+&lt;h3 id=&quot;PHP&quot;&gt;&lt;a href=&quot;#PHP&quot; class=&quot;headerlink&quot; title=&quot;PHP&quot;&gt;&lt;/a&gt;PHP&lt;/h3&gt;&lt;p&gt;常见的 PHP 字符串处理函数？&lt;br&gt;Session 和 cookie 的区别？&lt;br&gt;Session 储存于服务器端， cookie 储存于客户端。分别使用超全局变量 $_SESSION 和 $_COOKIE 数组访问。&lt;br&gt;Require()和 include()的区别？&lt;br&gt;require() 意为”必须”，include() 意为”包含”。它们都能实现包含一个文件的功能，但&lt;br&gt;include() 语句如果指定的文件无法定位，代码继续运行，而 require() 语句会导致代码停止运行并抛出错误。若文件找不到，两者都会报错但是只有 require() 语句会完全终止代码得运行。require_once() 语句与 include_once() 语句保证被包含的文件只被引入一次，防止重复定义和执行的问题。&lt;/p&gt;
+&lt;h2 id=&quot;HTTP&quot;&gt;&lt;a href=&quot;#HTTP&quot; class=&quot;headerlink&quot; title=&quot;HTTP&quot;&gt;&lt;/a&gt;HTTP&lt;/h2&gt;&lt;p&gt;常见的 HTTP 状态码及表示的意思？&lt;/p&gt;
+&lt;h2 id=&quot;数据库&quot;&gt;&lt;a href=&quot;# 数据库&quot; class=&quot;headerlink&quot; title=&quot;数据库&quot;&gt;&lt;/a&gt;数据库 &lt;/h2&gt;&lt;p&gt; 联结语句有哪些有什么区别？&lt;br&gt;内联结和外联结与交叉联结，外联结分为左外联结和右外联结。左外联结以左表为主表，右外联结以右表为主表。&lt;br&gt;性能优化，举例?&lt;br&gt;一张表有 100 条记录（表 a），另一张有 60 条记录（表 b），左联结后记录为多少，右联结后记录数为多少？&lt;br&gt;左联结时语句为&lt;br&gt;&lt;code&gt;SELECT *
+FROM a LEFT OUTER JOIN b
+ON a.col1=b.col1&lt;/code&gt;&lt;br&gt;返回结果有 100 条，其中记录行中所有不满足条件的记录，表 b 的那几列均为 NULL&lt;br&gt;右联结语句&lt;br&gt;&lt;code&gt;SELECT *
+FROM a RIGHT OUTER JOIN b
+ON a.col1=b.col1&lt;/code&gt;&lt;br&gt;返回结果有 60 条，其中记录行中所有不满足条件的记录，表 a 的那几列均为 NULL&lt;/p&gt;
+&lt;h2 id=&quot;算法&quot;&gt;&lt;a href=&quot;# 算法&quot; class=&quot;headerlink&quot; title=&quot;算法&quot;&gt;&lt;/a&gt;算法 &lt;/h2&gt;&lt;p&gt; 常见的排序算法，时间复杂度为多少，空间复杂度为多少？&lt;br&gt;世界上最快的排序算法是什么？&lt;/p&gt;
+&lt;p&gt;上面我能回答的都在这里，待我能回答了再到评论里进行更新。&lt;br&gt;最大的感触就是学的确实不够扎实，面试官建议好好练基础，然后找项目时间。在压力下你会逼着自己把事情做出来。&lt;br&gt;很高兴，虽然今天感觉被打击了，但也在意料之中也在情理之中。&lt;br&gt;好好学习吧，努力会有收获的。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是第一次在网上投简历有结果，上午十一点对方公司打电话过来说下午两点安排技术人员和我电话面试，下午两点一到对方电话就打过来了，效率很高很守时，我非常喜欢。&lt;br&gt;下面的是面试的内容，最大的感触就是基础得练扎实，得多实践。&lt;/p&gt;
+&lt;p&gt;自我介绍&lt;/p&gt;
+&lt;h3 id=&quot;PH
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="求职" scheme="http://blog.jayxhj.com/tags/%E6%B1%82%E8%81%8C/"/>
+    
+      <category term="面试" scheme="http://blog.jayxhj.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP5.2+Apache2.2 的配置</title>
+    <link href="http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/"/>
+    <id>http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/</id>
+    <published>2013-08-15T17:33:48.000Z</published>
+    <updated>2016-03-21T03:17:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt; 由于安装 PHP5.5 的版本后在 Apache 的 http.conf 文件中配置 php 后导致 Apache 启动失败，错误提示为 &lt;br&gt;&lt;code&gt;the requested operation has failed&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; 找官方文档发现配置 php5 模块的语句为 &lt;code&gt;LoadModule php5_module &amp;amp;quot;c:/php/php5apache2_2.dll;&lt;/code&gt;，可是 5.5 的版本这个 DLL 文件后缀为 2_4, 修改后并没有成功，网上找大多建议安装 VC 运行库（&lt;a href=&quot;http://blog.csdn.net/vancekq/article/details/7716555&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 文章 &lt;/a&gt;）&lt;/p&gt;
+&lt;p&gt; 其实问题归根结底是因为 PHP 版本与 Apache 版本不匹配，所以总结了下面的方法，很简单，结合了书上和官方文档的方法。&lt;/p&gt;
+&lt;p&gt; 软件：PHP:php-5.2.17-Win32-VC6-x86.zip&lt;br&gt;Apache:httpd-2.2.25-win32-x86-openssl-0.9.8y.msi&lt;/p&gt;
+&lt;p&gt; 步骤：安装 Apache，按说明依次操作即可。解压 PHP 到某一目录。&lt;/p&gt;
+&lt;p&gt; 在 apache 的 http.conf 文件中加入以下代码：&lt;br&gt;&lt;figure class=&quot;highlight apacheconf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;&lt;span class=&quot;common&quot;&gt;LoadModule&lt;/span&gt;&lt;/span&gt; php5_module &amp;amp;quot;c:/php/php5apache2_2.dll;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;AddHandler&lt;/span&gt; application/x-httpd-php .php&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt; 配置 php.ini 的路径 &lt;br&gt;&lt;code&gt;PHPIniDir &amp;quot;C:/php;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; 在 php.ini 中设置 &lt;/p&gt;
+&lt;p&gt;1、扩展 dll 目录 &lt;br&gt;&lt;code&gt;extension_dir=&amp;quot;c:/php/ext;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2、Web 服务器根目录（Apache2.2）&lt;br&gt;&lt;code&gt;doc_root =&amp;quot;C:/Program Files/Apache Software Foundation/Apache2.2/htdocs;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3、打开运行的扩展 &lt;br&gt;extension=php_mysqli.dll&lt;/p&gt;
+&lt;p&gt; 以上配置中 &lt;strong&gt;php&lt;/strong&gt; 解压到 &lt;code&gt;c:\php&lt;/code&gt; &lt;strong&gt;Apache&lt;/strong&gt; 安装在 &lt;code&gt;C:/Program Files/Apache Software Foundation/Apache2.2&lt;/code&gt;&lt;br&gt; 安装完成后重启 Apache，然后在 htdocs 放入 test.php 文件，内容为 &lt;code&gt;&amp;lt;? phpinfo();?&amp;gt;&lt;/code&gt; 如若显示 PHP 的配置信息则安装成功。&lt;/p&gt;
+&lt;p&gt; 有时间我在配置一下 5.5 版本的 PHP 再把安装过程贴出来。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 由于安装 PHP5.5 的版本后在 Apache 的 http.conf 文件中配置 php 后导致 Apache 启动失败，错误提示为 &lt;br&gt;&lt;code&gt;the requested operation has failed&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; 找官方文档发现
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+      <category term="编程学习与开发" scheme="http://blog.jayxhj.com/categories/php/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+  </entry>
+  
+</feed>

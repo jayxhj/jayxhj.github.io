@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>徐豪杰写字的地方</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="徐豪杰写字的地方">
+<meta property="og:url" content="http://blog.jayxhj.com/page/4/index.html">
+<meta property="og:site_name" content="徐豪杰写字的地方">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="徐豪杰写字的地方">
+<meta name="twitter:description">
+<meta name="twitter:creator" content="@jayxhj">
+  
+    <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="author" href="/humans.txt" />
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-27843739-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?762045bf95459c1fd6be1a6889224746";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">徐豪杰写字的地方</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">历史文章</a>
+        
+          <a class="main-nav-link" href="https://github.com/jayxhj">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jayxhj.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-modify-password" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/modify-password/" class="article-date">
+  <time datetime="2012-12-29T03:34:39.000Z" itemprop="datePublished">2012-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/校园论坛/">校园论坛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/modify-password/">杏林地儿在修改数据库密码后无法访问解决办法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li> 论坛数据库密码是同步系统的数据库密码，当系统数据库密码发生改变时，论坛数据库在登录系统的时候无法通过系统的验证，导致论坛无法读取后台的数据，使得论坛无法访问。</li>
+<li> 当修改了系统数据库的密码的时候，同时也要对 Discuz! X2 更改数据库密码。要保证论坛的后台数据库密码和系统的数据库密码相一致才能使得论坛在访问后台数据库的时候通过验证。</li>
+<li> 首先修改 MySQL 数据库密码，有多种方法，在这里介绍一种：直接在 phpnow 的控制面板里面进行修改或者在 phpmyadmin 里面按照提示进行修改。</li>
+<li> 网站系统需要修改的位置有两处 Discuz 和 UCenter。</li>
+<li>/config/config_global.php   这个根据你网站安装的路径而定。<br> 打开 config_global.php 文件修改：$_config[‘db’][‘1’][‘dbpw’] = ‘123456’;<br>123456 修改为新的数据库密码。</li>
+<li>/uc_server/data/config.inc.php<br> 打开 config.inc.php 文件修改：define(‘UC_DBPW’, ‘123456’);123456 修改为新的数据库密码。**</li>
+<li>/config/config_ucenter.php<br> 打开 config_ucenter.php  文件同样要修改：define(‘UC_DBPW’, ‘123456’);<br>123456 修改为新的数据库密码。这个不修改的情况下否则用户包括管理员都无法登录的，这个用户登录管理密码。</li>
+</ol>
+<p> 到这里整个论坛都恢复正常访问了。</p>
+<p> 由于论坛中 /plus 和 /sky 中的数据也涉及到数据库，所以修改的方法是一样的！主要是对 config_global.php 的修改，方法和上面是一样的！接下来寒假期间的工作就是把论坛的 FTP 打开！fighting！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2012/12/modify-password/" data-id="cinhdqu9n002hji6vrz2sbor8" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2012/12/modify-password/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-jspproject" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/jspproject/" class="article-date">
+  <time datetime="2012-12-19T12:12:22.000Z" itemprop="datePublished">2012-12-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/jspproject/">jsp 工程访问路径</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JSP 工程在第一次创建时要求输入工程名，默认的访问路径为 /project_name，比如工程名为 test，则默认的访问路径为<a href="http://localhost:8080/test" target="_blank" rel="external">http://localhost:8080/test</a> 当然也可以修改路径，需在图中的 Contest root URL 内修改:</p>
+<p>假如后来无意中修改了工程名，又不记得当初设置的访问路径，那么只需用记事本打开工程的配置文件 <span style="color:#ff0000;">.mymetadata</span> 就好，里面记载有工程的配置信息。如果需要修改路径，需在文件中修改 <span style="color:#ff0000;">context-root</span> 项，修改之后重新加载工程才可访问，否则修改不起作用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2012/12/jspproject/" data-id="cinhdqu9x002qji6vq7yqfzep" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2012/12/jspproject/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jsp路径/">jsp路径</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-kernelvalues" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/kernelvalues/" class="article-date">
+  <time datetime="2012-12-05T08:20:00.000Z" itemprop="datePublished">2012-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/校园论坛/">校园论坛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/kernelvalues/">长久的核心价值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个网站可以生存下来，是因为他有自己的核心价值。你上微博上人人玩 QQ 是因为很多人在上面，你可以获得存在感。假如哪天我们不用了，不是因为他不好，而是我们不需要了。多么像爱情。</p>
+<p>观察我们的团队，人员更多了，必然会带来组织病，但是这是任何一个团队或是集体变大变强所必须经历的，经受不了这些洗礼，管理方无法成长，团队就会失去方向，最严重的是组织从大再回到小的过程却是相当困难的，很容易导致不欢而散。要引起足够重视！ 再谈核心价值：</p>
+<ul>
+<li><p>从组成上看，我们现在还不够。但是成长空间很多。<br><strong>编辑团队 </strong>：负责核心内容的收集与发布，大众需求的常用信息（等考，放假，考试，补考等），力争成为沟通南北区的桥梁。注重内容的编辑整理，对内容进行整理与规范，以求内容的美观规范实用性。<br><strong> 运营团队 </strong>：负责与用户进行沟通与协作，及时收集用户意见与建议，引导论坛核心价值走向正轨，从用户角度思考如何优化使用，分析用户行为，反馈优化方案给网站技术人员。<br><strong> 美工团队 </strong>：负责用户体验的优化，活动海报的设计，版块图标的制作等，多角度地为用户及团队提供更好的体验。<br><strong> 网站技术团队 </strong>：负责网站的技术方面，及时解决问题，从多方面优化网站（SEO、服务器、功能），保证网站的持续长久安全地运行。<br><strong> 管理团 </strong> 队：管理工作室多个团队，合理分配任务，建立良好的制度，协调团队的分工与合作，保证团队的和谐友好，制定工作目标并保证目标的有效执行。</p>
+</li>
+<li><p>从形式上看，有微信、微博、人人等新式媒体的出现。<br>表面上他们只是一堆工具，但大家要看到社会化媒体的影响。没有影响就无所谓的竞争力，多个媒体的博弈不是为了了解谁好谁坏，而是从多角度积攒人气，从多方面施加影响力。专注是一件好事情，但不能固步自封，否则用户还是会抛弃你。新兴媒体的趋势不容阻挡，但是我们得抓住根基才能茁壮成长。</p>
+</li>
+<li>从功能上划分：失物招领，物品置换，电脑维修，网站 <br> 这么长时间来，我们做的比较好的就是这些具体可感的事情。其实这是最本真的需求，抛开这些，用户黏性很难保证。真正的需求都是从生活中来，到生活中去，失去了他存在的土壤，他会死去，那片土壤就是日常生活。施加影响并获得影响力是长久的不是一朝一夕的事情，妄想通过一两次活动来获得认可，看看周围就能猜到结局。深耕细作，在自己所在的地方不断改良，让他变得更好，这是大家都能做的事情。</li>
+</ul>
+<p><strong>在真正的竞争下才会有持续长久的发展，一家独大，小心老化。记得警钟时刻长鸣。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2012/12/kernelvalues/" data-id="cinhdqu9u002mji6v7rswvqa7" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2012/12/kernelvalues/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/核心价值/">核心价值</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-xinglindier" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/11/xinglindier/" class="article-date">
+  <time datetime="2012-11-29T11:35:28.000Z" itemprop="datePublished">2012-11-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/校园论坛/">校园论坛</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/xinglindier/">杏林地儿</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 一直想写，一直没写，算是个开头吧。凡事只要坚持，再不济也会有效果。<br> 下面就分几点谈一下我的思考：</p>
+<ol>
+<li><p><strong> 版块设置：版块实在是太多太杂。</strong><br> 其实版块应该是一个慢慢积累的过程，但是我没看到一点一点的积累，像是在完成任务，大而全带来的另一个极端是失去了选择性，让人眼花缭乱。版块其实应该是有所侧重，让用户一眼能知道自己能看到什么，所以突出重点很重要。每一个版块可以相当于是一个应用，只需解决特定的问题就好。</p>
+</li>
+<li><p><strong> 版主：看不到多少认真耕耘的。</strong><br> 版主的筛选我们做的不好，没有激励措施，没有核心价值，导致版块荒芜和人气不足。版主更多的是为自己的主题和帖子加精，缺乏深耕。这是制度的问题，大家心中都没有很强的制度执行力，做起内容来容易随意而为。这个问题，无论是站长还是技术人员设置是任何一个参与者都应该引起足够重视。需要有一个好的制度指导大家做事，需要好的福利制度让大家有激情做，需要一种精神力量让事情能持久地做。总之一句话：制度鞭策到内心的自我积极努力，多反思多总结。</p>
+</li>
+<li><p><strong> 技术：技术不成熟，跟不上节奏，缺乏互联网思维。</strong><br> 对于技术方面：这是一直都存在但不好解决的问题，我们一方面需要提高自己的能力，另一方面得跟上节奏。技术人员在现阶段其实要做的是能解决基本的需求，能解决一般的问题就好，所以不要妄自菲薄。但是必须看到不足，如果只是拿别人的东西来为己所用，很难在本质上有所突破。应该多关注业界消息，并学会快速学习，快速响应。多动手其实是最重要的。做与不做其实就是望月与登月的区别！！！</p>
+</li>
+<li><p><strong> 核心内容：内容无人值守，缺乏专业的编辑进行加工与整理。</strong><br> 整理内容偏向于娱乐性，缺乏核心，导致用户无心参与，只看“ 不说法”，但是我们不仅仅是用户，我们要有自己的核心价值。好的氛围需要好的内容去营造，如果没有内容，就失去了一个校园媒体的作用。我们应该保持对校园热点保持足够的敏感性，让更多的消息成为一手资料，并为用户们产生价值。我们应该确立几个点：比如医学，互联网，招聘求职，校园热点等等，麻雀小所以必须五脏俱全。总之：确立核心价值，营造核心内容。</p>
+</li>
+<li><p><strong> 用户积极性：会员激励不够，缺乏热情。</strong><br> 活动太少，给人的感觉就会很冷清，无论线上还是线下。论坛本身的用户升级制度也缺乏合理的设置，看不到升级的欲望。作为运营者和管理者，我们应该从用户需求出发，并能合理创造需求，而不是等着用户去督促，否则用户已经抛弃你了。应该促成一种平等的交流，让用户能参与建设，UGC，这是我们努力的目标。</p>
+</li>
+<li><p><strong> 用户意见建议收集与整理，用户反馈机制。</strong><br> 每一次的改动，缺乏足够的调研，用户意见收集缺乏，这样做容易导致随意性，从用户角度来感知，就是摸不着到头脑，不知道自己处在一个什么地位。应该建立用户反馈机制，让用户参与到建设中，而不是被动的接受管理与内容。</p>
+</li>
+</ol>
+<p> 说到底，我们应该有自己的核心价值：作为一个校园媒体，我们应该快速响应，突出权威、迅速、真实与价值。保持对新闻的敏感性，对信息的敏感性，传播有思想有价值的内容，让受众能有所思考与改变。做一个有思想有态度的媒体。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2012/11/xinglindier/" data-id="cinhdqu860002ji6vvpbe0bzi" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2012/11/xinglindier/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杏林地儿/">杏林地儿</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/get-week-number-in-month-from-date-in-php/">获取当前日期在本月的第几周</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/lumen-tricks/">Lumen 常用开发技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">朋友们</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://ceix.me/" target="_blank">顺流而下，把梦做完。</a>
+          </li>
+        
+          <li>
+            <a href="http://likangjun.com/" target="_blank">嗨军</a>
+          </li>
+        
+          <li>
+            <a href="http://www.ecli2h.net/" target="_blank">张辉|Ecli2h</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 jayxhj<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">历史文章</a>
+  
+    <a href="https://github.com/jayxhj" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'githubiojayxhj';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

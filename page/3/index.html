@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>徐豪杰写字的地方</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="徐豪杰写字的地方">
+<meta property="og:url" content="http://blog.jayxhj.com/page/3/index.html">
+<meta property="og:site_name" content="徐豪杰写字的地方">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="徐豪杰写字的地方">
+<meta name="twitter:description">
+<meta name="twitter:creator" content="@jayxhj">
+  
+    <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="author" href="/humans.txt" />
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-27843739-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?762045bf95459c1fd6be1a6889224746";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">徐豪杰写字的地方</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">历史文章</a>
+        
+          <a class="main-nav-link" href="https://github.com/jayxhj">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jayxhj.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-caused-by-java-sql-sqlexception" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/caused-by-java-sql-sqlexception/" class="article-date">
+  <time datetime="2013-05-29T12:05:47.000Z" itemprop="datePublished">2013-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/oracle/">Oracle</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/caused-by-java-sql-sqlexception/">Caused by: java.sql.SQLException: 无法转换为内部表示解决方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hibernate 应用有三种开发方式：</p>
+<ol>
+<li>自底向上从数据库到持久化类；</li>
+<li>自顶向下从持久化类到数据库表；</li>
+<li>从中间出发向上和向下同时发展。<br>如果从下往上开发，使用 Database Explorer 反向生成 PO，其中的配置文件并不那么智能，比如如下规则</li>
+</ol>
+<p>NUMBER(1)～NUMBER(18) 都可以使用 Long 来映射 <br> 一般 NUMBER(1)～NUMBER(9) 使用 Integer 映射 <br>NUMBER(10)～NUMBER(18) 使用 Long 来映射<br> 大于 NUMBER(18) 的只能用 BigInteger（出自 <a href="http://bbs.csdn.net/topics/310225381）" target="_blank" rel="external">http://bbs.csdn.net/topics/310225381）</a></p>
+<p>这些规则实际上是不会反映到配置文件中去的 <br> 所以会导致数据库里的字段类型与 Java 里映射该字段属性的类型不能对应转换，出现 java.sql.SQLException</p>
+<p>一般这种情况下你得检查你的配置文件</p>
+<ul>
+<li><p>java 类型与数据库类型是否匹配？（参看 <a href="http://blog.csdn.net/perny/article/details/7971003" target="_blank" rel="external">oracle 数据类型和对应的 java 类型</a>）</p>
+</li>
+<li><p>其他 POJO 是否与当前所查找的属性有关联，有那么在配置文件中会有一对多或多对一的关系，修改为对应的 java 类型即可</p>
+</li>
+<li><p>在 POJO 中属性的数据类型为 Long，但是这个属性的 getxxx()方法返回的类型却为 long，而非 Long，程序不会报错，但运行时会出错。（如果对数据库进行操作时，没有涉及到的属性，即使配置文件或者 POJO 数据类型出错也不会有问题，但一旦涉及，若类型不匹配，则会出现错误）</p>
+</li>
+</ul>
+<p>建议反向工程生成 PO 时检查数据类型，设置对应格式。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/05/caused-by-java-sql-sqlexception/" data-id="cinhdqubd004cji6vvrydo5e9" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/05/caused-by-java-sql-sqlexception/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">Hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlexception/">SQLException</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无法转化为内部格式/">无法转化为内部格式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-instantclient-plsql-oracle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/instantclient-plsql-oracle/" class="article-date">
+  <time datetime="2013-05-13T11:22:50.000Z" itemprop="datePublished">2013-05-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/oracle/">Oracle</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/instantclient-plsql-oracle/">使用 instantclient 和 PL/SQL 连接 oracle 远程数据库</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>PLSQL 连接 Oracle</strong></p>
+<p>Windows 装 Oracle 11g ，PLSQL Developer 使用出现以下问题：</p>
+<p>1、Database 下拉框为空：</p>
+<p>2、强制输入用户名、密码及 Database，登录弹出：</p>
+<p> 错误内容引用 <br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initialzation error&#10;Could not initialize&#10;&#34;....&#34;&#10;Make sure you have the 32 bits Oracle Client installed.&#10;&#10;OracleHomeKey:&#10;OracleHomeDir:...&#10;Found:oci.dll&#10;Using:&#10;...&#10;Loadlibrary(...)&#10;returned 0</span><br></pre></td></tr></table></figure></p>
+<p><strong> 解决办法 </strong>：</p>
+<p>1、 <strong> 下载 32 位 Oracle 客户端 </strong></p>
+<p> 下载链接：<u><a href="http://www.oracle.com/technetwork/cn/topics/winsoft-095945-zhs.html" target="_blank" rel="external">http://www.oracle.com/technetwork/cn/topics/winsoft-095945-zhs.html</a></u></p>
+<p> 下载 <span>Instant Client 程序包就可以了。</span></p>
+<p> 下载需要登录，得先在 Oracle 注册账号才能下载！</p>
+<p>2、 <strong> 解压软件 </strong></p>
+<p> 将下载到的 instant client 解压，比如解压到到 D:\instantclient_11_2</p>
+<p>3、 <strong> 设置 PLSQL Developer</strong></p>
+<p> 在工具 - 首选项，连接，OCI 库输入 </p>
+<p>D:\instantclient_11_2\oci.dll</p>
+<p>4、 <strong> 建立连接信息 </strong></p>
+<p>tnsnames.ora，并保存到安装目录：D:\instantclient_11_2</p>
+<p>tnsnames.ora 内容如下 <br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SERVICE_NAME=</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS_LIST =</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = host_ip)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVICE_NAME = SERVICE_NAME)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure></p>
+<p> 需要修改的内容：SERVICE_NAME 为服务名，host_ip 为远程服务器的 ip，若为本地服务器在本地则为 127.0.0.1 或者 localhost；</p>
+<p>5、 <strong> 添加环境变量 </strong></p>
+<p> 添加环境变量系统变量中添加 2 个：第一个是指向 TNS 文件所在目录的，这个目录是你安装的 Oracle 的 TNS 文件所在目录。TNS 文件就是保存了连接信息的文件。</p>
+<p><strong>TNS_ADMIN</strong> 值： D:\instantclient_11_2\</p>
+<p> 第二个是指定数据库使用的编码。如果不设置成以下值，那么连接上数据库后，你看到的所有中文的内容将会是乱码，都是一堆问号。</p>
+<p><strong>NLS_LANG</strong> 值：SIMPLIFIED CHINESE_CHINA.ZHS16GBK</p>
+<p> 这样就可以远程连接 Oracle 服务器了，也可以解决使用 PL/SQL 远程登陆时下拉列表里没有数据库的问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/05/instantclient-plsql-oracle/" data-id="cinhdqua50034ji6vic7yrzo9" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/05/instantclient-plsql-oracle/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">Oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/instantclient/">instantclient</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-dao-service-action" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/dao-service-action/" class="article-date">
+  <time datetime="2013-04-21T15:01:11.000Z" itemprop="datePublished">2013-04-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/dao-service-action/">DAO，Service，Action 三者的含义</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Action 主要的功能就是组织 service 的，比如你要做权限验证，那么请求会被 Action 获取，那么如何验证呢？Action 可不管他要问 service 该怎么办。当得到 service 返回的结果后根据结果判断下一跳是哪里（如果验证用户存在且密码正确则跳转到登录成功的页面，反之则回跳到登录页面）</p>
+<p> 现在轮到 service 了，ta 是管理业务的，延续上面的例子的话，action 问这个用户是否合法有效的时候 sevice 就去调用 dao 看看 dao 能不能找到相应的记录，当业务受到 dao 的结果后就根据得到的记录回答 action 的问题“ 用户是否合法有效”</p>
+<p> 最后就是 dao 喽，作为工作于最“ 基层” 的部分，ta 倔强的只去实现增删查改，甚至这些增删查改之间有什么关系？dao 一概不问，爱谁是谁。dao 很倔强，ta 只保证和数据库的关系良好，</p>
+<p> 归纳一下，Action 就是管理业务（servcie）调度和管理跳转的。service，ta 是管理具体的功能的，这个很容易和 Action 混淆，你可以这样理解，Action 只负责管理，而 service 负责实施，dao 只完成增删查改，当然你可以 1-n，n-n，1-1 关联，模糊 、动态 、子查询都可以。但是无论多么复杂的 dao，ta 只是封装增删查改。至于增删查改如何实现一个功能，ta 是不管的。</p>
+<p> 总结这三者，可以举个例子，action 像是服务员，顾客点什么菜，菜上给几号桌，都是 ta 的职责；sevice 是厨师，action 送来的菜单上的菜全是 ta 做的；dao 是厨房的小工，和原材料打交道的事情全是 ta 管。所以小工（dao）的工作是要满足厨师（service）的要求，厨师要满足服务员（action）转达的客户（页面用户）的要求，服务员自然就是为客户服务喽。</p>
+<p> 本文是张老师给我解释的，张老师博客链接 <a href="http://user.qzone.qq.com/953133372" target="_blank" rel="external">http://user.qzone.qq.com/953133372</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/04/dao-service-action/" data-id="cinhdqub20048ji6vd8h4v5g4" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/04/dao-service-action/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dao，action，service/">DAO，ACTION，SERVICE</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-aspectj-annotation-aop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/aspectj-annotation-aop/" class="article-date">
+  <time datetime="2013-03-29T02:34:31.000Z" itemprop="datePublished">2013-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/aspectj-annotation-aop/">Aspectj 框架使用 Annotation 配置 AOP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、导入 AOP 库，里面包含 aspectj 的库。</p>
+<p>2、配置文件中需要配置 aspectj 的支持（红色标注处）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">beans</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">    <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attribute">xmlns:aop</span>=<span class="value">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">    <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://www.springframework.org/schema/beans </span><br><span class="line">    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd </span><br><span class="line">      http://www.springframework.org/schema/aop </span><br><span class="line">      http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:#ff0000;"</span>&gt;</span>&amp;lt;aop:aspectj-autoproxy /&gt;;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"aspectBean"</span> <span class="attribute">class</span>=<span class="value">"com.jayxhj.ch08.pojos.AspectBean"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"userService"</span> <span class="attribute">class</span>=<span class="value">"com.jayxhj.ch08.bean.UserServicesImpl"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>3、在 AspectBean 中配置切入点<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">packagecom.jayxhj.ch08.pojos;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.After;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Around;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.AfterThrowing;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.AfterReturning;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Pointcut;</span><br></pre></td></tr></table></figure></p>
+<p><span style="color:#ff0000;">@Aspect // 必须放在类的前面</span></p>
+<p><strong>public</strong> <strong>class</strong> AspectBean {</p>
+<p></p><p>1、导入 AOP 库，里面包含 aspectj 的库。<br><br>2、配置文件中需要配置 aspectj 的支持（红色标注处）<br><br>&lt;?xml version=<em>“1.0”</em> encoding=<em>“UTF-8”</em>?&gt;<br><br>&lt;beans xmlns=<em>“<a href="http://www.springframework.org/schema/beans" target="_blank" rel="external">http://www.springframework.org/schema/beans</a>“</em><br><br>    xmlns:xsi=<em>“<a href="http://www.w3.org/2001/XMLSchema-instance" target="_blank" rel="external">http://www.w3.org/2001/XMLSchema-instance</a>“</em> xmlns:aop=<em>“<a href="http://www.springframework.org/schema/aop" target="_blank" rel="external">http://www.springframework.org/schema/aop</a>“</em><br><br>    xsi:schemaLocation=<em>“<a href="http://www.springframework.org/schema/beans" target="_blank" rel="external">http://www.springframework.org/schema/beans</a> </em><br><br><em>    <a href="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" target="_blank" rel="external">http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</a> </em><br><br><em>      <a href="http://www.springframework.org/schema/aop" target="_blank" rel="external">http://www.springframework.org/schema/aop</a> </em><br><br><em>      <a href="http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" target="_blank" rel="external">http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</a> “</em>&gt;<br><br>    <span style="color:#ff0000;">&lt;aop:aspectj-autoproxy /&gt;</span><br><br>    &lt;bean id=<em>“aspectBean”</em> class=<em>“com.jayxhj.ch08.pojos.AspectBean”</em> /&gt;<br><br>    &lt;bean id=<em>“userService”</em> class=<em>“com.jayxhj.ch08.bean.UserServicesImpl”</em> /&gt;<br><br>&lt;/beans&gt;<br><br> <br><br>3、在 AspectBean 中配置切入点 <br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">packagecom.jayxhj.ch08.pojos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.After;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Around;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.AfterThrowing;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.AfterReturning;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Pointcut;</span><br></pre></td></tr></table></figure></p>
+<p> <br><br><span style="color:#ff0000;">@Aspect // 必须放在类的前面 </span> <br><br><strong>public</strong><strong>class</strong> AspectBean {<br><br>       <span style="color:#ff0000;">@Pointcut(“execution(<em> com..<em>.</em>Service.<em>(..))”)</em></em></span><em>        // 切入点表达式 <br><br>     <span style="color:#ff0000;">  <strong>private</strong> <strong>void</strong> <u>all()</u> {<br><br>       };</span>           // 签名 <br><br>              // 声明签名和切入点表达式 <br><br>       <span style="color:#ff0000;">@Before(“all()”)</span><br><br>       <strong>public</strong> <strong>void</strong> checkAuth() {<br><br>       }<br><br>     <span style="color:#ff0000;">  @After(“all()”)</span><br><br>       <strong>public</strong> <strong>void</strong> release() {<br><br>       }<br><br>       <span style="color:#ff0000;">@AfterReturning(returning=”result”,pointcut=”execution(</span></em> com..<em>.</em>Service.<em>(..))”)<br><br>       <strong>public</strong> <strong>void</strong> log(Object result) {<br><br>       }<br><br> <br><br>       <span style="color:#ff0000;">@AfterThrowing(pointcut=”execution(</span></em> com..<em>.</em>Service.(..))”,throwing=”ex”)<br><br>       <strong>public</strong> <strong>void</strong> processException(Throwable ex) {<br><br>       }<br><br>     <span style="color:#ff0000;">  @Around(“all()”)</span><br><br>       <strong>public</strong> <strong>void</strong> proceedInTrans(ProceedingJoinPoint joinpoint) <strong>throws</strong> Throwable {<br><br>       }<br><br>}<br> 注意事项：使用 aspectj 配置增强时 AfterReturning 和 AfterThrowing 的参数需匹配。</p>
+<p>基于 Annotation 配置 AOP 的两种方式:</p>
+<ol>
+<li>在每个方法前单独配置；（五种增强都能使用）</li>
+<li>将切入点表达式抽离出来，在需要调用时调用；（AfterReturning 和 AfterThrowing 的参数需匹配，不能使用）</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/" data-id="cinhdqubg004kji6v0bj6j7d8" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aop/">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/annotation/">Annotation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aspectj/">Aspectj</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-spring-aop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/spring-aop/" class="article-date">
+  <time datetime="2013-03-28T12:45:44.000Z" itemprop="datePublished">2013-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/spring-aop/">Spring-AOP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 加载 spring 框架和 aop 框架的支持 </p>
+<p> 配置若干种增强：</p>
+<p>1、前置增强（before）；</p>
+<p>2、后置增强（After）；</p>
+<p>3、返回后增强（after-returning）；</p>
+<p>4、抛出异常后增强（after-throwing）；</p>
+<p>5、环绕增强（around）；</p>
+<p> 定位到配置文件中的 &lt;aop:config&gt; 可以看到如下提示 </p>
+<input alt=""src="wp-content/uploads/ckfinder/files/2013-03-28_202919.png"type="image">
+
+<p>Aop 的配置如下 </p>
+<p>&lt;aop:configproxy-target-class=<em>&quot;true&quot;</em>&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:aspect&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:beforemethod=<em>&quot; &quot;</em> pointcut=<em>&quot; &quot;</em> /&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:after-returningmethod=<em>&quot; &quot;</em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pointcut=<em>&quot; &quot;</em> returning=<em>&quot;result&quot;</em> /&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:after-throwingmethod=<em>&quot; &quot;</em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pointcut=<em>&quot; &quot;</em> throwing=<em>&quot;ex&quot;</em> /&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:aroundmethod=<em>&quot; &quot;</em> pointcut=<em>&quot; &quot;</em> /&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;aop:aftermethod=<em>&quot; &quot;</em> pointcut=<em>&quot; &quot;</em> /&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; &lt;/aop:aspect&gt;</p>
+<p>&nbsp;&nbsp; &lt;/aop:config&gt;</p>
+<p> 配置文件中 method 为 AspectBean 中的方法，pointcut 为定义的切入点。</p>
+<p> 配置后当执行切面 Bean 时会执行相应的增强。切面 Bean 的实现类的实例会首先进入配置文件读取切入点的指示符，如果匹配，就执行当前切入点配置的方法。切面编程说白了就是把与业务逻辑无关的一组方法抽象出来并封装，这样实现与业务逻辑的分离。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/03/spring-aop/" data-id="cinhdqu8y0016ji6vm9j5wh7u" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/03/spring-aop/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aop/">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-databasedesign" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/databasedesign/" class="article-date">
+  <time datetime="2013-03-25T14:18:27.000Z" itemprop="datePublished">2013-03-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/网上转载/">网上转载</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/databasedesign/">数据库设计中的 14 个技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>原始单据与实体之间的关系 <br> 可以是一对一、一对多、多对多的关系。在一般情况下，它们是一对一的关系：即一张原始单据对应且只对应一个实体。在特殊情况下，它们可能是一对多或多对一的关系，即一张原始单证对应多个实体，或多张原始单证对应一个实体。这里的实体可以理解为基本表。明确这种对应关系后，对我们设计录入界面大有好处。<br>〖例 1〗：一份员工履历资料，在人力资源信息系统中，就对应三个基本表：员工基本情况表、社会关系表、工作简历表。这就是 &ldquo; 一张原始单证对应多个实体 &rdquo; 的典型例子。</li>
+<li>主键与外键 <br> 一般而言，一个实体不能既无主键又无外键。在 E&mdash;R 图中, 处于叶子部位的实体, 可以定义主键，也可以不定义主键 (因为它无子孙), 但必须要有外键(因为它有父亲)。<br> 主键与外键的设计，在全局数据库的设计中，占有重要地位。当全局数据库的设计完成以后，有个美国数据库设计专家说：&ldquo; 键，到处都是键，除了键之外，什么也没有 &rdquo;，这就是他的数据库设计经验之谈，也反映了他对信息系统核心 (数据模型) 的高度抽象思想。因为：主键是实体的高度抽象，主键与外键的配对，表示实体之间的连接。</li>
+<li>基本表的性质 <br> 基本表与中间表、临时表不同，因为它具有如下四个特性：<br>(1) 原子性。基本表中的字段是不可再分解的。<br>(2) 原始性。基本表中的记录是原始数据（基础数据）的记录。<br>(3) 演绎性。由基本表与代码表中的数据，可以派生出所有的输出数据。<br>(4) 稳定性。基本表的结构是相对稳定的，表中的记录是要长期保存的。<br>理解基本表的性质后，在设计数据库时，就能将基本表与中间表、临时表区分开来。</li>
+<li>范式标准 <br> 基本表及其字段之间的关系, 应尽量满足第三范式。但是，满足第三范式的数据库设计，往往不是最好的设计。为了提高数据库的运行效率，常常需要降低范式标准：适当增加冗余，达到以空间换时间的目的。<br>〖例 2〗：有一张存放商品的基本表，如表 1 所示。&ldquo; 金额 &rdquo; 这个字段的存在，表明该表的设计不满足第三范式，因为 &ldquo; 金额 &rdquo; 可以由 &ldquo; 单价 &rdquo; 乘以 &ldquo; 数量 &rdquo; 得到，说明 &ldquo; 金额 &rdquo; 是冗余字段。但是，增加 &ldquo; 金额 &rdquo; 这个冗余字段，可以提高查询统计的速度，这就是以空间换时间的作法。<br>在 Rose 2002 中，规定列有两种类型：数据列和计算列。&ldquo; 金额 &rdquo; 这样的列被称为 &ldquo; 计算列 &rdquo;，而 &ldquo; 单价 &rdquo; 和 &ldquo; 数量 &rdquo; 这样的列被称为 &ldquo; 数据列 &rdquo;。<br>表 1 商品表的表结构 <br> 商品名称 商品型号 单价 数量 金额 <br> 电视机 29 吋 2,500 40 100,000</li>
+<li>通俗地理解三个范式 <br> 通俗地理解三个范式，对于数据库设计大有好处。在数据库设计中，为了更好地应用三个范式，就必须通俗地理解三个范式 (通俗地理解是够用的理解，并不是最科学最准确的理解)：<br> 第一范式：1NF 是对属性的原子性约束，要求属性具有原子性，不可再分解；<br>第二范式：2NF 是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；<br>第三范式：3NF 是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。<br>没有冗余的数据库设计可以做到。但是，没有冗余的数据库未必是最好的数据库，有时为了提高运行效率，就必须降低范式标准，适当保留冗余数据。具体做法是：在概念数据模型设计时遵守第三范式，降低范式标准的工作放到物理数据模型设计时考虑。降低范式就是增加字段，允许冗余。</li>
+<li>要善于识别与正确处理多对多的关系 <br> 若两个实体之间存在多对多的关系，则应消除这种关系。消除的办法是，在两者之间增加第三个实体。这样，原来一个多对多的关系，现在变为两个一对多的关系。要将原来两个实体的属性合理地分配到三个实体中去。这里的第三个实体，实质上是一个较复杂的关系，它对应一张基本表。一般来讲，数据库设计工具不能识别多对多的关系，但能处理多对多的关系。<br>〖例 3〗：在 &ldquo; 图书馆信息系统 &rdquo; 中，&ldquo; 图书 &rdquo; 是一个实体，&ldquo; 读者 &rdquo; 也是一个实体。这两个实体之间的关系，是一个典型的多对多关系：一本图书在不同时间可以被多个读者借阅，一个读者又可以借多本图书。为此，要在二者之间增加第三个实体，该实体取名为 &ldquo; 借还书 &rdquo;，它的属性为：借还时间、借还标志 (0 表示借书，1 表示还书)，另外，它还应该有两个外键(&ldquo; 图书 &rdquo; 的主键，&ldquo; 读者 &rdquo; 的主键)，使<br> 它能与 &ldquo; 图书 &rdquo; 和 &ldquo; 读者 &rdquo; 连接。</li>
+<li>主键 PK 的取值方法<br>PK 是供程序员使用的表间连接工具，可以是一无物理意义的数字串, 由程序自动加 1 来实现。也可以是有物理意义的字段名或字段名的组合。不过前者比后者好。当 PK 是字段名的组合时，建议字段的个数不要太多，多了不但索引占用空间大，而且速度也慢。</li>
+<li>正确认识数据冗余 <br> 主键与外键在多表中的重复出现, 不属于数据冗余，这个概念必须清楚，事实上有许多人还不清楚。非键字段的重复出现, 才是数据冗余！而且是一种低级冗余，即重复性的冗余。高级冗余不是字段的重复出现，而是字段的派生出现。<br>〖例 4〗：商品中的 &ldquo; 单价、数量、金额 &rdquo; 三个字段，&ldquo; 金额 &rdquo; 就是由 &ldquo; 单价 &rdquo; 乘以 &ldquo; 数量 &rdquo; 派生出来的，它就是冗余，而且是一种高级冗余。冗余的目的是为了提高处理速度。只有低级冗余才会增加数据的不一致性，因为同一数据，可能从不同时间、地点、角色上多次录入。因此，我们提倡高级冗余(派生性冗余)，反对低级冗余(重复性冗余)。</li>
+<li>E–R 图没有标准答案 <br> 信息系统的 E–R 图没有标准答案，因为它的设计与画法不是惟一的，只要它覆盖了系统需求的业务范围和功能内容，就是可行的。反之要修改 E–R 图。尽管它没有惟一的标准答案，并不意味着可以随意设计。好的 E&mdash;R 图的标准是：结构清晰、关联简洁、实体个数适中、属性分配合理、没有低级冗余。</li>
+<li>视图技术在数据库设计中很有用 <br> 与基本表、代码表、中间表不同，视图是一种虚表，它依赖数据源的实表而存在。视图是供程序员使用数据库的一个窗口，是基表数据综合的一种形式, 是数据处理的一种方法，是用户数据保密的一种手段。为了进行复杂处理、提高运算速度和节省存储空间, 视图的定义深度一般不得超过三层。 若三层视图仍不够用, 则应在视图上定义临时表, 在临时表上再定义视图。这样反复交迭定义, 视图的深度就不受限制了。<br>对于某些与国家政治、经济、技术、军事和安全利益有关的信息系统，视图的作用更加重要。这些系统的基本表完成物理设计之后，立即在基本表上建立第一层视图，这层视图的个数和结构，与基本表的个数和结构是完全相同。并且规定，所有的程序员，一律只准在视图上操作。只有数据库管理员，带着多个人员共同掌握的 &ldquo; 安全钥匙 &rdquo;，才能直接在基本表上操作。请读者想想：这是为什么？</li>
+<li>中间表、报表和临时表 <br> 中间表是存放统计数据的表，它是为数据仓库、输出报表或查询结果而设计的，有时它没有主键与外键(数据仓库除外)。临时表是程序员个人设计的，存放临时记录，为个人所用。基表和中间表由 DBA 维护，临时表由程序员自己用程序自动维护。</li>
+<li>完整性约束表现在三个方面 <br> 域的完整性：用 Check 来实现约束，在数据库设计工具中，对字段的取值范围进行定义时，有一个 Check 按钮，通过它定义字段的值城。<br>参照完整性：用 PK、FK、表级触发器来实现。<br>用户定义完整性：它是一些业务规则，用存储过程和触发器来实现。</li>
+<li>防止数据库设计打补丁的方法是 &ldquo; 三少原则 &rdquo;<br>(1) 一个数据库中表的个数越少越好。只有表的个数少了，才能说明系统的 E–R 图少而精，去掉了重复的多余的实体，形成了对客观世界的高度抽象，进行了系统的数据集成，防止了打补丁式的设计；<br>(2) 一个表中组合主键的字段个数越少越好。因为主键的作用，一是建主键索引，二是做为子表的外键，所以组合主键的字段个数少了，不仅节省了运行时间，而且节省了索引存储空间；<br>(3) 一个表中的字段个数越少越好。只有字段的个数少了，才能说明在系统中不存在数据重复，且很少有数据冗余，更重要的是督促读者学会 &ldquo; 列变行 &rdquo;，这样就防止了将子表中的字段拉入到主表中去，在主表中留下许多空余的字段。所谓 &ldquo; 列变行 &rdquo;，就是将主表中的一部分内容拉出去，另外单独建一个子表。这个方法很简单，有的人就是不习惯、不采纳、不执行。<br>数据库设计的实用原则是：在数据冗余和处理速度之间找到合适的平衡点。&ldquo; 三少 &rdquo; 是一个整体概念，综合观点，不能孤立某一个原则。该原则是相对的，不是绝对的。&ldquo; 三多 &rdquo; 原则肯定是错误的。试想：若覆盖系统同样的功能，一百个实体 (共一千个属性) 的 E–R 图，肯定比二百个实体(共二千个属性) 的 E–R 图，要好得多。<br>提倡 &ldquo; 三少 &rdquo; 原则，是叫读者学会利用数据库设计技术进行系统的数据集成。数据集成的步骤是将文件系统集成为应用数据库，将应用数据库集成为主题数据库，将主题数据库集成为全局综合数据库。集成的程度越高，数据共享性就越强，信息孤岛现象就越少，整个企业信息系统的全局 E&mdash;R 图中实体的个数、主键的个数、属性的个数就会越少。<br>提倡 &ldquo; 三少 &rdquo; 原则的目的，是防止读者利用打补丁技术，不断地对数据库进行增删改，使企业数据库变成了随意设计数据库表的 &ldquo; 垃圾堆 &rdquo;，或数据库表的 &ldquo; 大杂院 &rdquo;，最后造成数据库中的基本表、代码表、中间表、临时表杂乱无章，不计其数，导致企事业单位的信息系统无法维护而瘫痪。<br>&ldquo; 三多 &rdquo; 原则任何人都可以做到，该原则是 &ldquo; 打补丁方法 &rdquo; 设计数据库的歪理学说。&ldquo; 三少 &rdquo; 原则是少而精的原则，它要求有较高的数据库设计技巧与艺术，不是任何人都能做到的，因为该原则是杜绝用 &ldquo; 打补丁方法 &rdquo; 设计数据库的理论依据。　</li>
+<li>提高数据库运行效率的办法 <br> 在给定的系统硬件和系统软件条件下，提高数据库系统的运行效率的办法是：<br>(1) 在数据库物理设计时，降低范式，增加冗余, 少用触发器, 多用存储过程。<br>(2) 当计算非常复杂、而且记录条数非常巨大时 (例如一千万条)，复杂计算要先在数据库外面，以文件系统方式用 C++ 语言计算处理完成之后，最后才入库追加到表中去。这是电信计费系统设计的经验。<br>(3) 发现某个表的记录太多，例如超过一千万条，则要对该表进行水平分割。水平分割的做法是，以该表主键 PK 的某个值为界线，将该表的记录水平分割为两个表。若发现某个表的字段太多，例如超过八十个，则垂直分割该表，将原来的一个表分解为两个表。<br>(4) 对数据库管理系统 DBMS 进行系统优化，即优化各种系统参数，如缓冲区个数。<br>(5) 在使用面向数据的 SQL 语言进行程序设计时，尽量采取优化算法。<br> 总之，要提高数据库的运行效率，必须从数据库系统级优化、数据库设计级优化、程序实现级优化，这三个层次上同时下功夫。</li>
+</ol>
+<p>上述十四个技巧，是许多人在大量的数据库分析与设计实践中，逐步总结出来的。对于这些经验的运用，读者不能生帮硬套，死记硬背，而要消化理解，实事求是，灵活掌握。并逐步做到：在应用中发展，在发展中应用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/03/databasedesign/" data-id="cinhdquay0044ji6v02pjx62v" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/03/databasedesign/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">Oracle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-page-redirect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/page-redirect/" class="article-date">
+  <time datetime="2013-02-15T08:37:13.000Z" itemprop="datePublished">2013-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具技巧/">工具技巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/page-redirect/">利用页面刷新进行跳转</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 近期在看淘宝客的推广，在嗨推淘宝客论坛看了不少帖子，只能说真的是博大精深啊，一点点尝试咯。比如下面的这个简单但又使用又有意思的跳转。</p>
+<p> 代码是这样的 <br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"refresh"</span> <span class="attribute">content</span>=<span class="value">"0;url=http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB07S4%2FK0CITy7klxxrJ35Nnc0iN0jSUl9wc6VaVCvWRaeeiDtIH1Zyj39ZxgLj3GgUToRJ3U8ILlGv9MWm5F8jMLjqqdJzhLg%3D%3D</span><br><span class="line">"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p> 将自己的推广链接放入 url 内，用页面的刷新进行跳转，方式还是比较新颖的。</p>
+<p> 适用场合：所有可以自定义页面的地方。</p>
+<p> 将代码放入网页中，访问页面的地址时就跳转到你的推广链接的地址了。</p>
+<p> 为何这么做？<br> 因为网站基本是讨厌带广告的外链的，但是如果你给的链接比较正常，那么一般是通过了。但事实上却是跳转到了其他页面，达到了广告的目的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/02/page-redirect/" data-id="cinhdqu9l002cji6vwgnfavug" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/02/page-redirect/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网页跳转/">网页跳转</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-google-advice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/google-advice/" class="article-date">
+  <time datetime="2013-02-04T15:52:46.000Z" itemprop="datePublished">2013-02-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具技巧/">工具技巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/google-advice/">Google 搜索技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在日常的生活中，有很多问题不懂时需要用到搜索，自然想到百度和谷歌，下面就来介绍一下如何让你得到想要的答案，以下内容部分采摘与官方的说明，再加上适合国人的使用的说明，后附例子，仅作抛砖引玉。如果你有一些自己的常用诀窍，记得评论了和大家分享哟。红色标注的为示例，便于大家学习。</p>
+<ol>
+<li>以图搜图 <br> 要使用图片（而非文字）进行搜索，请访问 <a href="http://images.google.com" target="_blank" rel="external">http://images.google.com</a> ，然后点击照相机图标。您可以复制粘贴图片网址、将图片拖放到搜索框中，也可以上传计算机中的图片。这个功能很实用，当别人发你一张图片你却不知道是谁时，会不会尴尬，搜索就好啦，总能得到你想要的。</li>
+<li>网络历史记录 <br> 网络历史记录可让您查阅访问过的网站的日志、浏览操作的时间轴以及搜索自己的在线历史记录。要试用该功能，请访问  <a href="http://www.google.com/history" target="_blank" rel="external">http://www.google.com/history</a>  在账户登录的情况下，谷歌记录下你曾经的浏览历史记录。并生成你的搜索趋势用于优化你的搜索。并对你的搜索频度、时间分布，有很详细的记录，这至少说明，美国人很喜欢数据，数字化你的行为，做出预测也就不难了。注意，这个网络历史记录是只有你可以看的。</li>
+<li>完全匹配搜索 <br> 在字词前后分别加上中文或英文双引号（如 “[任意字词]”），可精确搜索字序相同的词组。请注意，使用双引号进行搜索可能会排除一些相关的搜索结果。例如，搜索 “Alexander Bell”可能会漏掉涉及 Alexander G. Bell  的网页。例：<span style="color:#ff0000;">“杏林地儿”</span></li>
+<li>在特定网站内搜索 <br> 如果您希望在特定的网站或特定类型（.org 或 .edu）的网站中进行搜索，请在查询内容前加上 site:，例：<span style="">site:edu</span> 或 <span style="color:#ff0000;">site:jayxhj.com</span>。</li>
+<li>按文件类型搜索 <br> 要搜索特定类型的文件（例如，PDF、PPT 或 XLS），您可以添加  filetype:  和文件格式缩写（以 3 个字母表示）。例：  <span style="color:#ff0000;">杏林地儿 filetype:ppt</span></li>
+<li>包括或忽略您搜索查询中的字词和字符 <br> 如果 的 、&amp;  等常见字词字符对您的搜索十分重要（例如在电影或图书名称中），那么您可以在其前后分别加上双引号（即 “ 的”）加以强调。您还可以使用减号 (-) 来指定不希望结果中包含的特定字词，例如食谱中的某些原料。例：<span style="background-color: rgb(255, 255, 255);color:#ff0000;">火锅食谱 - 香菜</span></li>
+<li>查找相关网页 <br> 您可以使用 related:  运算符来查找具有类似内容的网页，方法是输入“related:”，然后加上相关网址。例如，如果您找到了一个喜欢的网站，可以尝试使用“related:[输入网址]” 来查找类似的网站。 <span style="color:#ff0000;">related: <a href="http://jayxhj.com/archives/13" target="_blank" rel="external">http://jayxhj.com/archives/13</a></span></li>
+<li>进行数值换算 <br> 输入数字和度量单位，即可进行任意度量单位换算，例如英里换算为公里或盎司换算为公升。例：<span style="color:#ff0000;">1 英里等于多少公里</span> 答案显示 1 英里 = 1.609344 公里 简洁明了, 还可以直接输入 <span style="color:#ff0000;">cos30=</span></li>
+<li>查询时间 <br> 要查看世界各地的当前时间，只需搜索“ 时间” 和城市名或国家 / 地区名即可。  如: <span style="color:#ff0000;">时间 台北</span>（空格可以不要）   答案为当前时间  晚上 11:08 星期一 (CST) - 台湾 台北 时间</li>
+<li>进行货币换算 <br> 搜索“[币种 1] 兑换 [币种 2]”，即可了解当前汇率。   例：1 美元人民币 结果为 <strong>1 美元 = 6.2330 人民币</strong></li>
+<li>查询实时股票价格 <br> 只需在搜索框中输入任意股票代码，即可在搜索结果中获取即时更新的实时股票报价。点击搜索结果页上的相应链接，即可查看由 Google 财经提供的详细市场分析。   例：输入谷歌的股票代码  <span style="color:#ff0000;">GOOG</span>   结果即为<br><a href="http://www.google.com.hk/url?url=/finance%3Fclient%3Dob%26q%3DNASDAQ:GOOG&amp;rct=j&amp;sa=X&amp;ei=xM8PUa2TIIq69QTft4HwAQ&amp;ved=0CC0QowE&amp;q=GOOG&amp;usg=AFQjCNGC8XM2FYwrgRe7sTEiFY_oTGn8Bw" target="_blank" rel="external">GOOG</a>‎ - Google Inc (NASDAQ)‎</li>
+<li>查询字词定义 <br> 在任意字词前加上 <strong>define:</strong>，即可查询其定义。<span style="color:#ff0000;">define:ppt</span> 一般出来的结果其实就是在维基百科上查找得出的结果，如果用于一些没有定义的词，则显示出来的是与关键词相关的网页。</li>
+<li>类似字词 <br> 在搜索字词前加上 ~ 符号，即可获取包含其同义词的搜索结果   例： <span style="color:#ff0000;">杏林极客~ 杏林地儿</span></li>
+</ol>
+<p>以下为 google 展示的全部搜索技巧，点击观看 <a href="http://www.google.com/intl/zh-CN/insidesearch/tipstricks/all.html" target="_blank" rel="external">浏览完整的搜索技巧列表</a> 即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/02/google-advice/" data-id="cinhdquad003jji6vb4vlxtyu" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/02/google-advice/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google搜索技巧/">google搜索技巧</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-internet-term" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/internet-term/" class="article-date">
+  <time datetime="2013-02-03T13:22:59.000Z" itemprop="datePublished">2013-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具技巧/">工具技巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/internet-term/">互联网术语与日常习惯表达</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 在日常生活和学习中，经常碰到一些词语觉得费解，有些是翻译的不好，有些则是理解的不够透彻或者接触到的面太少，所以希望能够总结一下，以下为自己日常积累及网上摘取所得，不定时持续更新。</p>
+<p> 这是在知乎上查找时找到的术语：<a href="http://en.wikipedia.org/wiki/List_of_computing_and_IT_abbreviations" target="_blank" rel="external">List of computing and IT abbreviations</a>（可能被墙）</p>
+<p><strong> 默认 / 缺省（default）</strong>: 在无决策者干预情况下，对于决策或应用软件、计算机程序的系统参数的自动选择。默认选项的设计可以在用户不须决策的状况下就可以基础地使用上述的软件与程序。</p>
+<p><strong> 透明 </strong> ：这个词条有两种解释：1、生活中代表 处理事情不要有暗箱操作，整个处理流程要公开透明 2、计算机中代表 对用户而言，这个处理过程 是感觉不到的，不可见的、隐藏的，如对用户是透明的这句话。</p>
+<p><strong> 会话 （session）</strong>：是一种持久网络协议，在用户（或用户代理）端和服务器端之间建立关联，从而起到交换数据包的作用机制。<br> 平常说起会话一般指和其他人的对话。</p>
+<p><strong> 相关性 </strong> ：在概率论和统计学中，相关（Correlation，或称相关系数或关联系数），显示两个随机变量之间线性关系的强度和方向。在统计学中，相关的意义是用来衡量两个变量相对于其相互独立的距离。</p>
+<p><strong> 派生 </strong> ：根据已有的衍生出新的。一般前后两者有着相同属性。</p>
+<p><strong> 部署 </strong> ：安排布置的意思，在 web 中一般表示 建立 和配置并使当前项目处于可用状态。</p>
+<p><strong> 上下文 </strong> ：生活中一般表示文章某一段所处语境，在 Java 中就是 Context，但是翻译为上下文实在不是个太好的选择，可以翻译为容器、环境等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/02/internet-term/" data-id="cinhdqua30030ji6v0o5o1s3r" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/02/internet-term/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/术语/">术语</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-treasureyourtime" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/treasureyourtime/" class="article-date">
+  <time datetime="2013-01-12T22:23:00.000Z" itemprop="datePublished">2013-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/uncategorized/">uncategorized</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/treasureyourtime/">少年，请好好珍惜</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 在写这篇文章之前有必要说一句：只有经历了痛苦才能真正幸福。</p>
+<p> 为何有这么一句话，因为我看到了这样的现象：有的人加入了很多组织，还都被接受了，可是最后仿佛突然间醒悟，退掉了所有的组织。这实在是作为一个大三的学长汗颜但是又让我思考的。在我们成长的道路上我们总会经历很多事情，不论是好是坏，最后都以某一种形式反馈给我们，并在我们身上体现。我们会做出很多决定，也无论是好是坏。但是，作为一个个体，责任心是必备的。在这件事上什么体现责任心：事前考虑好要加入的组织，进行时全力以赴，事后留有路可走。但是前面那些人的做法呢？这是一种顿悟？还是一种炫耀？还是真正的成长了？</p>
+<p> 从这件事我又看到：对于招聘方来说，要招到人才，招聘的过程就得人性化，要有足够的勇气和担当让被试有信心加入，招聘得考虑对方难处，并能简历长久持续的关系，有人文关怀。比如招人时挑恰当的时间（晚上七点到九点而不是吃饭时间），比如有晚自习和没晚自习的可以分开招聘，比如值班按组织成员的空闲时间来定夺等等。而作为应聘者，完全可以多了解对方信息，及时做好准备，漂亮的开场白，及时的交流，真诚坦白相见等等。这些都是可以促进整个招聘的完美进行的小事，但是，你有认真想过认真做过吗？</p>
+<p> 作为一个好的招聘流程, 它可以是这样：让知道的人知道，让需要的人满意，与潜在的对象发生联系，让旁观者觉得养眼。有难度，所以更要为之努力。</p>
+<p> 大三了，眼看着要毕业了，得去找工作了。那么我该做什么？简历是要有的，不求奢华，但求简单务实。对未来的东家，或者说我的梦生根发芽的地方，了解是肯定要有的。对于接下来的路怎么走大概也是得有个规划的。</p>
+<p> 回到开头，为什么有那句话，因为只要你自己经历了，那些别人口中的经验和不屑一顾才真正变得清晰，说再多不如自己走一遭。年轻时有机会犯错是好事，每一次错误都是成长的机会，而在大学里，如果四年没有经历一些协会，组织，工作室，或者班助，助理等职务，那么你大概是去社会上磨练去了吧，那假如前面的都没有，只好说大学真的留有遗憾。</p>
+<p> 当经历成为一种财富时，那些吃过的苦，像晨露般闪闪发光，弥足珍贵。少年，请好好珍惜。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/01/treasureyourtime/" data-id="cinhdqu8m000jji6vtxx46j0s" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2013/01/treasureyourtime/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo;上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/get-week-number-in-month-from-date-in-php/">获取当前日期在本月的第几周</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/lumen-tricks/">Lumen 常用开发技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">朋友们</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://ceix.me/" target="_blank">顺流而下，把梦做完。</a>
+          </li>
+        
+          <li>
+            <a href="http://likangjun.com/" target="_blank">嗨军</a>
+          </li>
+        
+          <li>
+            <a href="http://www.ecli2h.net/" target="_blank">张辉|Ecli2h</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 jayxhj<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">历史文章</a>
+  
+    <a href="https://github.com/jayxhj" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'githubiojayxhj';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
