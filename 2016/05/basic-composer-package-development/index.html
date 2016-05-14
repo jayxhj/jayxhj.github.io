@@ -3,17 +3,45 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: bash | 徐豪杰写字的地方</title>
+  <title>动手开发自己的第一个 composer 包 | 徐豪杰写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="徐豪杰写字的地方">
-<meta property="og:url" content="http://blog.jayxhj.com/tags/bash/index.html">
+  <meta name="description" content="composer 是 PHP 的依赖管理工具，本篇文章就来说明如何构建一个包，并提交到 Packagist ，这样别人就可以方便地通过 composer 使用你的包了。
+开发 composer 包有以下几个步骤：
+
+初始化 composer.json 文件
+定义命名空间及包名
+实现包需要实现的功能
+提交到 GitHub
+在 Packagist 注册包
+
+初始化 composer.json 文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动手开发自己的第一个 composer 包">
+<meta property="og:url" content="http://blog.jayxhj.com/2016/05/basic-composer-package-development/index.html">
 <meta property="og:site_name" content="徐豪杰写字的地方">
-<meta property="og:description">
+<meta property="og:description" content="composer 是 PHP 的依赖管理工具，本篇文章就来说明如何构建一个包，并提交到 Packagist ，这样别人就可以方便地通过 composer 使用你的包了。
+开发 composer 包有以下几个步骤：
+
+初始化 composer.json 文件
+定义命名空间及包名
+实现包需要实现的功能
+提交到 GitHub
+在 Packagist 注册包
+
+初始化 composer.json 文件">
+<meta property="og:updated_time" content="2016-05-14T02:48:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="徐豪杰写字的地方">
-<meta name="twitter:description">
+<meta name="twitter:title" content="动手开发自己的第一个 composer 包">
+<meta name="twitter:description" content="composer 是 PHP 的依赖管理工具，本篇文章就来说明如何构建一个包，并提交到 Packagist ，这样别人就可以方便地通过 composer 使用你的包了。
+开发 composer 包有以下几个步骤：
+
+初始化 composer.json 文件
+定义命名空间及包名
+实现包需要实现的功能
+提交到 GitHub
+在 Packagist 注册包
+
+初始化 composer.json 文件">
 <meta name="twitter:creator" content="@jayxhj">
   
     <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
@@ -90,39 +118,108 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" class="archive-article-date">
-  <time datetime="2016-02-27T10:51:02.000Z" itemprop="datePublished">2月 27</time>
+        <section id="main"><article id="post-basic-composer-package-development" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/basic-composer-package-development/" class="article-date">
+  <time datetime="2016-05-13T07:28:41.000Z" itemprop="datePublished">2016-05-13</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/">理解 Exit Code 并学会如何在 Bash 脚本中使用</a>
+    <h1 class="article-title" itemprop="name">
+      动手开发自己的第一个 composer 包
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>composer 是 PHP 的依赖管理工具，本篇文章就来说明如何构建一个包，并提交到 <a href="https://packagist.org/" target="_blank" rel="external">Packagist</a> ，这样别人就可以方便地通过 composer 使用你的包了。</p>
+<p>开发 composer 包有以下几个步骤：</p>
+<ol>
+<li>初始化 composer.json 文件</li>
+<li>定义命名空间及包名</li>
+<li>实现包需要实现的功能</li>
+<li>提交到 GitHub</li>
+<li>在 Packagist 注册包</li>
+</ol>
+<h2 id="初始化 -composer-json- 文件"><a href="# 初始化 -composer-json- 文件" class="headerlink" title="初始化 composer.json 文件"></a>初始化 composer.json 文件 </h2><p> 安装好 composer 后即可在本地运行 <code>composer init</code> 通过交互式命令行设置 composer.json 。</p>
+<p>下面介绍其中的几个属性，以及常规的设置：</p>
+<ol>
+<li>name<br><br>此属性定义包名，以 <code>/</code> 隔开，前面的为供应商名字，后面为包名，供应商代表 Packagist 网站为开发者提供的唯一的名字，用来组织包以及防止命名冲突。所以提交时最好先访问 <a href="https://packagist.org/packages/yourvendorname" target="_blank" rel="external">https://packagist.org/packages/yourvendorname</a> 将 url 中的 yourvendorname 替换为你想要取的名字，如果页面没有 404 ，说明已经被注册了。</li>
+<li>license<br><br>许可证。关于许可证，建议看两篇文章，<a href="http://choosealicense.com/" target="_blank" rel="external">开源项目 license 介绍 </a> 、<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html" target="_blank" rel="external"> 如何选择 license</a></li>
+<li>require<br><br>安装当前包所需的依赖。只有所有依赖被安装当前包才会被安装。</li>
+<li>autoload<br><br>此配置下主要是 <strong>PSR-4</strong> 或者 <strong>PSR-0</strong> 设置，更推荐使用 PSR-4 标准。</li>
+</ol>
+<p><a href="http://json-schema.org/" target="_blank" rel="external">http://json-schema.org/</a> 上介绍了 JSON Schema 的定义以及各个语言对其各种功能的实现，有 validator 的实现，其中 <a href="http://www.jsonschemavalidator.net/" target="_blank" rel="external">JSON Schema Validator</a> 是在线的验证服务。其实最简单的就是使用 <code>composer validate composer.json</code> 来验证文件是否是有错误。</p>
+<p>这是我演示的设置 composer.json 的视频</p>
+<script type="text/javascript" src="https://asciinema.org/a/45460.js" id="asciicast-45460" async>
+</script>
+
+<h2 id="项目结构"><a href="# 项目结构" class="headerlink" title="项目结构"></a>项目结构 </h2><p> 以我开发的 <a href="https://packagist.org/packages/geosso/geosso" target="_blank" rel="external">单点登录 SDK</a> 为例，此项目基于 Laravel ，实现了站点接入单点登录系统的简单接入，应用只需在服务端注册并实现指定接口，即可接入 SSO 。</p>
+<p>项目结构是典型的 MVC 结构，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#10;&#9492;&#9472;&#9472; geo&#10;    &#9492;&#9472;&#9472; geosso&#10;        &#9500;&#9472;&#9472; LICENSE&#10;        &#9500;&#9472;&#9472; README.md&#10;        &#9500;&#9472;&#9472; composer.json&#10;        &#9492;&#9472;&#9472; src&#10;            &#9500;&#9472;&#9472; Contracts&#10;            &#9500;&#9472;&#9472; Http&#10;            &#9474;   &#9500;&#9472;&#9472; Controllers&#10;            &#9474;   &#9500;&#9472;&#9472; Middleware&#10;            &#9474;   &#9492;&#9472;&#9472; Requests&#10;            &#9500;&#9472;&#9472; ParamsBean&#10;            &#9500;&#9472;&#9472; Providers&#10;            &#9500;&#9472;&#9472; Support&#10;            &#9492;&#9472;&#9472; config&#10;&#10;12 directories</span><br></pre></td></tr></table></figure>
+<p>LICENSE、README.md 及 composer.json 是运行 <code>tree -d</code> 之后手工添加上去的。</p>
+<p>项目根目录定义在 src 下，在 composer.json 中也有定义，这样当 composer 加载这个包时就知道如何通过命名空间去解析文件路径。</p>
+<p>Http 目录代表请求响应，之下的 Controllers 表示合法请求的控制器，Middleware 代表请求的第一道关卡，通过中间件去拦截请求，Requests 去获取前端请求并对请求过滤。</p>
+<p>Contracts 代表接口定义。ParamsBean 代表应用层与底层服务沟通时的参数封装，通过 Bean 去获取各个参数，而不是传递 array 使得调用一致，并且强制接口调用时做类型检测，可以很大程度上统一各层之间的参数传递。</p>
+<p>Providers 代表 Laravel 的服务容器，通过服务容器，可以注册路由与配置，加载助手类，绑定接口与其实现。</p>
+<p>Support 就是一些助手类，对常用的与逻辑无关的功能的封装，config 代表应用自己的配置，通过 config 可以方便地将配置设置并使用全局函数 <code>config()</code> 调用。</p>
+<h2 id="提交至 -GitHub"><a href="# 提交至 -GitHub" class="headerlink" title="提交至 GitHub"></a>提交至 GitHub</h2><p>按照前面的步骤，一个包就有了基本的骨架，接下来就是上传至 GitHub ，配置项目，集成持续集成服务，发布开源项目许可证。</p>
+<p>GitHub 初始化项目时可以选择生成 .gitignore 文件，选择许可证，初始化 README.md 文件，切换至本地的项目目录后，按如下步骤即可将目录上传至 GitHub：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;git init <span class="comment"># 初始化仓库</span></span><br><span class="line">&gt;git remote <span class="built_in">set</span>-url origin --push --add git@github.com:jayxhj/geosso.git <span class="comment"># 添加远程追踪仓库地址</span></span><br><span class="line">&gt; git add .</span><br><span class="line">&gt; git commit</span><br><span class="line">&gt; git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="提交至 -Packagist"><a href="# 提交至 -Packagist" class="headerlink" title="提交至 Packagist"></a>提交至 Packagist</h2><p>Packagist 为 composer 默认获取包元数据信息的地址，从 Packagist 获取到元数据信息后，再从 GitHub 上拉取代码。因此，当把你开发的包上传至 GitHub 后还需要将其在 Packagist 注册，这样全世界的人都能通过 composer 去拉去你的代码了。</p>
+<p>提交至 Packagist 只需三个步骤：</p>
+<ol>
+<li>注册帐号</li>
+<li>在 <a href="https://packagist.org/packages/submit" target="_blank" rel="external">https://packagist.org/packages/submit</a> 提交开发包</li>
+<li>设置 webhook 以便提交包更新后能及时地同步至 Packagist</li>
+</ol>
+<p>自此，一个基本的包开发就结束了。通过 composer 来管理 PHP 的依赖，通过编写 composer package 去扩展自己的类库，通过引入其他的类库来填充自己的功能，就不用重复造轮子了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cio6jsjjx004k546vqgpg902b" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/composer/">composer</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/get-week-number-in-month-from-date-in-php/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">获取当前日期在本月的第几周</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 </section>
         
@@ -227,11 +324,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'githubiojayxhj';
   
+  var disqus_url = 'http://blog.jayxhj.com/2016/05/basic-composer-package-development/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

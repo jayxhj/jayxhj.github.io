@@ -92,6 +92,96 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-achieve-replication-using-multi-mysql-instance-in-a-single-machine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" class="article-date">
+  <time datetime="2015-09-22T14:37:32.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mysql/">MySQL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/">MySQL 单机多实例主从</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h2><p>  [root@iZ25qtxg0q6Z ~]# uname -a<br>  Linux iZ25qtxg0q6Z 2.6.32-431.23.3.el6.x86_64 #1 SMP Thu Jul 31 17:20:51 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux<br>  [root@iZ25qtxg0q6Z ~]# cat /etc/redhat-release<br>  CentOS release 6.7 (Final)<br>  [root@iZ25qtxg0q6Z ~]# mysql –version<br>  mysql Ver 14.14 Distrib 5.1.73, for redhat-linux-gnu (x86_64) using readline 5.1</p>
+<h2 id="set-up-replication-steps"><a href="#set-up-replication-steps" class="headerlink" title="set-up replication steps"></a>set-up replication steps</h2><ol>
+<li>enable binary logging of master</li>
+<li>stop writing <code>FLUSH TABLES WITH READ LOCK;</code></li>
+<li>obtain binary log file name and position for slave</li>
+<li>transfer data from master to slave (mysqldump 、 mysqlimport)</li>
+<li>on the master <code>UNLOCK TABLES;</code></li>
+<li><p>Setting the Replication Slave Configuration</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CHANGE</span> <span class="keyword">MASTER</span> <span class="keyword">TO</span></span><br><span class="line">MASTER_HOST=<span class="string">'master_host_name'</span>,</span><br><span class="line">MASTER_USER=<span class="string">'replication_user_name'</span>,</span><br><span class="line">MASTER_PASSWORD=<span class="string">'replication_password'</span>,</span><br><span class="line">MASTER_LOG_FILE=<span class="string">'recorded_log_file_name'</span>,</span><br><span class="line">MASTER_LOG_POS=recorded_log_position;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>check master and slave status <code>SHOW VARIABLES LIKE &#39;server_id&#39;</code></p>
+</li>
+<li>in slave <code>START SLAVE</code></li>
+</ol>
+<h2 id="安装过程中的命令及问题解决方法"><a href="# 安装过程中的命令及问题解决方法" class="headerlink" title="安装过程中的命令及问题解决方法"></a>安装过程中的命令及问题解决方法</h2><h3 id="mysql-secure-installation"><a href="#mysql-secure-installation" class="headerlink" title="mysql_secure_installation"></a>mysql_secure_installation</h3><p>mysql_secure_installation 作用：</p>
+<ul>
+<li>set root password,</li>
+<li>disallowing root login remotely,</li>
+<li>removing anonymous user accounts after first installation</li>
+<li>removing test database which can be accessed by any users</li>
+</ul>
+<p>但是 mysql_secure_installation 无法指定命令参数（<a href="https://dev.mysql.com/doc/refman/5.1/en/mysql-secure-installation.html" target="_blank" rel="external">5.7</a> 可以指定参数以后可以直接指定，之前的版本无法指定），会使用默认的配置，导致新安装的实例安全配置无法更新 <br> 配置位置 <code>/var/lib/mysql/mysql2.sock</code></p>
+<p>有两种方法可以解决执行 mysql_secure_installation 时应用到指定实例：<br>  <code>[root@iZ25qtxg0q6Z ~]# which mysql_secure_installation
+  /usr/bin/mysql_secure_installation</code></p>
+<ol>
+<li>在配置文件中制定，修改为对应的实例配置</li>
+<li>使用 <a href="http://dba-valley.blogspot.jp/2013/03/mysql-secure-installation-for-non.html" target="_blank" rel="external"> 软链</a></li>
+</ol>
+<h3 id="启动 -mysql-instanse"><a href="# 启动 -mysql-instanse" class="headerlink" title="启动 mysql instanse"></a>启动 mysql instanse</h3><p><code>mysqld_safe --defaults-file=/etc/my2.cnf</code></p>
+<h3 id="主从数据保持一致（导出导入）"><a href="# 主从数据保持一致（导出导入）" class="headerlink" title="主从数据保持一致（导出导入）"></a>主从数据保持一致（导出导入）</h3><ol>
+<li>导出数据 <code>mysqldump --all-databases --master-data --events &amp;gt; dbdump.db -p</code></li>
+<li>导入至指定实例 <code>mysqlimport -uroot -P 3380 -h 127.0.0.1 dbdump.db -p</code></li>
+</ol>
+<h3 id="stop-mysql-instance-by-specifing-sockct"><a href="#stop-mysql-instance-by-specifing-sockct" class="headerlink" title="stop mysql instance by specifing sockct"></a>stop mysql instance by specifing sockct</h3><p><code>mysqladmin -S /var/lib/mysql/mysql2.sock shutdown -p</code></p>
+<h2 id="userful-links"><a href="#userful-links" class="headerlink" title="userful links"></a>userful links</h2><ol>
+<li><a href="http://stackoverflow.com/questions/15439307/mysql-secure-installation-cant-connect-to-local-mysql-server-through-socket" target="_blank" rel="external">mysql 安全设置</a></li>
+<li><a href="http://dba-valley.blogspot.jp/2013/03/mysql-secure-installation-for-non.html" target="_blank" rel="external">使用软链</a></li>
+<li><a href="http://www.cyberciti.biz/faq/kill-process-in-linux-or-terminate-a-process-in-unix-or-linux-systems/" target="_blank" rel="external">kill process</a></li>
+<li><a href="http://www.xaprb.com/blog/2007/08/01/why-mysql-server-not-configured-as-slave/" target="_blank" rel="external">config slave error handlering</a></li>
+<li><a href="http://stackoverflow.com/questions/105776/how-do-i-restore-a-mysql-dump-file" target="_blank" rel="external">restore mysqldump file</a></li>
+<li><a href="http://www.ghostchina.com/how-to-reset-mysqls-root-password/" target="_blank" rel="external">reset mysql root password</a></li>
+<li><a href="http://sharadchhetri.com/2013/12/02/create-multiple-mysql-instance-centos-6-4-red-hat-6-4/" target="_blank" rel="external">create-multiple-mysql-instance</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.1/en/multiple-unix-servers.html" target="_blank" rel="external">multiple-mysql-servers</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.1/en/replication-howto-newservers.html" target="_blank" rel="external">Setting Up Replication with New Master and Slaves</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="cio6jsjk7004z546vfpijbr2e" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/master/">Master</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/slave/">Slave</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-index-type" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/08/index-type/" class="article-date">
@@ -144,7 +234,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="cinhdqua8003bji6v80l8y4jf" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="cio6jsjix003b546vem5mwnja" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/08/index-type/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -204,7 +294,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="cinhdqubj004rji6vtncpu1bn" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="cio6jsjk5004w546v7odorqy3" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -302,7 +392,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="cinhdqu8q000qji6vdpp7dqeg" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="cio6jsjh2000q546vsncodzir" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -380,7 +470,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="cinhdqua0002uji6v2n124s5d" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="cio6jsjio002u546vxm5fgs2y" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -443,7 +533,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="cinhdqu8o000mji6v6hngls0g" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="cio6jsjgy000m546vfndjkfor" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -493,7 +583,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="cinhdqu91001dji6vtdrdeoz7" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="cio6jsjhe001d546vxy0im2zv" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -544,7 +634,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="cinhdquaa003hji6v33sb8218" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="cio6jsjj0003h546vzpf6yz7d" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/group-then-sum/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -608,7 +698,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/" data-id="cinhdqu9e0020ji6v5ihole5h" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/" data-id="cio6jsjht0020546vr991zry4" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -664,70 +754,12 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/09/telephone-interview/" data-id="cinhdqu8u000zji6vc02w94rx" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/09/telephone-interview/" data-id="cio6jsjh7000z546vi1dwecus" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/09/telephone-interview/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/求职/">求职</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-php5-2-with-apache2-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/08/php5-2-with-apache2-2/" class="article-date">
-  <time datetime="2013-08-15T17:33:48.000Z" itemprop="datePublished">2013-08-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">PHP</a>►<a class="article-category-link" href="/categories/php/编程学习与开发/">编程学习与开发</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/php5-2-with-apache2-2/">PHP5.2+Apache2.2 的配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 由于安装 PHP5.5 的版本后在 Apache 的 http.conf 文件中配置 php 后导致 Apache 启动失败，错误提示为 <br><code>the requested operation has failed</code></p>
-<p> 找官方文档发现配置 php5 模块的语句为 <code>LoadModule php5_module &amp;quot;c:/php/php5apache2_2.dll;</code>，可是 5.5 的版本这个 DLL 文件后缀为 2_4, 修改后并没有成功，网上找大多建议安装 VC 运行库（<a href="http://blog.csdn.net/vancekq/article/details/7716555" target="_blank" rel="external"> 文章 </a>）</p>
-<p> 其实问题归根结底是因为 PHP 版本与 Apache 版本不匹配，所以总结了下面的方法，很简单，结合了书上和官方文档的方法。</p>
-<p> 软件：PHP:php-5.2.17-Win32-VC6-x86.zip<br>Apache:httpd-2.2.25-win32-x86-openssl-0.9.8y.msi</p>
-<p> 步骤：安装 Apache，按说明依次操作即可。解压 PHP 到某一目录。</p>
-<p> 在 apache 的 http.conf 文件中加入以下代码：<br><figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">LoadModule</span></span> php5_module &amp;quot;c:/php/php5apache2_2.dll;</span><br><span class="line"><span class="keyword">AddHandler</span> application/x-httpd-php .php</span><br></pre></td></tr></table></figure></p>
-<p> 配置 php.ini 的路径 <br><code>PHPIniDir &quot;C:/php;&quot;</code></p>
-<p> 在 php.ini 中设置 </p>
-<p>1、扩展 dll 目录 <br><code>extension_dir=&quot;c:/php/ext;&quot;</code></p>
-<p>2、Web 服务器根目录（Apache2.2）<br><code>doc_root =&quot;C:/Program Files/Apache Software Foundation/Apache2.2/htdocs;&quot;</code></p>
-<p>3、打开运行的扩展 <br>extension=php_mysqli.dll</p>
-<p> 以上配置中 <strong>php</strong> 解压到 <code>c:\php</code> <strong>Apache</strong> 安装在 <code>C:/Program Files/Apache Software Foundation/Apache2.2</code><br> 安装完成后重启 Apache，然后在 htdocs 放入 test.php 文件，内容为 <code>&lt;? phpinfo();?&gt;</code> 如若显示 PHP 的配置信息则安装成功。</p>
-<p> 有时间我在配置一下 5.5 版本的 PHP 再把安装过程贴出来。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/" data-id="cinhdqu9g0027ji6vjkhwrcl4" class="article-share-link">Share</a>
-      
-        <a href="http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li></ul>
 
     </footer>
   </div>
@@ -753,6 +785,10 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
       <ul>
         
           <li>
+            <a href="/2016/05/basic-composer-package-development/">动手开发自己的第一个 composer 包</a>
+          </li>
+        
+          <li>
             <a href="/2016/04/get-week-number-in-month-from-date-in-php/">获取当前日期在本月的第几周</a>
           </li>
         
@@ -768,10 +804,6 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
             <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
           </li>
         
-          <li>
-            <a href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -781,7 +813,7 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -790,7 +822,7 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
