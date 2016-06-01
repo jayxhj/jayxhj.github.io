@@ -21,10 +21,10 @@
 你完成一个功能会涉及到不少文件，你得小心翼翼地一个个文件选择，防止不必要的文件出现在同一个待提交列表中；
 
 你改了很多文件，然后执行了 git add . ，这时你有两个选择，要么">
-<meta property="og:image" content="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前 -300x166.jpg">
-<meta property="og:image" content="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后 -300x135.png">
-<meta property="og:image" content="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F-300x135.png">
-<meta property="og:updated_time" content="2016-03-21T03:17:06.000Z">
+<meta property="og:image" content="http://img.jayxhj.com/PathPicker-git-add-before.jpg">
+<meta property="og:image" content="http://img.jayxhj.com/PathPicker-git-statusfpp-after.png">
+<meta property="og:image" content="http://img.jayxhj.com/PathPicker-git-commit-F.png">
+<meta property="og:updated_time" content="2016-06-01T10:03:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FaceBook 命令行 UI PathPicker">
 <meta name="twitter:description" content="早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。
@@ -144,7 +144,7 @@ ga('send', 'pageview');
 </li>
 </ol>
 <p>于是 PathPicker 出现了，专为解决此种费力不讨好的事情，UI 选择器，命令行，一起上。</p>
-<h2 id="介绍"><a href="# 介绍" class="headerlink" title="介绍"></a>介绍</h2><p>FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。  </p>
+<h2 id="介绍"><a href="# 介绍" class="headerlink" title="介绍"></a>介绍</h2><p>FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。</p>
 <p>PathPicker 做以下事情：</p>
 <ul>
 <li>通过管道处理输入中所有表现出文本特性的文件</li>
@@ -157,18 +157,19 @@ ga('send', 'pageview');
 </li>
 </ul>
 <p>下面通过一段视频来了解 PathPicker：</p>
-<script type="text/javascript" src="https://asciinema.org/a/19519.js" id="asciicast-19519" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/19519.js" id="asciicast-19519" async>
+</script>
 
-<h2 id="PathPicker- 是怎么运行的"><a href="#PathPicker- 是怎么运行的" class="headerlink" title="PathPicker 是怎么运行的"></a>PathPicker 是怎么运行的</h2><p>PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。  它主要有以下三个步骤：</p>
+<h2 id="PathPicker- 是怎么运行的"><a href="#PathPicker- 是怎么运行的" class="headerlink" title="PathPicker 是怎么运行的"></a>PathPicker 是怎么运行的</h2><p>PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。 它主要有以下三个步骤：</p>
 <ol>
 <li>首先在 bash 脚本中，它将所有的标准输入重定向到一个 Python 模块，然后通过解析取出其中所包含的文件名候选列表。每个候选文件名都将被用来与文件系统做比对确保其存在，再然后，会把处理结果保存至临时文件并终止 python 脚本的运行。</li>
 <li>第二部，bash 脚本会切换至命令行输入模式，并且另一个 python 模块会读取出已保存的条目并使用 <code>curses</code> 在一个 UI 选择器展现它们。</li>
 <li>最后，python 脚本会输出一条命令至 bash 文件，最终被原始的 bash 脚本解析执行。</li>
 </ol>
 <h2 id="使用示例"><a href="# 使用示例" class="headerlink" title="使用示例"></a>使用示例 </h2><p> 当改了很多文件需要提交提交时，查看当前状态 <code>git status</code></p>
-<p><a href="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前.jpg" target="_blank" rel="external"><img src="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前 -300x166.jpg" alt="PathPicker-git add 前"></a></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-add-before.jpg" alt="git add before"></p>
 <p>将输出重定向至 PathPicker <code>git stataus | fpp</code></p>
-<p><a href="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后.png" target="_blank" rel="external"><img src="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后 -300x135.png" alt="PathPicker-git status|fpp 后"></a></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-statusfpp-after.png" alt="git status|fpp"></p>
 <ul>
 <li>已选中为绿色</li>
 <li>已选中且当前光标悬停显示为红色</li>
@@ -176,15 +177,14 @@ ga('send', 'pageview');
 <li>无法选中的光标无法跳到此项，显示为纯文本</li>
 </ul>
 <p>提交选定的文件 <code>git commit $F</code></p>
-<p><a href="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F.png" target="_blank" rel="external"><img src="http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F-300x135.png" alt="PathPicker-git commit $F"></a></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-commit-F.png" alt="git commit $F"></p>
 <p>PathPicker 官网见 <a href="http://facebook.github.io/PathPicker/" target="_blank" rel="external">http://facebook.github.io/PathPicker/</a></p>
 <hr>
-<p></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/" data-id="cio6jsjjk0042546vqpgz0dm1" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/" data-id="ciowbrm820047nw6vc5ahda74" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -233,6 +233,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/2016/05/jayxhjs-chrome-extensions/">常用 Chrome 扩展介绍及使用</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/basic-composer-package-development/">动手开发自己的第一个 composer 包</a>
           </li>
         
@@ -268,10 +272,6 @@ ga('send', 'pageview');
             <a href="/2016/01/facebook-command-line-ui-pathpicker/">FaceBook 命令行 UI PathPicker</a>
           </li>
         
-          <li>
-            <a href="/2015/12/git-commands/">Git 常用操作</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -282,7 +282,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -291,7 +291,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

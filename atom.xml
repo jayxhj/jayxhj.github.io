@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-05-14T02:48:01.000Z</updated>
+  <updated>2016-06-01T09:27:07.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用 Chrome 扩展介绍及使用</title>
+    <link href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/"/>
+    <id>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</id>
+    <published>2016-05-26T08:27:35.000Z</published>
+    <updated>2016-06-01T09:27:07.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Chrome 浏览器和 Firefox 浏览器为何大受欢迎，其中一个重要原因就是因为有数量巨大的扩展库，而 360 之类的浏览器内核也是基于 Chromium 内核和 IE 内核，因为这些扩展，可以让应用（浏览器就是应用）的功能变得无比丰富和强大。&lt;/p&gt;
+&lt;p&gt;这篇文章会列举本人平常使用的插件，并介绍常用的用法，但由于扩展使用的主观性太强，每个人都有不同的偏好，所以此篇会把重点放在扩展的使用上，并会不定时更新。扩展排名不分先后。&lt;/p&gt;
+&lt;p&gt;每个扩展介绍会包含其简要介绍，下载地址及基本用法，默认给出的是 Chrome webstore 的下载地址，如果有托管在 GitHub 会给出其托管地址。&lt;/p&gt;
+&lt;h2 id=&quot;Avatars-for-Github&quot;&gt;&lt;a href=&quot;#Avatars-for-Github&quot; class=&quot;headerlink&quot; title=&quot;Avatars for Github&quot;&gt;&lt;/a&gt;Avatars for Github&lt;/h2&gt;&lt;p&gt;一句话介绍：在 GitHub feed 页展示你关注人的头像。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/avatars-for-github/pgjmdbklnfklcjfbonjfkdhaonlfogbb&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/avatars-for-github/pgjmdbklnfklcjfbonjfkdhaonlfogbb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;https://github.com/anasnakawa/chrome-github-avatars&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/anasnakawa/chrome-github-avatars&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/GitHub-feed-before.png&quot; alt=&quot;GitHub-feed-before&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/GitHub-feed-before.png&quot; alt=&quot;GitHub-feed-after&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Axure-RP-Extension-for-Chrome&quot;&gt;&lt;a href=&quot;#Axure-RP-Extension-for-Chrome&quot; class=&quot;headerlink&quot; title=&quot;Axure RP Extension for Chrome&quot;&gt;&lt;/a&gt;Axure RP Extension for Chrome&lt;/h2&gt;&lt;p&gt;一句话介绍：web 版的 Axure 客户端。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/dogkpdfcklifaemcdfbildhcofnopogp&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/dogkpdfcklifaemcdfbildhcofnopogp&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://www.axure.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.axure.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：安装此插件后，即可在不安装 Axure 下的情况下，打开原型，直接在浏览器中运行。&lt;/p&gt;
+&lt;h2 id=&quot;Chrome-Sniffer-Plus&quot;&gt;&lt;a href=&quot;#Chrome-Sniffer-Plus&quot; class=&quot;headerlink&quot; title=&quot;Chrome Sniffer Plus&quot;&gt;&lt;/a&gt;Chrome Sniffer Plus&lt;/h2&gt;&lt;p&gt;一句话介绍：网页下的类库探测器。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/fhhdlnnepfjhlhilgmeepgkhjmhhhjkh&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/fhhdlnnepfjhlhilgmeepgkhjmhhhjkh&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://justjavac.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://justjavac.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：探测当前网页正在使用的开源软件或者 JS 类库。其实一个网站或者应用，技术栈一般会涉及到很多的技术，这个扩展可以检测一些基本的开源类库，作为日常的探测够用了。&lt;/p&gt;
+&lt;h2 id=&quot;hosts 文件管理工具&quot;&gt;&lt;a href=&quot;#hosts 文件管理工具&quot; class=&quot;headerlink&quot; title=&quot;hosts 文件管理工具&quot;&gt;&lt;/a&gt;hosts 文件管理工具 &lt;/h2&gt;&lt;p&gt; 一句话介绍：host 管理及切换工具。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/kpfmckjjpabojdhlncnccfhkfhbmnjfi&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/kpfmckjjpabojdhlncnccfhkfhbmnjfi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;https://github.com/gbk/chrome-hosts-manager&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/gbk/chrome-hosts-manager&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：主要用来进行 ip 与 host 之间的绑定，另外可以对域名 ip 进行分组，非常适合用来进行切换环境。另外一个主要功能就是显示当前 ip ，在没有挂代理的情况下，可以显示当前页面的服务器 ip 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/chrome-hosts-manager.jpg&quot; alt=&quot;显示当前页面 ip&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;JSON-Editor&quot;&gt;&lt;a href=&quot;#JSON-Editor&quot; class=&quot;headerlink&quot; title=&quot;JSON Editor&quot;&gt;&lt;/a&gt;JSON Editor&lt;/h2&gt;&lt;p&gt;一句话介绍：JSON 在线解析及编辑器。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/lhkmoheomjbkfloacpgllgjcamhihfaj&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/lhkmoheomjbkfloacpgllgjcamhihfaj&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://jsoneditoronline.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jsoneditoronline.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：&lt;a href=&quot;http://jsoneditoronline.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jsoneditoronline.org/&lt;/a&gt; 的 chrome 扩展版本，可以用来修改 JSON 数据，并实时验证 JSON 数据的合法性，构造复杂的 JSON 数组、对象、字符串。&lt;/p&gt;
+&lt;h2 id=&quot;JSONView&quot;&gt;&lt;a href=&quot;#JSONView&quot; class=&quot;headerlink&quot; title=&quot;JSONView&quot;&gt;&lt;/a&gt;JSONView&lt;/h2&gt;&lt;p&gt;一句话介绍：JSON 查看器。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;https://github.com/gildas-lormeau/JSONView-for-Chrome&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/gildas-lormeau/JSONView-for-Chrome&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：适合用来查看 JSON ，但是由于在解析当前页面时，如果发现是 JSON ，会再次请求一次页面，所以不适合查看、测试对多次请求结果不一致的 api 。之前写过一篇文章，介绍的就是 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 JSONView 配合进行 Debug&lt;/a&gt; 。&lt;/p&gt;
+&lt;h2 id=&quot;OneTab&quot;&gt;&lt;a href=&quot;#OneTab&quot; class=&quot;headerlink&quot; title=&quot;OneTab&quot;&gt;&lt;/a&gt;OneTab&lt;/h2&gt;&lt;p&gt;一句话介绍：可以节省 95% 内存使用的标签页管理工具。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/chphlpgkkbolifaimnlloiipkdnihall&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/chphlpgkkbolifaimnlloiipkdnihall&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://one-tab.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://one-tab.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用法：使用 OneTab 可以将暂时不需要处理的网页集中到一起，大大减小 Chrome 吃内存的问题。使用它可以对网页进行分组，可以随意更改标签页顺序，能分享自己的标签页给他人，并且让人放心的是，即使关闭浏览器，或者重启电脑， OneTab 里的内容还在，可以放心地使用，开发团队表示，后续将引入云端功能，保持多设备的同步，大快人心。使用 &lt;code&gt;Alt + Shift + 1&lt;/code&gt; 即可呼出 OneTab 。&lt;/p&gt;
+&lt;h2 id=&quot;Proxy-SwitchyOmega&quot;&gt;&lt;a href=&quot;#Proxy-SwitchyOmega&quot; class=&quot;headerlink&quot; title=&quot;Proxy SwitchyOmega&quot;&gt;&lt;/a&gt;Proxy SwitchyOmega&lt;/h2&gt;&lt;p&gt;一句话介绍：代理管理及切换工具。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/padekgcemlokbadohgkifijomclgjgif&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/padekgcemlokbadohgkifijomclgjgif&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;https://github.com/FelisCatus/SwitchyOmega&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/FelisCatus/SwitchyOmega&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Search-by-Image-by-Google&quot;&gt;&lt;a href=&quot;#Search-by-Image-by-Google&quot; class=&quot;headerlink&quot; title=&quot;Search by Image (by Google)&quot;&gt;&lt;/a&gt;Search by Image (by Google)&lt;/h2&gt;&lt;p&gt;一句话介绍：Google 搜图工具。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/search-by-image-by-google/dajedkncpodkggklbegccjpmnglmnflm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/search-by-image-by-google/dajedkncpodkggklbegccjpmnglmnflm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;https://chrome.google.com/webstore/category/ext/15-by-google&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/category/ext/15-by-google&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用：选中某个图片，右键，点击 &lt;strong&gt;Search Google with this image&lt;/strong&gt;，即可搜索与此图类似的图片。其实就是调用的 Google Images 的服务。国内百度的 &lt;a href=&quot;http://image.baidu.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;以图搜图&lt;/a&gt; 做的也挺不错。&lt;/p&gt;
+&lt;h2 id=&quot;Wikiwand-Wikipedia-Modernized&quot;&gt;&lt;a href=&quot;#Wikiwand-Wikipedia-Modernized&quot; class=&quot;headerlink&quot; title=&quot;Wikiwand: Wikipedia Modernized&quot;&gt;&lt;/a&gt;Wikiwand: Wikipedia Modernized&lt;/h2&gt;&lt;p&gt;一句话介绍：更美的维基百科。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;http://www.wikiwand.com/#/install&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.wikiwand.com/#/install&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://www.wikiwand.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.wikiwand.com/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;印象笔记·剪藏&quot;&gt;&lt;a href=&quot;# 印象笔记·剪藏&quot; class=&quot;headerlink&quot; title=&quot;印象笔记·剪藏&quot;&gt;&lt;/a&gt;印象笔记·剪藏 &lt;/h2&gt;&lt;p&gt; 一句话介绍： 智能归类、剪辑、收藏、悦读并提供关键字搜索功能的印象笔记工具。&lt;/p&gt;
+&lt;p&gt;地址：&lt;a href=&quot;https://chrome.google.com/webstore/detail/evernote-web-clipper/pioclpoplcdbaefihamjohnefbikjilc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://chrome.google.com/webstore/detail/evernote-web-clipper/pioclpoplcdbaefihamjohnefbikjilc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开发者网站：&lt;a href=&quot;http://evernote.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://evernote.com/&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Chrome 浏览器和 Firefox 浏览器为何大受欢迎，其中一个重要原因就是因为有数量巨大的扩展库，而 360 之类的浏览器内核也是基于 Chromium 内核和 IE 内核，因为这些扩展，可以让应用（浏览器就是应用）的功能变得无比丰富和强大。&lt;/p&gt;
+&lt;p&gt;这篇文章会
+    
+    </summary>
+    
+    
+      <category term="chrome" scheme="http://blog.jayxhj.com/tags/chrome/"/>
+    
+      <category term="extensions" scheme="http://blog.jayxhj.com/tags/extensions/"/>
+    
+  </entry>
   
   <entry>
     <title>动手开发自己的第一个 composer 包</title>
@@ -485,7 +554,7 @@
     <link href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/"/>
     <id>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</id>
     <published>2016-01-17T09:40:38.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
+    <updated>2016-06-01T10:03:58.000Z</updated>
     
     <content type="html">&lt;p&gt;早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。&lt;/p&gt;
 &lt;p&gt;试想以下场景：&lt;/p&gt;
@@ -496,7 +565,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;于是 PathPicker 出现了，专为解决此种费力不讨好的事情，UI 选择器，命令行，一起上。&lt;/p&gt;
-&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;# 介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。  &lt;/p&gt;
+&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;# 介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。&lt;/p&gt;
 &lt;p&gt;PathPicker 做以下事情：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;通过管道处理输入中所有表现出文本特性的文件&lt;/li&gt;
@@ -509,18 +578,19 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;下面通过一段视频来了解 PathPicker：&lt;/p&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://asciinema.org/a/19519.js&quot; id=&quot;asciicast-19519&quot; async&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://asciinema.org/a/19519.js&quot; id=&quot;asciicast-19519&quot; async&gt;
+&lt;/script&gt;
 
-&lt;h2 id=&quot;PathPicker- 是怎么运行的&quot;&gt;&lt;a href=&quot;#PathPicker- 是怎么运行的&quot; class=&quot;headerlink&quot; title=&quot;PathPicker 是怎么运行的&quot;&gt;&lt;/a&gt;PathPicker 是怎么运行的&lt;/h2&gt;&lt;p&gt;PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。  它主要有以下三个步骤：&lt;/p&gt;
+&lt;h2 id=&quot;PathPicker- 是怎么运行的&quot;&gt;&lt;a href=&quot;#PathPicker- 是怎么运行的&quot; class=&quot;headerlink&quot; title=&quot;PathPicker 是怎么运行的&quot;&gt;&lt;/a&gt;PathPicker 是怎么运行的&lt;/h2&gt;&lt;p&gt;PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。 它主要有以下三个步骤：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;首先在 bash 脚本中，它将所有的标准输入重定向到一个 Python 模块，然后通过解析取出其中所包含的文件名候选列表。每个候选文件名都将被用来与文件系统做比对确保其存在，再然后，会把处理结果保存至临时文件并终止 python 脚本的运行。&lt;/li&gt;
 &lt;li&gt;第二部，bash 脚本会切换至命令行输入模式，并且另一个 python 模块会读取出已保存的条目并使用 &lt;code&gt;curses&lt;/code&gt; 在一个 UI 选择器展现它们。&lt;/li&gt;
 &lt;li&gt;最后，python 脚本会输出一条命令至 bash 文件，最终被原始的 bash 脚本解析执行。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;使用示例&quot;&gt;&lt;a href=&quot;# 使用示例&quot; class=&quot;headerlink&quot; title=&quot;使用示例&quot;&gt;&lt;/a&gt;使用示例 &lt;/h2&gt;&lt;p&gt; 当改了很多文件需要提交提交时，查看当前状态 &lt;code&gt;git status&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前.jpg&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-add- 前 -300x166.jpg&quot; alt=&quot;PathPicker-git add 前&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/PathPicker-git-add-before.jpg&quot; alt=&quot;git add before&quot;&gt;&lt;/p&gt;
 &lt;p&gt;将输出重定向至 PathPicker &lt;code&gt;git stataus | fpp&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后.png&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-statusfpp- 后 -300x135.png&quot; alt=&quot;PathPicker-git status|fpp 后&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/PathPicker-git-statusfpp-after.png&quot; alt=&quot;git status|fpp&quot;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;已选中为绿色&lt;/li&gt;
 &lt;li&gt;已选中且当前光标悬停显示为红色&lt;/li&gt;
@@ -528,10 +598,9 @@
 &lt;li&gt;无法选中的光标无法跳到此项，显示为纯文本&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;提交选定的文件 &lt;code&gt;git commit $F&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F.png&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://jayxhj.com/wp-content/uploads/2016/01/PathPicker-git-commit-F-300x135.png&quot; alt=&quot;PathPicker-git commit $F&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/PathPicker-git-commit-F.png&quot; alt=&quot;git commit $F&quot;&gt;&lt;/p&gt;
 &lt;p&gt;PathPicker 官网见 &lt;a href=&quot;http://facebook.github.io/PathPicker/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://facebook.github.io/PathPicker/&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -968,24 +1037,28 @@
     <link href="http://blog.jayxhj.com/2013/11/group-then-sum/"/>
     <id>http://blog.jayxhj.com/2013/11/group-then-sum/</id>
     <published>2013-11-05T02:04:02.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
+    <updated>2016-06-01T09:49:46.000Z</updated>
     
-    <content type="html">&lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。&lt;br&gt;后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和 &lt;/strong&gt;。&lt;br&gt; 需求：将某列数据求和 &lt;br&gt; 例子：数据库内容为：&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05100823-8881d57158a1458aa88c20fbe0a02682.png&quot; alt=&quot;数据库内容&quot;&gt;&lt;/p&gt;
-&lt;p&gt;根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05101102-0e51609e1b494e0b91d0480c9b61bcc4.png&quot; alt=&quot;根据 record_type 分组&quot;&gt;&lt;/p&gt;
-&lt;p&gt;再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加&lt;br&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/502093/201311/05101232-3342a407272040cbbd228885e608c4b4.png&quot; alt=&quot;根据 record_date 进行分组&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和&lt;/strong&gt;。 需求：将某列数据求和 例子：数据库内容为： &lt;img src=&quot;http://img.jayxhj.com/mysql-group-all-records.png&quot; alt=&quot;数据库内容&quot;&gt;&lt;/p&gt;
+&lt;p&gt;根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 &lt;img src=&quot;http://img.jayxhj.com/mysql-group-by-record-type.png&quot; alt=&quot;根据 record_type 分组&quot;&gt;&lt;/p&gt;
+&lt;p&gt;再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加 &lt;img src=&quot;http://img.jayxhj.com/mysql-group-by-record-date.png&quot; alt=&quot;根据 record_date 进行分组&quot;&gt;&lt;/p&gt;
 &lt;p&gt;总结：当需要进行对某一列的具有相似条件（对应于 where 中的条件）的数据进行合并时，使用 group by 将记录分组，再使用聚合函数对数据进行需要的操作。这样就可以使用一条语句将所有的数据进行分组求和。&lt;/p&gt;
-&lt;p&gt;创建例子中的数据的 SQL 语句为&lt;br&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!32312 IF NOT EXISTS*/&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!40100 DEFAULT CHARACTER SET utf8 */&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;comment&quot;&gt;/*Table structure for table `test` */&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;DROP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt; (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; AUTO_INCREMENT,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PRIMARY &lt;span class=&quot;keyword&quot;&gt;KEY&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;keyword&quot;&gt;ENGINE&lt;/span&gt;=&lt;span class=&quot;keyword&quot;&gt;InnoDB&lt;/span&gt; AUTO_INCREMENT=&lt;span class=&quot;number&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;CHARSET&lt;/span&gt;=utf8;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*Data for the table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;insert&lt;/span&gt;  &lt;span class=&quot;keyword&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;values&lt;/span&gt; (&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;10000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;20000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;4000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;40000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt;);&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;查询语句为&lt;br&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;c&lt;/span&gt;) &lt;span class=&quot;string&quot;&gt;&#39;c 列数据的和&#39;&lt;/span&gt;,&lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;d&lt;/span&gt;)&lt;span class=&quot;string&quot;&gt;&#39;d 列数据的和&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; record_date &lt;span class=&quot;keyword&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-13&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-16&#39;&lt;/span&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type &lt;span class=&quot;keyword&quot;&gt;ASC&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;创建例子中的数据的 SQL 语句为&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!32312 IF NOT EXISTS*/&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!40100 DEFAULT CHARACTER SET utf8 */&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;comment&quot;&gt;/*Table structure for table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;DROP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt; (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; AUTO_INCREMENT,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PRIMARY &lt;span class=&quot;keyword&quot;&gt;KEY&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;keyword&quot;&gt;ENGINE&lt;/span&gt;=&lt;span class=&quot;keyword&quot;&gt;InnoDB&lt;/span&gt; AUTO_INCREMENT=&lt;span class=&quot;number&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;CHARSET&lt;/span&gt;=utf8;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*Data for the table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;insert&lt;/span&gt;  &lt;span class=&quot;keyword&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;values&lt;/span&gt; (&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;10000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;20000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;4000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;40000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt;);&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;查询语句为&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;c&lt;/span&gt;) &lt;span class=&quot;string&quot;&gt;&#39;c 列数据的和&#39;&lt;/span&gt;,&lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;d&lt;/span&gt;)&lt;span class=&quot;string&quot;&gt;&#39;d 列数据的和&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; record_date &lt;span class=&quot;keyword&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-13&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-16&#39;&lt;/span&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type &lt;span class=&quot;keyword&quot;&gt;ASC&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。&lt;br&gt;后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和 &lt;/strong&gt;。&lt;br&gt; 需求：将某列数据求和 &lt;br&gt; 例子：数据库内容为：&lt;br&gt;&lt;img 
+      &lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和&lt;/strong&gt;。 需求：将某列数据求和 例子：数据库内容为： &lt;img src=&quot;http://img.
     
     </summary>
     
       <category term="MySQL" scheme="http://blog.jayxhj.com/categories/mysql/"/>
     
+    
+      <category term="MySQL" scheme="http://blog.jayxhj.com/tags/mysql/"/>
     
   </entry>
   
@@ -1033,45 +1106,6 @@
       <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
     
       <category term="PHP5.5" scheme="http://blog.jayxhj.com/tags/php5-5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第一次电话面试</title>
-    <link href="http://blog.jayxhj.com/2013/09/telephone-interview/"/>
-    <id>http://blog.jayxhj.com/2013/09/telephone-interview/</id>
-    <published>2013-09-16T14:31:08.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
-    
-    <content type="html">&lt;p&gt;这是第一次在网上投简历有结果，上午十一点对方公司打电话过来说下午两点安排技术人员和我电话面试，下午两点一到对方电话就打过来了，效率很高很守时，我非常喜欢。&lt;br&gt;下面的是面试的内容，最大的感触就是基础得练扎实，得多实践。&lt;/p&gt;
-&lt;p&gt;自我介绍&lt;/p&gt;
-&lt;h3 id=&quot;PHP&quot;&gt;&lt;a href=&quot;#PHP&quot; class=&quot;headerlink&quot; title=&quot;PHP&quot;&gt;&lt;/a&gt;PHP&lt;/h3&gt;&lt;p&gt;常见的 PHP 字符串处理函数？&lt;br&gt;Session 和 cookie 的区别？&lt;br&gt;Session 储存于服务器端， cookie 储存于客户端。分别使用超全局变量 $_SESSION 和 $_COOKIE 数组访问。&lt;br&gt;Require()和 include()的区别？&lt;br&gt;require() 意为”必须”，include() 意为”包含”。它们都能实现包含一个文件的功能，但&lt;br&gt;include() 语句如果指定的文件无法定位，代码继续运行，而 require() 语句会导致代码停止运行并抛出错误。若文件找不到，两者都会报错但是只有 require() 语句会完全终止代码得运行。require_once() 语句与 include_once() 语句保证被包含的文件只被引入一次，防止重复定义和执行的问题。&lt;/p&gt;
-&lt;h2 id=&quot;HTTP&quot;&gt;&lt;a href=&quot;#HTTP&quot; class=&quot;headerlink&quot; title=&quot;HTTP&quot;&gt;&lt;/a&gt;HTTP&lt;/h2&gt;&lt;p&gt;常见的 HTTP 状态码及表示的意思？&lt;/p&gt;
-&lt;h2 id=&quot;数据库&quot;&gt;&lt;a href=&quot;# 数据库&quot; class=&quot;headerlink&quot; title=&quot;数据库&quot;&gt;&lt;/a&gt;数据库 &lt;/h2&gt;&lt;p&gt; 联结语句有哪些有什么区别？&lt;br&gt;内联结和外联结与交叉联结，外联结分为左外联结和右外联结。左外联结以左表为主表，右外联结以右表为主表。&lt;br&gt;性能优化，举例?&lt;br&gt;一张表有 100 条记录（表 a），另一张有 60 条记录（表 b），左联结后记录为多少，右联结后记录数为多少？&lt;br&gt;左联结时语句为&lt;br&gt;&lt;code&gt;SELECT *
-FROM a LEFT OUTER JOIN b
-ON a.col1=b.col1&lt;/code&gt;&lt;br&gt;返回结果有 100 条，其中记录行中所有不满足条件的记录，表 b 的那几列均为 NULL&lt;br&gt;右联结语句&lt;br&gt;&lt;code&gt;SELECT *
-FROM a RIGHT OUTER JOIN b
-ON a.col1=b.col1&lt;/code&gt;&lt;br&gt;返回结果有 60 条，其中记录行中所有不满足条件的记录，表 a 的那几列均为 NULL&lt;/p&gt;
-&lt;h2 id=&quot;算法&quot;&gt;&lt;a href=&quot;# 算法&quot; class=&quot;headerlink&quot; title=&quot;算法&quot;&gt;&lt;/a&gt;算法 &lt;/h2&gt;&lt;p&gt; 常见的排序算法，时间复杂度为多少，空间复杂度为多少？&lt;br&gt;世界上最快的排序算法是什么？&lt;/p&gt;
-&lt;p&gt;上面我能回答的都在这里，待我能回答了再到评论里进行更新。&lt;br&gt;最大的感触就是学的确实不够扎实，面试官建议好好练基础，然后找项目时间。在压力下你会逼着自己把事情做出来。&lt;br&gt;很高兴，虽然今天感觉被打击了，但也在意料之中也在情理之中。&lt;br&gt;好好学习吧，努力会有收获的。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这是第一次在网上投简历有结果，上午十一点对方公司打电话过来说下午两点安排技术人员和我电话面试，下午两点一到对方电话就打过来了，效率很高很守时，我非常喜欢。&lt;br&gt;下面的是面试的内容，最大的感触就是基础得练扎实，得多实践。&lt;/p&gt;
-&lt;p&gt;自我介绍&lt;/p&gt;
-&lt;h3 id=&quot;PH
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
-    
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
-    
-      <category term="求职" scheme="http://blog.jayxhj.com/tags/%E6%B1%82%E8%81%8C/"/>
-    
-      <category term="面试" scheme="http://blog.jayxhj.com/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   

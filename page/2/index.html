@@ -92,6 +92,72 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-git-commands" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/git-commands/" class="article-date">
+  <time datetime="2015-12-10T12:15:55.000Z" itemprop="datePublished">2015-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具技巧/">工具技巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/git-commands/">Git 常用操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Git 常用操作</p>
+<hr>
+<h1 id="Git- 常用操作"><a href="#Git- 常用操作" class="headerlink" title="Git 常用操作"></a>Git 常用操作</h1><h2 id="Git- 忽略已追踪文件的修改"><a href="#Git- 忽略已追踪文件的修改" class="headerlink" title="Git 忽略已追踪文件的修改"></a>Git 忽略已追踪文件的修改</h2><p><code>git update-index –assume-unchanged /path/to/file</code></p>
+<h2 id="Git- 取消忽略文件的修改 - 再次追踪此文件"><a href="#Git- 取消忽略文件的修改 - 再次追踪此文件" class="headerlink" title="Git 取消忽略文件的修改(再次追踪此文件)"></a>Git 取消忽略文件的修改(再次追踪此文件)</h2><p><code>git update-index --no-assume-unchanged /path/to/file</code></p>
+<h2 id="导入 -Git- 仓库至 -Bitbucket"><a href="# 导入 -Git- 仓库至 -Bitbucket" class="headerlink" title="导入 Git 仓库至 Bitbucket"></a>导入 Git 仓库至 Bitbucket</h2><ol>
+<li>create repository in <a href="https://bitbucket.org/repo/create" target="_blank" rel="external">Bitbucket</a></li>
+<li>do upstreaming in local</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/my/repo</span><br><span class="line">git remote add origin https://username@bitbucket.org/username/reponame.git</span><br><span class="line">git push -u origin --all <span class="comment"># pushes up the repo and its refs for the first time</span></span><br><span class="line">git push -u origin --tags <span class="comment"># pushes up any tags`</span></span><br></pre></td></tr></table></figure>
+<h2 id="分支重命名"><a href="# 分支重命名" class="headerlink" title="分支重命名"></a>分支重命名</h2><ol>
+<li>修改当前分支 <code>git branch -m &lt;newname&gt;</code></li>
+<li>未提交至 remote <code>git branch -m &lt;oldname&gt; &lt;newname&gt;</code></li>
+<li>已提交至 remote 需新加分支 <code>git push origin &lt;newname&gt;:&lt;newname&gt;</code> 并删除旧的远程分支 <code>git push origin :&lt;newname&gt;</code></li>
+</ol>
+<h2 id="从某个分支上线"><a href="# 从某个分支上线" class="headerlink" title="从某个分支上线"></a>从某个分支上线 </h2><p> 场景：当需要从某个分支的指定版本上线，又需要保留当前分支的修改</p>
+<ol>
+<li>checkout 到指定分支 <code>git checkout [revision]</code> [revision] 代表指定 commit 的 hash</li>
+<li>以当前 commit 创建分支 <code>git checkout -b [branchName]</code> [branchName] 为分支名</li>
+<li>推送至远程 <code>git push origin branchName:branchName</code></li>
+</ol>
+<h2 id="添加多个远程分支"><a href="# 添加多个远程分支" class="headerlink" title="添加多个远程分支"></a>添加多个远程分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;a remote&gt;</span><br><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;another remote&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="ciowbrm7q003snw6vdn2bok7e" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2015/12/git-commands/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-achieve-replication-using-multi-mysql-instance-in-a-single-machine" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" class="article-date">
@@ -167,7 +233,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="cio6jsjk7004z546vfpijbr2e" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="ciowbrm9v0054nw6vvsamebk7" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -234,7 +300,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="cio6jsjix003b546vem5mwnja" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="ciowbrm78003gnw6vpnpbmf0r" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/08/index-type/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -294,7 +360,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="cio6jsjk5004w546v7odorqy3" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="ciowbrm9p0051nw6vzg3n7onc" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -392,7 +458,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="cio6jsjh2000q546vsncodzir" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="ciowbrm4j000qnw6vmvoc2v07" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -470,7 +536,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="cio6jsjio002u546vxm5fgs2y" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="ciowbrm6g002unw6v5n7cwua6" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -533,7 +599,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="cio6jsjgy000m546vfndjkfor" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="ciowbrm4e000mnw6vf57k0hxu" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -583,7 +649,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="cio6jsjhe001d546vxy0im2zv" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="ciowbrm50001dnw6v49gh28g2" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -624,21 +690,25 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。<br>后来请教了一下自己又摸索了一下，得出了解决方案，那就是 <strong> 分组求和 </strong>。<br> 需求：将某列数据求和 <br> 例子：数据库内容为：<br><img src="http://images.cnitblog.com/blog/502093/201311/05100823-8881d57158a1458aa88c20fbe0a02682.png" alt="数据库内容"></p>
-<p>根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行<br><img src="http://images.cnitblog.com/blog/502093/201311/05101102-0e51609e1b494e0b91d0480c9b61bcc4.png" alt="根据 record_type 分组"></p>
-<p>再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加<br><img src="http://images.cnitblog.com/blog/502093/201311/05101232-3342a407272040cbbd228885e608c4b4.png" alt="根据 record_date 进行分组"></p>
+        <p>在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 <strong> 分组求和</strong>。 需求：将某列数据求和 例子：数据库内容为： <img src="http://img.jayxhj.com/mysql-group-all-records.png" alt="数据库内容"></p>
+<p>根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 <img src="http://img.jayxhj.com/mysql-group-by-record-type.png" alt="根据 record_type 分组"></p>
+<p>再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加 <img src="http://img.jayxhj.com/mysql-group-by-record-date.png" alt="根据 record_date 进行分组"></p>
 <p>总结：当需要进行对某一列的具有相似条件（对应于 where 中的条件）的数据进行合并时，使用 group by 将记录分组，再使用聚合函数对数据进行需要的操作。这样就可以使用一条语句将所有的数据进行分组求和。</p>
-<p>创建例子中的数据的 SQL 语句为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="comment">/*!32312 IF NOT EXISTS*/</span><span class="string">`group`</span> <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span>;</span></span><br><span class="line"> <span class="operator"><span class="keyword">USE</span> <span class="string">`group`</span>;</span></span><br><span class="line"> <span class="comment">/*Table structure for table `test` */</span> </span><br><span class="line"><span class="operator"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`test`</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`test`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line"><span class="string">`record_date`</span> <span class="built_in">date</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, <span class="string">`record_type`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`c`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`d`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line"> <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">13</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*Data for the table `test` */</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span>  <span class="keyword">into</span> <span class="string">`test`</span>(<span class="string">`id`</span>,<span class="string">`record_date`</span>,<span class="string">`record_type`</span>,<span class="string">`c`</span>,<span class="string">`d`</span>) <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">'2013-10-14'</span>,<span class="number">1</span>,<span class="number">1000</span>,<span class="number">10000</span>),(<span class="number">2</span>,<span class="string">'2013-10-15'</span>,<span class="number">1</span>,<span class="number">2000</span>,<span class="number">20000</span>),(<span class="number">3</span>,<span class="string">'2013-10-14'</span>,<span class="number">2</span>,<span class="number">3000</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="string">'2013-10-15'</span>,<span class="number">2</span>,<span class="number">4000</span>,<span class="number">40000</span>),(<span class="number">5</span>,<span class="string">'2013-10-14'</span>,<span class="number">3</span>,<span class="number">5000</span>,<span class="number">50000</span>);</span></span><br></pre></td></tr></table></figure></p>
-<p>查询语句为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(<span class="keyword">c</span>) <span class="string">'c 列数据的和'</span>,<span class="keyword">SUM</span>(<span class="keyword">d</span>)<span class="string">'d 列数据的和'</span></span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">test</span></span><br><span class="line"><span class="keyword">WHERE</span> record_date <span class="keyword">BETWEEN</span> <span class="string">'2013-10-13'</span> <span class="keyword">AND</span> <span class="string">'2013-10-16'</span>    </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> record_type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> record_type <span class="keyword">ASC</span></span></span><br></pre></td></tr></table></figure></p>
+<p>创建例子中的数据的 SQL 语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="comment">/*!32312 IF NOT EXISTS*/</span><span class="string">`group`</span> <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span>;</span></span><br><span class="line"> <span class="operator"><span class="keyword">USE</span> <span class="string">`group`</span>;</span></span><br><span class="line"> <span class="comment">/*Table structure for table `test` */</span></span><br><span class="line"><span class="operator"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`test`</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`test`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line"><span class="string">`record_date`</span> <span class="built_in">date</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, <span class="string">`record_type`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`c`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`d`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line"> <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">13</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*Data for the table `test` */</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span>  <span class="keyword">into</span> <span class="string">`test`</span>(<span class="string">`id`</span>,<span class="string">`record_date`</span>,<span class="string">`record_type`</span>,<span class="string">`c`</span>,<span class="string">`d`</span>) <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">'2013-10-14'</span>,<span class="number">1</span>,<span class="number">1000</span>,<span class="number">10000</span>),(<span class="number">2</span>,<span class="string">'2013-10-15'</span>,<span class="number">1</span>,<span class="number">2000</span>,<span class="number">20000</span>),(<span class="number">3</span>,<span class="string">'2013-10-14'</span>,<span class="number">2</span>,<span class="number">3000</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="string">'2013-10-15'</span>,<span class="number">2</span>,<span class="number">4000</span>,<span class="number">40000</span>),(<span class="number">5</span>,<span class="string">'2013-10-14'</span>,<span class="number">3</span>,<span class="number">5000</span>,<span class="number">50000</span>);</span></span><br></pre></td></tr></table></figure>
+<p>查询语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(<span class="keyword">c</span>) <span class="string">'c 列数据的和'</span>,<span class="keyword">SUM</span>(<span class="keyword">d</span>)<span class="string">'d 列数据的和'</span></span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">test</span></span><br><span class="line"><span class="keyword">WHERE</span> record_date <span class="keyword">BETWEEN</span> <span class="string">'2013-10-13'</span> <span class="keyword">AND</span> <span class="string">'2013-10-16'</span>    </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> record_type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> record_type <span class="keyword">ASC</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="cio6jsjj0003h546vzpf6yz7d" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="ciowbrm7c003mnw6v7tznwl6r" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/group-then-sum/#disqus_thread" class="article-comment-link">留言</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">MySQL</a></li></ul>
+
     </footer>
   </div>
   
@@ -698,68 +768,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/" data-id="cio6jsjht0020546vr991zry4" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/" data-id="ciowbrm5i0020nw6vsdlsnzun" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php5-5/">PHP5.5</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-telephone-interview" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/09/telephone-interview/" class="article-date">
-  <time datetime="2013-09-16T14:31:08.000Z" itemprop="datePublished">2013-09-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/09/telephone-interview/">第一次电话面试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是第一次在网上投简历有结果，上午十一点对方公司打电话过来说下午两点安排技术人员和我电话面试，下午两点一到对方电话就打过来了，效率很高很守时，我非常喜欢。<br>下面的是面试的内容，最大的感触就是基础得练扎实，得多实践。</p>
-<p>自我介绍</p>
-<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p>常见的 PHP 字符串处理函数？<br>Session 和 cookie 的区别？<br>Session 储存于服务器端， cookie 储存于客户端。分别使用超全局变量 $_SESSION 和 $_COOKIE 数组访问。<br>Require()和 include()的区别？<br>require() 意为”必须”，include() 意为”包含”。它们都能实现包含一个文件的功能，但<br>include() 语句如果指定的文件无法定位，代码继续运行，而 require() 语句会导致代码停止运行并抛出错误。若文件找不到，两者都会报错但是只有 require() 语句会完全终止代码得运行。require_once() 语句与 include_once() 语句保证被包含的文件只被引入一次，防止重复定义和执行的问题。</p>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>常见的 HTTP 状态码及表示的意思？</p>
-<h2 id="数据库"><a href="# 数据库" class="headerlink" title="数据库"></a>数据库 </h2><p> 联结语句有哪些有什么区别？<br>内联结和外联结与交叉联结，外联结分为左外联结和右外联结。左外联结以左表为主表，右外联结以右表为主表。<br>性能优化，举例?<br>一张表有 100 条记录（表 a），另一张有 60 条记录（表 b），左联结后记录为多少，右联结后记录数为多少？<br>左联结时语句为<br><code>SELECT *
-FROM a LEFT OUTER JOIN b
-ON a.col1=b.col1</code><br>返回结果有 100 条，其中记录行中所有不满足条件的记录，表 b 的那几列均为 NULL<br>右联结语句<br><code>SELECT *
-FROM a RIGHT OUTER JOIN b
-ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不满足条件的记录，表 a 的那几列均为 NULL</p>
-<h2 id="算法"><a href="# 算法" class="headerlink" title="算法"></a>算法 </h2><p> 常见的排序算法，时间复杂度为多少，空间复杂度为多少？<br>世界上最快的排序算法是什么？</p>
-<p>上面我能回答的都在这里，待我能回答了再到评论里进行更新。<br>最大的感触就是学的确实不够扎实，面试官建议好好练基础，然后找项目时间。在压力下你会逼着自己把事情做出来。<br>很高兴，虽然今天感觉被打击了，但也在意料之中也在情理之中。<br>好好学习吧，努力会有收获的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/09/telephone-interview/" data-id="cio6jsjh7000z546vi1dwecus" class="article-share-link">Share</a>
-      
-        <a href="http://blog.jayxhj.com/2013/09/telephone-interview/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/求职/">求职</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </footer>
   </div>
@@ -783,6 +797,10 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/05/jayxhjs-chrome-extensions/">常用 Chrome 扩展介绍及使用</a>
+          </li>
         
           <li>
             <a href="/2016/05/basic-composer-package-development/">动手开发自己的第一个 composer 包</a>
@@ -820,10 +838,6 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
             <a href="/2016/01/facebook-command-line-ui-pathpicker/">FaceBook 命令行 UI PathPicker</a>
           </li>
         
-          <li>
-            <a href="/2015/12/git-commands/">Git 常用操作</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -834,7 +848,7 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 15px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 15px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 15px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 15px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -843,7 +857,7 @@ ON a.col1=b.col1</code><br>返回结果有 60 条，其中记录行中所有不�
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</loc>
+    
+    <lastmod>2016-06-01T10:03:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2012/12/jspproject/</loc>
+    
+    <lastmod>2016-06-01T09:56:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/11/group-then-sum/</loc>
+    
+    <lastmod>2016-06-01T09:49:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/03/spring-aop/</loc>
+    
+    <lastmod>2016-06-01T09:38:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</loc>
+    
+    <lastmod>2016-06-01T09:27:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.jayxhj.com/2016/05/basic-composer-package-development/</loc>
     
     <lastmod>2016-05-14T02:48:01.000Z</lastmod>
@@ -51,41 +86,6 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
@@ -107,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
+    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -121,7 +121,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2012/12/jspproject/</loc>
+    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
+    
+    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -156,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/11/group-then-sum/</loc>
+    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -170,14 +177,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
+    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
+    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -191,7 +198,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</loc>
+    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -212,14 +219,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
+    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
+    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -247,7 +254,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/03/spring-aop/</loc>
+    <loc>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
