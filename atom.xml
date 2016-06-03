@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-06-01T09:27:07.000Z</updated>
+  <updated>2016-06-03T11:06:47.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PHP 发起 curl POST 请求时传递数组</title>
+    <link href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/"/>
+    <id>http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/</id>
+    <published>2016-06-03T02:42:03.000Z</published>
+    <updated>2016-06-03T11:06:47.000Z</updated>
+    
+    <content type="html">&lt;p&gt; 使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。&lt;/p&gt;
+&lt;p&gt; 那么，我们先得知道，为什么要传递数组。&lt;/p&gt;
+&lt;p&gt;HTTP 协议规定了 HTTP 请求的三个部分：状态行、请求头、消息主体。消息主体实际上是没有规定格式的。平常主要用到的几个请求头 Content-Type 为 &lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;application/x-www-form-urlencoded&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;multipart/form-data&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;application/json&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text/xml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 所以问题的答案很明白了，传递什么样的数据类型得看需要发送什么样的请求。&lt;/p&gt;
+&lt;p&gt; 一个典型的 curl POST 请求是下面这样：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -X POST --data &lt;span class=&quot;string&quot;&gt;&#39;params[]=check1&amp;amp;params[]=check2&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;http://jayxhj.com/test/curl.php&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 上面的请求将发送一个 Content-Type 为 application/x-www-form-urlencoded 的请求，请求的 body 为 &lt;code&gt;params[]=check1&amp;amp;params[]=check2&lt;/code&gt; ，在服务端，只需使用 &lt;code&gt;$_POST&lt;/code&gt; 即可获取。&lt;/p&gt;
+&lt;p&gt; 那么回到 curl ，我们只需设置 option 为 &lt;strong&gt;CURLOPT_POSTFIELDS&lt;/strong&gt; 的 VALUE 为 key/value pair ，即可将数组以字符串的形式传递至服务端，并直接由 &lt;code&gt;$_POST&lt;/code&gt; 获取。&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt; = curl_init();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_URL, &lt;span class=&quot;string&quot;&gt;&#39;http://jayxhj.com/test/curl.php&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_HEADER, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_RETURNTRANSFER, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$array&lt;/span&gt; = [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;jayxhj&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;pt&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$str&lt;/span&gt;   = http_build_query(&lt;span class=&quot;variable&quot;&gt;$array&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_POSTFIELDS, &lt;span class=&quot;variable&quot;&gt;$str&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$data&lt;/span&gt; = curl_exec(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_close(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var_dump(&lt;span class=&quot;variable&quot;&gt;$data&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。&lt;/p&gt;
+&lt;p&gt; 那么，我们先得知道
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="curl" scheme="http://blog.jayxhj.com/tags/curl/"/>
+    
+      <category term="php" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="tips" scheme="http://blog.jayxhj.com/tags/tips/"/>
+    
+  </entry>
   
   <entry>
     <title>常用 Chrome 扩展介绍及使用</title>
@@ -1059,53 +1096,6 @@
     
     
       <category term="MySQL" scheme="http://blog.jayxhj.com/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>32 位 Windows7 下 PHP5.5 与 Apache2.4 的集成</title>
-    <link href="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/"/>
-    <id>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</id>
-    <published>2013-09-18T02:20:58.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
-    
-    <content type="html">&lt;p&gt;PHP 官网提示：如果你的 Apache 是在 apache.org 上下载的，那么你必须使用旧的 VC6 编译版本的 PHP，不能使用 VC9 + apache.org 二进制版本的 PHP(意思就是如果想安装 PHP5.5 必须使用&lt;a href=&quot;http://www.apachelounge.com/download/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.apachelounge.com/download/&lt;/a&gt; 网站的 Apache 安装包)。&lt;/p&gt;
-&lt;p&gt;如果想安装更高版本的 PHP，那么需要下载 VC11 builds of Apache for x86 and x64。下载 5.5 版本的 PHP，最好下载线程安全的版本。下面介绍安装步骤。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;配置 Apache2.4：解压下载的 apache2.4，在附件中找到命令提示符，以管理员身份运行，切换到 apache 的 bin 目录，命令为 cd  c:/Apache24/bin ，安装 apache24 服务，命令为 httpd.exe -k install ，这样点击目录里的 ApacheMonitor.exe 就可以开启 apche 了，在浏览器输入 127.0.0.1 可测试，若出现 &lt;strong&gt;It Works！&lt;/strong&gt; 表示 apache 配置成功。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;配置 PHP5.5 : 将下载的 PHP5.5 的文件解压到某一目录，将目录里的 php.ini-production 文件另存为 php.ini，修改其中的 doc_dir, 如 doc_root =”C:/Apache24/htdocs”，extension_dir = “d:/php/ext”&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修改 Apache 的 httpd.conf 文件，添加如下语句&lt;/p&gt;
-&lt;figure class=&quot;highlight apacheconf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;&lt;span class=&quot;common&quot;&gt;LoadModule&lt;/span&gt;&lt;/span&gt; php5_module &lt;span class=&quot;string&quot;&gt;&quot;c:/php/php5apache2.dll&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;AddHandler&lt;/span&gt; application/x-httpd-php .php&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;configure the path to php.ini&lt;br&gt;&lt;code&gt;PHPIniDir &amp;quot;C:/php&amp;quot;&lt;/code&gt;&lt;br&gt;这样当处理的网页为.php 后缀时将交给 php 引擎进行处理。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;测试：在 htdocs 目录中添加 test 文件，文件内容为 &amp;lt; ?php phpinfo();?&amp;gt;, 若出现 php 的配置信息则代表 php 与 apache 配置成功。&lt;br&gt;注意：由于 php5.5 由 VC11 编译完成，需要 Visual C++ 运行库的支持，下载地址为 x86 or x64。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;链接汇总：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Apache2.4：[&lt;a href=&quot;http://www.apachelounge.com/download/](http://www.apachelounge.com/download/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.apachelounge.com/download/](http://www.apachelounge.com/download/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;PHP5.5：&lt;a href=&quot;http://windows.php.net/download/#php-5.5&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://windows.php.net/download/#php-5.5&lt;/a&gt;  建议下载 Thread-safe 版本&lt;/li&gt;
-&lt;li&gt;Visual C++ 运行库&lt;a href=&quot;hthttp://www.microsoft.com/en-us/download/details.aspx?id=30679&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.microsoft.com/en-us/download/details.aspx?id=30679&lt;/a&gt; 如果网站加载缓慢，建议直接百度 Visual C++ 2012 运行库下载即可。&lt;/li&gt;
-&lt;/ol&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;PHP 官网提示：如果你的 Apache 是在 apache.org 上下载的，那么你必须使用旧的 VC6 编译版本的 PHP，不能使用 VC9 + apache.org 二进制版本的 PHP(意思就是如果想安装 PHP5.5 必须使用&lt;a href=&quot;http://www
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
-    
-    
-      <category term="Apache" scheme="http://blog.jayxhj.com/tags/apache/"/>
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
-    
-      <category term="PHP5.5" scheme="http://blog.jayxhj.com/tags/php5-5/"/>
     
   </entry>
   

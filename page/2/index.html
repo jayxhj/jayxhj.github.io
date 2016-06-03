@@ -92,6 +92,94 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-facebook-command-line-ui-pathpicker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/facebook-command-line-ui-pathpicker/" class="article-date">
+  <time datetime="2016-01-17T09:40:38.000Z" itemprop="datePublished">2016-01-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具技巧/">工具技巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/facebook-command-line-ui-pathpicker/">FaceBook 命令行 UI PathPicker</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。</p>
+<p>试想以下场景：</p>
+<ol>
+<li><p>你完成一个功能会涉及到不少文件，你得小心翼翼地一个个文件选择，防止不必要的文件出现在同一个待提交列表中；</p>
+</li>
+<li><p>你改了很多文件，然后执行了 <code>git add .</code> ，这时你有两个选择，要么 <code>git rest</code> 不想在这次提交中包含的文件，要么一个个选择，然后 添加到 <code>git commit</code> 的后面。</p>
+</li>
+</ol>
+<p>于是 PathPicker 出现了，专为解决此种费力不讨好的事情，UI 选择器，命令行，一起上。</p>
+<h2 id="介绍"><a href="# 介绍" class="headerlink" title="介绍"></a>介绍</h2><p>FaceBook PathPicker 是一个简单的命令行工具，用来处理选择 bash 文件输出时的问题。</p>
+<p>PathPicker 做以下事情：</p>
+<ul>
+<li>通过管道处理输入中所有表现出文本特性的文件</li>
+<li>在一个方便选择的 UI 容器里展现管道输入</li>
+<li><p>然后你可以对输入做以下事情：</p>
+<ul>
+<li>用你最喜欢的编辑器处理选择的所有文件</li>
+<li>利用输入执行任意命令</li>
+</ul>
+</li>
+</ul>
+<p>下面通过一段视频来了解 PathPicker：</p>
+<script type="text/javascript" src="https://asciinema.org/a/19519.js" id="asciicast-19519" async>
+</script>
+
+<h2 id="PathPicker- 是怎么运行的"><a href="#PathPicker- 是怎么运行的" class="headerlink" title="PathPicker 是怎么运行的"></a>PathPicker 是怎么运行的</h2><p>PathPicker 是 bash 脚本和一些 Python 模块 结合后的产物。 它主要有以下三个步骤：</p>
+<ol>
+<li>首先在 bash 脚本中，它将所有的标准输入重定向到一个 Python 模块，然后通过解析取出其中所包含的文件名候选列表。每个候选文件名都将被用来与文件系统做比对确保其存在，再然后，会把处理结果保存至临时文件并终止 python 脚本的运行。</li>
+<li>第二部，bash 脚本会切换至命令行输入模式，并且另一个 python 模块会读取出已保存的条目并使用 <code>curses</code> 在一个 UI 选择器展现它们。</li>
+<li>最后，python 脚本会输出一条命令至 bash 文件，最终被原始的 bash 脚本解析执行。</li>
+</ol>
+<h2 id="使用示例"><a href="# 使用示例" class="headerlink" title="使用示例"></a>使用示例 </h2><p> 当改了很多文件需要提交提交时，查看当前状态 <code>git status</code></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-add-before.jpg" alt="git add before"></p>
+<p>将输出重定向至 PathPicker <code>git stataus | fpp</code></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-statusfpp-after.png" alt="git status|fpp"></p>
+<ul>
+<li>已选中为绿色</li>
+<li>已选中且当前光标悬停显示为红色</li>
+<li>未选中且当前光标悬停显示为蓝色</li>
+<li>无法选中的光标无法跳到此项，显示为纯文本</li>
+</ul>
+<p>提交选定的文件 <code>git commit $F</code></p>
+<p><img src="http://img.jayxhj.com/PathPicker-git-commit-F.png" alt="git commit $F"></p>
+<p>PathPicker 官网见 <a href="http://facebook.github.io/PathPicker/" target="_blank" rel="external">http://facebook.github.io/PathPicker/</a></p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/" data-id="ciozl52ds004f896vrh0w54sv" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git-commands" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/git-commands/" class="article-date">
@@ -143,7 +231,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="ciowbrm7q003snw6vdn2bok7e" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="ciozl52de0040896vvw2jx7mc" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2015/12/git-commands/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -233,7 +321,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="ciowbrm9v0054nw6vvsamebk7" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="ciozl52fl005c896vr4t7m01g" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -300,7 +388,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="ciowbrm78003gnw6vpnpbmf0r" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="ciozl52cs003n896vhvbfx0cf" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/08/index-type/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -360,7 +448,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="ciowbrm9p0051nw6vzg3n7onc" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="ciozl52fh0059896vjyv1t2oy" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -458,7 +546,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="ciowbrm4j000qnw6vmvoc2v07" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="ciozl529o000q896va5rrshml" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -536,7 +624,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="ciowbrm6g002unw6v5n7cwua6" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="ciozl52c40031896vv2ro9dpu" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -599,7 +687,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="ciowbrm4e000mnw6vf57k0hxu" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="ciozl529l000m896v9aa2gsgc" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -649,7 +737,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="ciowbrm50001dnw6v49gh28g2" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/" data-id="ciozl52a2001d896v2ndz4zj6" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -702,78 +790,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="ciowbrm7c003mnw6v7tznwl6r" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="ciozl52d2003t896vzlvqmjiu" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2013/11/group-then-sum/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">MySQL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-php5-5-apache2-4-integration" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/09/php5-5-apache2-4-integration/" class="article-date">
-  <time datetime="2013-09-18T02:20:58.000Z" itemprop="datePublished">2013-09-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/09/php5-5-apache2-4-integration/">32 位 Windows7 下 PHP5.5 与 Apache2.4 的集成</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PHP 官网提示：如果你的 Apache 是在 apache.org 上下载的，那么你必须使用旧的 VC6 编译版本的 PHP，不能使用 VC9 + apache.org 二进制版本的 PHP(意思就是如果想安装 PHP5.5 必须使用<a href="http://www.apachelounge.com/download/" target="_blank" rel="external">http://www.apachelounge.com/download/</a> 网站的 Apache 安装包)。</p>
-<p>如果想安装更高版本的 PHP，那么需要下载 VC11 builds of Apache for x86 and x64。下载 5.5 版本的 PHP，最好下载线程安全的版本。下面介绍安装步骤。</p>
-<ol>
-<li><p>配置 Apache2.4：解压下载的 apache2.4，在附件中找到命令提示符，以管理员身份运行，切换到 apache 的 bin 目录，命令为 cd  c:/Apache24/bin ，安装 apache24 服务，命令为 httpd.exe -k install ，这样点击目录里的 ApacheMonitor.exe 就可以开启 apche 了，在浏览器输入 127.0.0.1 可测试，若出现 <strong>It Works！</strong> 表示 apache 配置成功。</p>
-</li>
-<li><p>配置 PHP5.5 : 将下载的 PHP5.5 的文件解压到某一目录，将目录里的 php.ini-production 文件另存为 php.ini，修改其中的 doc_dir, 如 doc_root =”C:/Apache24/htdocs”，extension_dir = “d:/php/ext”</p>
-</li>
-<li><p>修改 Apache 的 httpd.conf 文件，添加如下语句</p>
-<figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">LoadModule</span></span> php5_module <span class="string">"c:/php/php5apache2.dll"</span></span><br><span class="line"><span class="keyword">AddHandler</span> application/x-httpd-php .php</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>configure the path to php.ini<br><code>PHPIniDir &quot;C:/php&quot;</code><br>这样当处理的网页为.php 后缀时将交给 php 引擎进行处理。</p>
-<ol>
-<li>测试：在 htdocs 目录中添加 test 文件，文件内容为 &lt; ?php phpinfo();?&gt;, 若出现 php 的配置信息则代表 php 与 apache 配置成功。<br>注意：由于 php5.5 由 VC11 编译完成，需要 Visual C++ 运行库的支持，下载地址为 x86 or x64。</li>
-</ol>
-<p>链接汇总：</p>
-<ol>
-<li>Apache2.4：[<a href="http://www.apachelounge.com/download/](http://www.apachelounge.com/download/" target="_blank" rel="external">http://www.apachelounge.com/download/](http://www.apachelounge.com/download/</a></li>
-<li>PHP5.5：<a href="http://windows.php.net/download/#php-5.5" target="_blank" rel="external">http://windows.php.net/download/#php-5.5</a>  建议下载 Thread-safe 版本</li>
-<li>Visual C++ 运行库<a href="hthttp://www.microsoft.com/en-us/download/details.aspx?id=30679" target="_blank" rel="external">http://www.microsoft.com/en-us/download/details.aspx?id=30679</a> 如果网站加载缓慢，建议直接百度 Visual C++ 2012 运行库下载即可。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/" data-id="ciowbrm5i0020nw6vsdlsnzun" class="article-share-link">Share</a>
-      
-        <a href="http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php5-5/">PHP5.5</a></li></ul>
 
     </footer>
   </div>
@@ -797,6 +819,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/06/post-array-data-in-php-curl/">PHP 发起 curl POST 请求时传递数组</a>
+          </li>
         
           <li>
             <a href="/2016/05/jayxhjs-chrome-extensions/">常用 Chrome 扩展介绍及使用</a>
@@ -834,10 +860,6 @@ ga('send', 'pageview');
             <a href="/2016/01/using-json-viewer-for-debugging/">使用 Chrome 扩展程序 JSON Viewer 进行调试</a>
           </li>
         
-          <li>
-            <a href="/2016/01/facebook-command-line-ui-pathpicker/">FaceBook 命令行 UI PathPicker</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -848,7 +870,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -857,7 +879,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
