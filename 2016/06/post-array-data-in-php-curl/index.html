@@ -15,7 +15,7 @@ HTTP 协议规定了 HTTP 请求的三个部分：状态行、请求头、消息
 <meta property="og:description" content="使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。
  那么，我们先得知道，为什么要传递数组。
 HTTP 协议规定了 HTTP 请求的三个部分：状态行、请求头、消息主体。消息主体实际上是没有规定格式的。平常主要用到的">
-<meta property="og:updated_time" content="2016-06-03T11:36:01.000Z">
+<meta property="og:updated_time" content="2016-06-29T09:50:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 发起 curl POST 请求时传递数组">
 <meta name="twitter:description" content="使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。
@@ -129,16 +129,15 @@ ga('send', 'pageview');
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-form-urlencoded</span><br><span class="line">multipart/form-data</span><br><span class="line">application/json</span><br><span class="line">text/xml</span><br></pre></td></tr></table></figure>
 <p> 所以问题的答案很明白了，传递什么样的数据类型得看需要发送什么样的请求。</p>
 <p> 一个典型的 curl POST 请求是下面这样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST --data <span class="string">'params[]=check1&amp;params[]=check2'</span> <span class="string">'http://jayxhj.com/test/curl.php'</span></span><br><span class="line"></span><br><span class="line">gsg</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST --data <span class="string">'params[]=check1&amp;params[]=check2'</span> <span class="string">'http://jayxhj.com/test/curl.php'</span></span><br></pre></td></tr></table></figure>
 <p> 上面的请求将发送一个 Content-Type 为 application/x-www-form-urlencoded 的请求，请求的 body 为 <code>params[]=check1&amp;params[]=check2</code> ，在服务端，只需使用 <code>$_POST</code> 即可获取。</p>
 <p> 那么回到 curl ，我们只需设置 option 为 <strong>CURLOPT_POSTFIELDS</strong> 的 VALUE 为 key/value pair ，即可将数组以字符串的形式传递至服务端，并直接由 <code>$_POST</code> 获取。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$curl</span> = curl_init();</span><br><span class="line"></span><br><span class="line">curl_setopt(<span class="variable">$curl</span>, CURLOPT_URL, <span class="string">'http://jayxhj.com/test/curl.php'</span>);</span><br><span class="line">curl_setopt(<span class="variable">$curl</span>, CURLOPT_HEADER, <span class="number">0</span>);</span><br><span class="line">curl_setopt(<span class="variable">$curl</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$array</span> = [</span><br><span class="line">    <span class="string">'jayxhj'</span>,</span><br><span class="line">    <span class="string">'pt'</span></span><br><span class="line">];</span><br><span class="line"><span class="variable">$str</span>   = http_build_query(<span class="variable">$array</span>);</span><br><span class="line"></span><br><span class="line">curl_setopt(<span class="variable">$curl</span>, CURLOPT_POSTFIELDS, <span class="variable">$str</span>);</span><br><span class="line"><span class="variable">$data</span> = curl_exec(<span class="variable">$curl</span>);</span><br><span class="line"></span><br><span class="line">curl_close(<span class="variable">$curl</span>);</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$data</span>);</span><br></pre></td></tr></table></figure>
-<p>sfgs</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="ciozl52aj0020896vfpqgirri" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="ciq0psxtf0020ah6vodu6g84d" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       

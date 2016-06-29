@@ -21,7 +21,7 @@ Git 常用操作Git 忽略已追踪文件的修改git update-index –assume-unc
 Git 取消忽略文件的修改(再次追踪此文件)git update-index --no-assume-unchanged /path/to/file
 导入 Git 仓库至 Bitbucket
 create repository in Bi">
-<meta property="og:updated_time" content="2016-05-10T03:28:18.000Z">
+<meta property="og:updated_time" content="2016-06-29T10:00:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 常用操作">
 <meta name="twitter:description" content="Git 常用操作
@@ -153,11 +153,14 @@ ga('send', 'pageview');
 <li>推送至远程 <code>git push origin branchName:branchName</code></li>
 </ol>
 <h2 id="添加多个远程分支"><a href="# 添加多个远程分支" class="headerlink" title="添加多个远程分支"></a>添加多个远程分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;a remote&gt;</span><br><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;another remote&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="错误 -merge- 了某个分支后撤销"><a href="# 错误 -merge- 了某个分支后撤销" class="headerlink" title="错误 merge 了某个分支后撤销"></a>错误 merge 了某个分支后撤销 </h2><p> 场景：当某个功能开发并自测完毕，需要 merge 到测试环境进行测试时，如果不小心 merge 错了分支，这时候需要撤销这个 merge 。如果是使用 Pull Request 进行分支合并的话，直接 close 就可以了，但如果是使用命令行进行操作的话，本地的分支实际上已经与待 merge 的分支进行合并了，需要回到 merge 前。</p>
+<p>只需要两个一个操作：找到 merge 前的 commit hash ，并 reset –hard</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;git reset --hard &lt;commit <span class="built_in">hash</span>&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="ciozl52de0040896vvw2jx7mc" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="ciq0psxus0040ah6vrwfrxmrp" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2015/12/git-commands/#disqus_thread" class="article-comment-link">留言</a>
       

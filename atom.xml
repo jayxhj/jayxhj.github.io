@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-06-03T11:36:01.000Z</updated>
+  <updated>2016-06-29T09:50:03.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/"/>
     <id>http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/</id>
     <published>2016-06-03T02:42:03.000Z</published>
-    <updated>2016-06-03T11:36:01.000Z</updated>
+    <updated>2016-06-29T09:50:03.000Z</updated>
     
     <content type="html">&lt;p&gt; 使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。&lt;/p&gt;
 &lt;p&gt; 那么，我们先得知道，为什么要传递数组。&lt;/p&gt;
@@ -28,11 +28,10 @@
 &lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;application/x-www-form-urlencoded&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;multipart/form-data&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;application/json&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text/xml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt; 所以问题的答案很明白了，传递什么样的数据类型得看需要发送什么样的请求。&lt;/p&gt;
 &lt;p&gt; 一个典型的 curl POST 请求是下面这样：&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -X POST --data &lt;span class=&quot;string&quot;&gt;&#39;params[]=check1&amp;amp;params[]=check2&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;http://jayxhj.com/test/curl.php&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gsg&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -X POST --data &lt;span class=&quot;string&quot;&gt;&#39;params[]=check1&amp;amp;params[]=check2&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;http://jayxhj.com/test/curl.php&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt; 上面的请求将发送一个 Content-Type 为 application/x-www-form-urlencoded 的请求，请求的 body 为 &lt;code&gt;params[]=check1&amp;amp;params[]=check2&lt;/code&gt; ，在服务端，只需使用 &lt;code&gt;$_POST&lt;/code&gt; 即可获取。&lt;/p&gt;
 &lt;p&gt; 那么回到 curl ，我们只需设置 option 为 &lt;strong&gt;CURLOPT_POSTFIELDS&lt;/strong&gt; 的 VALUE 为 key/value pair ，即可将数组以字符串的形式传递至服务端，并直接由 &lt;code&gt;$_POST&lt;/code&gt; 获取。&lt;/p&gt;
 &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt; = curl_init();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_URL, &lt;span class=&quot;string&quot;&gt;&#39;http://jayxhj.com/test/curl.php&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_HEADER, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_RETURNTRANSFER, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$array&lt;/span&gt; = [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;jayxhj&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;pt&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$str&lt;/span&gt;   = http_build_query(&lt;span class=&quot;variable&quot;&gt;$array&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_setopt(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;, CURLOPT_POSTFIELDS, &lt;span class=&quot;variable&quot;&gt;$str&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;$data&lt;/span&gt; = curl_exec(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl_close(&lt;span class=&quot;variable&quot;&gt;$curl&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var_dump(&lt;span class=&quot;variable&quot;&gt;$data&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;sfgs&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -660,7 +659,7 @@
     <link href="http://blog.jayxhj.com/2015/12/git-commands/"/>
     <id>http://blog.jayxhj.com/2015/12/git-commands/</id>
     <published>2015-12-10T12:15:55.000Z</published>
-    <updated>2016-05-10T03:28:18.000Z</updated>
+    <updated>2016-06-29T10:00:09.000Z</updated>
     
     <content type="html">&lt;p&gt;Git 常用操作&lt;/p&gt;
 &lt;hr&gt;
@@ -683,6 +682,9 @@
 &lt;li&gt;推送至远程 &lt;code&gt;git push origin branchName:branchName&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;添加多个远程分支&quot;&gt;&lt;a href=&quot;# 添加多个远程分支&quot; class=&quot;headerlink&quot; title=&quot;添加多个远程分支&quot;&gt;&lt;/a&gt;添加多个远程分支&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git remote &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt;-url origin --push --add &amp;lt;a remote&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git remote &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt;-url origin --push --add &amp;lt;another remote&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;错误 -merge- 了某个分支后撤销&quot;&gt;&lt;a href=&quot;# 错误 -merge- 了某个分支后撤销&quot; class=&quot;headerlink&quot; title=&quot;错误 merge 了某个分支后撤销&quot;&gt;&lt;/a&gt;错误 merge 了某个分支后撤销 &lt;/h2&gt;&lt;p&gt; 场景：当某个功能开发并自测完毕，需要 merge 到测试环境进行测试时，如果不小心 merge 错了分支，这时候需要撤销这个 merge 。如果是使用 Pull Request 进行分支合并的话，直接 close 就可以了，但如果是使用命令行进行操作的话，本地的分支实际上已经与待 merge 的分支进行合并了，需要回到 merge 前。&lt;/p&gt;
+&lt;p&gt;只需要两个一个操作：找到 merge 前的 commit hash ，并 reset –hard&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;git reset --hard &amp;lt;commit &lt;span class=&quot;built_in&quot;&gt;hash&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 </content>
     
     <summary type="html">
