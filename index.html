@@ -92,6 +92,107 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-configure-xdebug-in-phpstorm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/configure-xdebug-in-phpstorm/" class="article-date">
+  <time datetime="2016-07-01T08:04:05.000Z" itemprop="datePublished">2016-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/configure-xdebug-in-phpstorm/">在 PHPStorm 中配置 Xdebug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <a href="/2016/01/using-json-viewer-for-debugging/">使用 Chrome 扩展程序 JSON Viewer 进行调试</a> 这片文章中我曾介绍过，使用 <code>echo json_encode()</code> 的方式进行调试，再配合 Chrome 浏览器插件 <del>JSON Viewer</del> (建议使用 JSON Handler 代替)。</p>
+<h2 id="调试方式的对比"><a href="# 调试方式的对比" class="headerlink" title="调试方式的对比"></a>调试方式的对比 </h2><p> 手动调试的方式实际上局限性很大，缺点很明显：</p>
+<ol>
+<li>复杂的程序变量的中间状态无法跟踪，只能得到最终结果</li>
+<li>要 debug 的变量或者对象较多时不方便打印</li>
+<li>调试代码与程序代码混杂在一起，容易出错，而且来回切换成本还挺高，效率上就低多了</li>
+</ol>
+<p>上面的缺点中，</p>
+<p>1 可以通过 Xdebug 的单步调试解决，通过打断点，一步步追踪，可以深入某个 function 或者一步步执行，来查看变量的整个状态变化。</p>
+<p>2 这个缺点可以通过 <code>error_log()</code> 函数写入文件中，再配合 <code>tail -f log_file</code> 来调试，当然在 Xdebug 中也能一步步查看变量状态。</p>
+<p>3 也是我决定用 Xdebug 的原因，打断点很方便管理，不用的断点暂时反选，这样可以在需要启用时启用，而且无需写调试代码，这种调试方式是非侵入式的。</p>
+<h2 id="开发中的痛点及思考"><a href="# 开发中的痛点及思考" class="headerlink" title="开发中的痛点及思考"></a>开发中的痛点及思考 </h2><p> 以上是我在开发过程中遇到的痛点，而解决方法很简单：</p>
+<ol>
+<li>类与类之间低耦合，这样可以将 bug 缩小范围，且代码也更健壮，方便后续修改</li>
+<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design" target="_blank" rel="external">SOLID 原则</a></li>
+<li>引入单元测试覆盖大部分的功能及类的测试</li>
+</ol>
+<p>其中 2 是需要在类的设计上下功夫的，需要长时间的代码编写与逐步改善，1 则可以使用设计模式来解决，3 则可以让你将注意力放在各个功能的衔接点上，通过上面的三个方法，基本能解决平常的小 bug 了。</p>
+<p>下面来介绍 debug 工具 Xdebug ，并介绍如何在 PHPStorm 中配置使用。</p>
+<h2 id="Xdebug- 的安装与配置"><a href="#Xdebug- 的安装与配置" class="headerlink" title="Xdebug 的安装与配置"></a>Xdebug 的安装与配置</h2><p>Xdebug 有很多安装的方式，这个页面 <a href="https://xdebug.org/docs/install" target="_blank" rel="external">https://xdebug.org/docs/install</a> 给出了常用的安装方式。 另外有个更好的页面，给出了一步步的步骤，<a href="https://xdebug.org/wizard.php" target="_blank" rel="external">https://xdebug.org/wizard.php</a> ，会告诉你如何编译安装指定的版本。</p>
+<p>安装步骤如下：</p>
+<ol>
+<li>下载对应的 Xdebug 压缩包；</li>
+<li><p>编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/xdebug</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制 so 文件到扩展目录</p>
+</li>
+<li><p>修改 php.ini 加上以下配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Xdebug]</span><br><span class="line">zend_extension = /path/to/extensions/xdebug.so</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.profiler_enable=1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.profiler_output_dir= /tmp/xdebug</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>phpize 命令是用来准备 PHP 扩展库的编译环境的。</p>
+</blockquote>
+<p>使用 <code>php -m</code> 查看扩展是否加载，再重启 php-fpm 。</p>
+<p>下面介绍如何在 PHPStorm 中集成 Xdebug 。</p>
+<h2 id="PHPStorm- 里配置 -Xdebug"><a href="#PHPStorm- 里配置 -Xdebug" class="headerlink" title="PHPStorm 里配置 Xdebug"></a>PHPStorm 里配置 Xdebug</h2><p>PHPStorm 文档里介绍了如何配置 Xdebug <a href="https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html" target="_blank" rel="external">https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html</a></p>
+<p>介绍下几个主要的步骤：</p>
+<ol>
+<li>设置 PHP 解释器。位于 Preferences &gt; Languages &amp; Frameworks &gt; PHP 右侧的 Interpreter ，点击 … 按钮，设置本地的 PHP 环境</li>
+<li><p>配置 Xdebug 的行为。</p>
+<ol>
+<li>配置 <strong>Debug Port</strong> ，让其与 php.ini 中的 <code>xdebug.remote_port</code>端口号相同。</li>
+<li>接收 Xdebug 与 PHPStorm 的连接，<strong>Can accept external connections</strong></li>
+</ol>
+</li>
+<li><p>当程序运行至端点处时，自动停止，开启这个选项 <strong>Run | Break at first line in PHP scripts</strong></p>
+</li>
+</ol>
+<p>通过上面的配置，就可以在 PHPStorm 运行 Xdebug 了。不过这还不够，需要配置具体的项目，这样 Xdebug 才知道如何运行，并在指定的断点处停止并通知 PHPStorm 。</p>
+<h2 id="配置实例运行具体的 -debug- 项目"><a href="# 配置实例运行具体的 -debug- 项目" class="headerlink" title="配置实例运行具体的 debug 项目"></a>配置实例运行具体的 debug 项目 </h2><p> 下图中显示了如何配置某个 debug 项目。</p>
+<p><img src="http://img.jayxhj.com/add-debug-configuration.png" alt="debug configuration"></p>
+<p>选择 <strong>PHP Web Application</strong> 即可配置某个 web 项目，设置项目的 url 及当前配置的名称即可。</p>
+<p>以上这些步骤走完，一个 web 项目的 Xdebug 配置就做好了，只需设置断点，再点击 Run -&gt; Debug ‘你的 debug 项目名称’ ，即可开始 debug 之旅了。</p>
+<p>Enjoy it.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="ciq3gjzka004py86vv4alcir9" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xdebug/">Xdebug</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-post-array-data-in-php-curl" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/06/post-array-data-in-php-curl/" class="article-date">
@@ -132,7 +233,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="ciq0psxtf0020ah6vodu6g84d" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="ciq3gjzhn0020y86vaxjl1674" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -219,7 +320,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="ciq0psxu10037ah6vvexwvhta" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="ciq3gjzj40037y86vwy3s5stk" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -306,7 +407,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="ciq0psxve004xah6vjtm4rhpc" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="ciq3gjzkl0052y86v0rpnlbmn" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -354,7 +455,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="ciq0psxuv0044ah6v53bjeftq" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="ciq3gjzju0044y86v68iil88m" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -405,7 +506,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="ciq0psxtu002qah6v85jjsr3a" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="ciq3gjzim002qy86vahq4z6mo" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/04/lumen-tricks/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -462,7 +563,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="ciq0psxtb001qah6vwn0szb02" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="ciq3gjzhg001qy86vnn3dmpte" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -530,7 +631,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/" data-id="ciq0psxt8001kah6vqhmzzoku" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/" data-id="ciq3gjzhc001ky86v37jqjick" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -686,7 +787,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/" data-id="ciq0psxuy0048ah6vk1me8ttr" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/" data-id="ciq3gjzjx0048y86vbgpho06t" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -766,90 +867,13 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" data-id="ciq0psxsk000aah6vk08t6gcg" class="article-share-link">Share</a>
+      <a data-url="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" data-id="ciq3gjzgr000ay86vadf2t9qr" class="article-share-link">Share</a>
       
         <a href="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/">bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exit-code/">exit code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-using-json-viewer-for-debugging" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/using-json-viewer-for-debugging/" class="article-date">
-  <time datetime="2016-01-23T11:05:50.000Z" itemprop="datePublished">2016-01-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/using-json-viewer-for-debugging/">使用 Chrome 扩展程序 JSON Viewer 进行调试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PHP 调试时有很多种方法，其中最简单的无非是 echo 与 var_dump 、 print_r 以及 debug_backtrace 了。这篇文章要介绍的是平常用的比较多的，适合在调 HTTP 接口以及平常开发中需要输出变量内容的情况。其实在 IDE 中比较适合使用 XDebug 或者断点调试，这样能在运行时直接查看当前上下文的各个变量，不过这种情况不在此篇讨论之列，后续我也将介绍相关的方法，来完善这个系列。</p>
-<p> 现在步入正题。在平常和前端的配合中经常会有一些 RESTful 接口输出，而其中最常用的内容传输格式就是 JSON ，JSON 在 PHP 中可以很方便地转化为对象或者数组，在打印变量时使用 JSON 再配合浏览器的扩展进行解析，无疑能提高开发效率。</p>
-<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p> 先用两张图来了解一下 JSON 的格式，这样就不会混淆其在 PHP 中所代表的意思。</p>
-<blockquote>
-<p> 对象是一个无序的“‘名称 / 值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称 / 值’ 对”之间使用“,”（逗号）分隔。</p>
-</blockquote>
-<p><img src="http://www.json.org/object.gif" alt=""></p>
-<blockquote>
-<p> 数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
-</blockquote>
-<p><img src="http://www.json.org/array.gif" alt=""></p>
-<blockquote>
-<p> 值（value）可以是双引号括起来的字符串（string）、数值 (number)、true、false、 null、对象（object）或者数组（array）。这些结构可以嵌套。</p>
-</blockquote>
-<p><img src="http://www.json.org/value.gif" alt=""></p>
-<h1 id="Chrome- 扩展"><a href="#Chrome- 扩展" class="headerlink" title="Chrome 扩展"></a>Chrome 扩展 </h1><p>JSON viewer 扩展的地址是 <a href="https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh" target="_blank" rel="external">https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh</a> </p>
-<p>JSON view GitHub 官网介绍了其有如下 feature</p>
-<ul>
-<li> 语法高亮 </li>
-<li>23 个内置的主题 </li>
-<li> 节点可折叠 </li>
-<li> 可点击的 url</li>
-<li> 在控制台「console」输入 json 回车中查看你的 JSON （通过访问 id 为 json 的 HTML 元素）</li>
-<li> 显示行号选项 </li>
-<li> 在 url 中加入时间戳 header</li>
-</ul>
-<p> 等等。</p>
-<h1 id="PHP- 配合 -JSON-viewer- 进行输出调试"><a href="#PHP- 配合 -JSON-viewer- 进行输出调试" class="headerlink" title="PHP 配合 JSON viewer 进行输出调试"></a>PHP 配合 JSON viewer 进行输出调试 </h1><p>PHP 中用来处理 JSON 使用最多的是 json_encode 和 json_decode ，比如你有 array 有如下结构 <br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'key1'</span>  =&gt; <span class="number">1</span>,</span><br><span class="line">            <span class="number">1</span>       =&gt; <span class="string">'string'</span>,</span><br><span class="line">            <span class="string">'array'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">                <span class="string">'value1'</span>,</span><br><span class="line">                <span class="string">'value2'</span>,</span><br><span class="line">            )</span><br><span class="line">        );</span><br></pre></td></tr></table></figure></p>
-<p> 如果使用 var_dump 输出，那么长的是这样 <br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Array</span></span><br><span class="line">(</span><br><span class="line">    [key1] =&gt; <span class="number">1</span></span><br><span class="line">    [<span class="number">1</span>] =&gt; string</span><br><span class="line">    [<span class="keyword">array</span>] =&gt; <span class="keyword">Array</span></span><br><span class="line">        (</span><br><span class="line">            [<span class="number">0</span>] =&gt; value1</span><br><span class="line">            [<span class="number">1</span>] =&gt; value2</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p> 当层级不够多，数组元素不够多，肉眼观察根本不是问题，但是一旦数据变得复杂，输出将会非常难看且不易查找，这时候一个美观的输出外带查看层级和数据复制功能会显得很方便，此时，你只需要 <code>echo json_encode($arr);exit;</code> ，扩展会自动解析 JSON 。</p>
-<p> 最终你得到的可能是这样的 UI：</p>
-<p><img src="https://raw.githubusercontent.com/tulios/json-viewer/master/screenshot.png" alt=""></p>
-<p> 好了，其实还有很多输出调试工具，比如 symfony 的 <a href="https://github.com/symfony/var-dumper" target="_blank" rel="external">var-dumper</a> 既能输出 HTML 的调试信息，又能在 cli 下输出带格式的调试信息。还有 debug helper <a href="https://github.com/raveren/kint/" target="_blank" rel="external">Kint</a> 、Yii 的 <a href="https://github.com/malyshev/yii-debug-toolbar" target="_blank" rel="external">yii-debug-toolbar</a> 以及强大的 XDebug 。</p>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/" data-id="ciq0psxsi0007ah6vb46nfknd" class="article-share-link">Share</a>
-      
-        <a href="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
     </footer>
   </div>
   
@@ -872,6 +896,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/07/configure-xdebug-in-phpstorm/">在 PHPStorm 中配置 Xdebug</a>
+          </li>
         
           <li>
             <a href="/2016/06/post-array-data-in-php-curl/">PHP 发起 curl POST 请求时传递数组</a>
@@ -909,10 +937,6 @@ ga('send', 'pageview');
             <a href="/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/">理解 Exit Code 并学会如何在 Bash 脚本中使用</a>
           </li>
         
-          <li>
-            <a href="/2016/01/using-json-viewer-for-debugging/">使用 Chrome 扩展程序 JSON Viewer 进行调试</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -923,7 +947,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -932,7 +956,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

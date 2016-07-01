@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在 PHPStorm 中配置 Xdebug | 徐豪杰写字的地方</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 使用 Chrome 扩展程序 JSON Viewer 进行调试 这片文章中我曾介绍过，使用 echo json_encode() 的方式进行调试，再配合 Chrome 浏览器插件 JSON Viewer (建议使用 JSON Handler 代替)。
+调试方式的对比  手动调试的方式实际上局限性很大，缺点很明显：
+
+复杂的程序变量的中间状态无法跟踪，只能得到最终结果
+要 debug 的变量或者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 PHPStorm 中配置 Xdebug">
+<meta property="og:url" content="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/index.html">
+<meta property="og:site_name" content="徐豪杰写字的地方">
+<meta property="og:description" content="在 使用 Chrome 扩展程序 JSON Viewer 进行调试 这片文章中我曾介绍过，使用 echo json_encode() 的方式进行调试，再配合 Chrome 浏览器插件 JSON Viewer (建议使用 JSON Handler 代替)。
+调试方式的对比  手动调试的方式实际上局限性很大，缺点很明显：
+
+复杂的程序变量的中间状态无法跟踪，只能得到最终结果
+要 debug 的变量或者">
+<meta property="og:image" content="http://img.jayxhj.com/add-debug-configuration.png">
+<meta property="og:updated_time" content="2016-07-01T12:33:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 PHPStorm 中配置 Xdebug">
+<meta name="twitter:description" content="在 使用 Chrome 扩展程序 JSON Viewer 进行调试 这片文章中我曾介绍过，使用 echo json_encode() 的方式进行调试，再配合 Chrome 浏览器插件 JSON Viewer (建议使用 JSON Handler 代替)。
+调试方式的对比  手动调试的方式实际上局限性很大，缺点很明显：
+
+复杂的程序变量的中间状态无法跟踪，只能得到最终结果
+要 debug 的变量或者">
+<meta name="twitter:creator" content="@jayxhj">
+  
+    <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="author" href="/humans.txt" />
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-27843739-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?762045bf95459c1fd6be1a6889224746";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">徐豪杰写字的地方</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">历史文章</a>
+        
+          <a class="main-nav-link" href="https://github.com/jayxhj">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.jayxhj.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-configure-xdebug-in-phpstorm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/configure-xdebug-in-phpstorm/" class="article-date">
+  <time datetime="2016-07-01T08:04:05.000Z" itemprop="datePublished">2016-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在 PHPStorm 中配置 Xdebug
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <a href="/2016/01/using-json-viewer-for-debugging/">使用 Chrome 扩展程序 JSON Viewer 进行调试</a> 这片文章中我曾介绍过，使用 <code>echo json_encode()</code> 的方式进行调试，再配合 Chrome 浏览器插件 <del>JSON Viewer</del> (建议使用 JSON Handler 代替)。</p>
+<h2 id="调试方式的对比"><a href="# 调试方式的对比" class="headerlink" title="调试方式的对比"></a>调试方式的对比 </h2><p> 手动调试的方式实际上局限性很大，缺点很明显：</p>
+<ol>
+<li>复杂的程序变量的中间状态无法跟踪，只能得到最终结果</li>
+<li>要 debug 的变量或者对象较多时不方便打印</li>
+<li>调试代码与程序代码混杂在一起，容易出错，而且来回切换成本还挺高，效率上就低多了</li>
+</ol>
+<p>上面的缺点中，</p>
+<p>1 可以通过 Xdebug 的单步调试解决，通过打断点，一步步追踪，可以深入某个 function 或者一步步执行，来查看变量的整个状态变化。</p>
+<p>2 这个缺点可以通过 <code>error_log()</code> 函数写入文件中，再配合 <code>tail -f log_file</code> 来调试，当然在 Xdebug 中也能一步步查看变量状态。</p>
+<p>3 也是我决定用 Xdebug 的原因，打断点很方便管理，不用的断点暂时反选，这样可以在需要启用时启用，而且无需写调试代码，这种调试方式是非侵入式的。</p>
+<h2 id="开发中的痛点及思考"><a href="# 开发中的痛点及思考" class="headerlink" title="开发中的痛点及思考"></a>开发中的痛点及思考 </h2><p> 以上是我在开发过程中遇到的痛点，而解决方法很简单：</p>
+<ol>
+<li>类与类之间低耦合，这样可以将 bug 缩小范围，且代码也更健壮，方便后续修改</li>
+<li><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design" target="_blank" rel="external">SOLID 原则</a></li>
+<li>引入单元测试覆盖大部分的功能及类的测试</li>
+</ol>
+<p>其中 2 是需要在类的设计上下功夫的，需要长时间的代码编写与逐步改善，1 则可以使用设计模式来解决，3 则可以让你将注意力放在各个功能的衔接点上，通过上面的三个方法，基本能解决平常的小 bug 了。</p>
+<p>下面来介绍 debug 工具 Xdebug ，并介绍如何在 PHPStorm 中配置使用。</p>
+<h2 id="Xdebug- 的安装与配置"><a href="#Xdebug- 的安装与配置" class="headerlink" title="Xdebug 的安装与配置"></a>Xdebug 的安装与配置</h2><p>Xdebug 有很多安装的方式，这个页面 <a href="https://xdebug.org/docs/install" target="_blank" rel="external">https://xdebug.org/docs/install</a> 给出了常用的安装方式。 另外有个更好的页面，给出了一步步的步骤，<a href="https://xdebug.org/wizard.php" target="_blank" rel="external">https://xdebug.org/wizard.php</a> ，会告诉你如何编译安装指定的版本。</p>
+<p>安装步骤如下：</p>
+<ol>
+<li>下载对应的 Xdebug 压缩包；</li>
+<li><p>编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/xdebug</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制 so 文件到扩展目录</p>
+</li>
+<li><p>修改 php.ini 加上以下配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Xdebug]</span><br><span class="line">zend_extension = /path/to/extensions/xdebug.so</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.profiler_enable=1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.profiler_output_dir= /tmp/xdebug</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>phpize 命令是用来准备 PHP 扩展库的编译环境的。</p>
+</blockquote>
+<p>使用 <code>php -m</code> 查看扩展是否加载，再重启 php-fpm 。</p>
+<p>下面介绍如何在 PHPStorm 中集成 Xdebug 。</p>
+<h2 id="PHPStorm- 里配置 -Xdebug"><a href="#PHPStorm- 里配置 -Xdebug" class="headerlink" title="PHPStorm 里配置 Xdebug"></a>PHPStorm 里配置 Xdebug</h2><p>PHPStorm 文档里介绍了如何配置 Xdebug <a href="https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html" target="_blank" rel="external">https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html</a></p>
+<p>介绍下几个主要的步骤：</p>
+<ol>
+<li>设置 PHP 解释器。位于 Preferences &gt; Languages &amp; Frameworks &gt; PHP 右侧的 Interpreter ，点击 … 按钮，设置本地的 PHP 环境</li>
+<li><p>配置 Xdebug 的行为。</p>
+<ol>
+<li>配置 <strong>Debug Port</strong> ，让其与 php.ini 中的 <code>xdebug.remote_port</code>端口号相同。</li>
+<li>接收 Xdebug 与 PHPStorm 的连接，<strong>Can accept external connections</strong></li>
+</ol>
+</li>
+<li><p>当程序运行至端点处时，自动停止，开启这个选项 <strong>Run | Break at first line in PHP scripts</strong></p>
+</li>
+</ol>
+<p>通过上面的配置，就可以在 PHPStorm 运行 Xdebug 了。不过这还不够，需要配置具体的项目，这样 Xdebug 才知道如何运行，并在指定的断点处停止并通知 PHPStorm 。</p>
+<h2 id="配置实例运行具体的 -debug- 项目"><a href="# 配置实例运行具体的 -debug- 项目" class="headerlink" title="配置实例运行具体的 debug 项目"></a>配置实例运行具体的 debug 项目 </h2><p> 下图中显示了如何配置某个 debug 项目。</p>
+<p><img src="http://img.jayxhj.com/add-debug-configuration.png" alt="debug configuration"></p>
+<p>选择 <strong>PHP Web Application</strong> 即可配置某个 web 项目，设置项目的 url 及当前配置的名称即可。</p>
+<p>以上这些步骤走完，一个 web 项目的 Xdebug 配置就做好了，只需设置断点，再点击 Run -&gt; Debug ‘你的 debug 项目名称’ ，即可开始 debug 之旅了。</p>
+<p>Enjoy it.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="ciq3gjzka004py86vv4alcir9" class="article-share-link">Share</a>
+      
+        <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xdebug/">Xdebug</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/post-array-data-in-php-curl/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP 发起 curl POST 请求时传递数组</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/configure-xdebug-in-phpstorm/">在 PHPStorm 中配置 Xdebug</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/post-array-data-in-php-curl/">PHP 发起 curl POST 请求时传递数组</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/jayxhjs-chrome-extensions/">常用 Chrome 扩展介绍及使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/basic-composer-package-development/">动手开发自己的第一个 composer 包</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/get-week-number-in-month-from-date-in-php/">获取当前日期在本月的第几周</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/lumen-tricks/">Lumen 常用开发技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/">理解 Exit Code 并学会如何在 Bash 脚本中使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">朋友们</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://ceix.me/" target="_blank">顺流而下，把梦做完。</a>
+          </li>
+        
+          <li>
+            <a href="http://likangjun.com/" target="_blank">嗨军</a>
+          </li>
+        
+          <li>
+            <a href="http://www.ecli2h.net/" target="_blank">张辉 | Ecli2h</a>
+          </li>
+        
+          <li>
+            <a href="http://www.aishan100.com/" target="_blank">艾山 | S &amp; J</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 jayxhj<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">历史文章</a>
+  
+    <a href="https://github.com/jayxhj" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'githubiojayxhj';
+  
+  var disqus_url = 'http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

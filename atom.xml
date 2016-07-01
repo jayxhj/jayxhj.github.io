@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-06-29T09:50:03.000Z</updated>
+  <updated>2016-07-01T12:33:34.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -14,6 +14,86 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 PHPStorm 中配置 Xdebug</title>
+    <link href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/"/>
+    <id>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</id>
+    <published>2016-07-01T08:04:05.000Z</published>
+    <updated>2016-07-01T12:33:34.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的方式进行调试，再配合 Chrome 浏览器插件 &lt;del&gt;JSON Viewer&lt;/del&gt; (建议使用 JSON Handler 代替)。&lt;/p&gt;
+&lt;h2 id=&quot;调试方式的对比&quot;&gt;&lt;a href=&quot;# 调试方式的对比&quot; class=&quot;headerlink&quot; title=&quot;调试方式的对比&quot;&gt;&lt;/a&gt;调试方式的对比 &lt;/h2&gt;&lt;p&gt; 手动调试的方式实际上局限性很大，缺点很明显：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;复杂的程序变量的中间状态无法跟踪，只能得到最终结果&lt;/li&gt;
+&lt;li&gt;要 debug 的变量或者对象较多时不方便打印&lt;/li&gt;
+&lt;li&gt;调试代码与程序代码混杂在一起，容易出错，而且来回切换成本还挺高，效率上就低多了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;上面的缺点中，&lt;/p&gt;
+&lt;p&gt;1 可以通过 Xdebug 的单步调试解决，通过打断点，一步步追踪，可以深入某个 function 或者一步步执行，来查看变量的整个状态变化。&lt;/p&gt;
+&lt;p&gt;2 这个缺点可以通过 &lt;code&gt;error_log()&lt;/code&gt; 函数写入文件中，再配合 &lt;code&gt;tail -f log_file&lt;/code&gt; 来调试，当然在 Xdebug 中也能一步步查看变量状态。&lt;/p&gt;
+&lt;p&gt;3 也是我决定用 Xdebug 的原因，打断点很方便管理，不用的断点暂时反选，这样可以在需要启用时启用，而且无需写调试代码，这种调试方式是非侵入式的。&lt;/p&gt;
+&lt;h2 id=&quot;开发中的痛点及思考&quot;&gt;&lt;a href=&quot;# 开发中的痛点及思考&quot; class=&quot;headerlink&quot; title=&quot;开发中的痛点及思考&quot;&gt;&lt;/a&gt;开发中的痛点及思考 &lt;/h2&gt;&lt;p&gt; 以上是我在开发过程中遇到的痛点，而解决方法很简单：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;类与类之间低耦合，这样可以将 bug 缩小范围，且代码也更健壮，方便后续修改&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SOLID 原则&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;引入单元测试覆盖大部分的功能及类的测试&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中 2 是需要在类的设计上下功夫的，需要长时间的代码编写与逐步改善，1 则可以使用设计模式来解决，3 则可以让你将注意力放在各个功能的衔接点上，通过上面的三个方法，基本能解决平常的小 bug 了。&lt;/p&gt;
+&lt;p&gt;下面来介绍 debug 工具 Xdebug ，并介绍如何在 PHPStorm 中配置使用。&lt;/p&gt;
+&lt;h2 id=&quot;Xdebug- 的安装与配置&quot;&gt;&lt;a href=&quot;#Xdebug- 的安装与配置&quot; class=&quot;headerlink&quot; title=&quot;Xdebug 的安装与配置&quot;&gt;&lt;/a&gt;Xdebug 的安装与配置&lt;/h2&gt;&lt;p&gt;Xdebug 有很多安装的方式，这个页面 &lt;a href=&quot;https://xdebug.org/docs/install&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://xdebug.org/docs/install&lt;/a&gt; 给出了常用的安装方式。 另外有个更好的页面，给出了一步步的步骤，&lt;a href=&quot;https://xdebug.org/wizard.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://xdebug.org/wizard.php&lt;/a&gt; ，会告诉你如何编译安装指定的版本。&lt;/p&gt;
+&lt;p&gt;安装步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下载对应的 Xdebug 压缩包；&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编译&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /path/to/xdebug&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;phpize&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./configure&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;make&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;复制 so 文件到扩展目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改 php.ini 加上以下配置&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Xdebug]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;zend_extension = /path/to/extensions/xdebug.so&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;xdebug.remote_enable=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;xdebug.profiler_enable=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;xdebug.remote_port=9000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;xdebug.profiler_output_dir= /tmp/xdebug&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;phpize 命令是用来准备 PHP 扩展库的编译环境的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;php -m&lt;/code&gt; 查看扩展是否加载，再重启 php-fpm 。&lt;/p&gt;
+&lt;p&gt;下面介绍如何在 PHPStorm 中集成 Xdebug 。&lt;/p&gt;
+&lt;h2 id=&quot;PHPStorm- 里配置 -Xdebug&quot;&gt;&lt;a href=&quot;#PHPStorm- 里配置 -Xdebug&quot; class=&quot;headerlink&quot; title=&quot;PHPStorm 里配置 Xdebug&quot;&gt;&lt;/a&gt;PHPStorm 里配置 Xdebug&lt;/h2&gt;&lt;p&gt;PHPStorm 文档里介绍了如何配置 Xdebug &lt;a href=&quot;https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.jetbrains.com/help/phpstorm/10.0/configuring-xdebug.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;介绍下几个主要的步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设置 PHP 解释器。位于 Preferences &amp;gt; Languages &amp;amp; Frameworks &amp;gt; PHP 右侧的 Interpreter ，点击 … 按钮，设置本地的 PHP 环境&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;配置 Xdebug 的行为。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;配置 &lt;strong&gt;Debug Port&lt;/strong&gt; ，让其与 php.ini 中的 &lt;code&gt;xdebug.remote_port&lt;/code&gt;端口号相同。&lt;/li&gt;
+&lt;li&gt;接收 Xdebug 与 PHPStorm 的连接，&lt;strong&gt;Can accept external connections&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;当程序运行至端点处时，自动停止，开启这个选项 &lt;strong&gt;Run | Break at first line in PHP scripts&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过上面的配置，就可以在 PHPStorm 运行 Xdebug 了。不过这还不够，需要配置具体的项目，这样 Xdebug 才知道如何运行，并在指定的断点处停止并通知 PHPStorm 。&lt;/p&gt;
+&lt;h2 id=&quot;配置实例运行具体的 -debug- 项目&quot;&gt;&lt;a href=&quot;# 配置实例运行具体的 -debug- 项目&quot; class=&quot;headerlink&quot; title=&quot;配置实例运行具体的 debug 项目&quot;&gt;&lt;/a&gt;配置实例运行具体的 debug 项目 &lt;/h2&gt;&lt;p&gt; 下图中显示了如何配置某个 debug 项目。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/add-debug-configuration.png&quot; alt=&quot;debug configuration&quot;&gt;&lt;/p&gt;
+&lt;p&gt;选择 &lt;strong&gt;PHP Web Application&lt;/strong&gt; 即可配置某个 web 项目，设置项目的 url 及当前配置的名称即可。&lt;/p&gt;
+&lt;p&gt;以上这些步骤走完，一个 web 项目的 Xdebug 配置就做好了，只需设置断点，再点击 Run -&amp;gt; Debug ‘你的 debug 项目名称’ ，即可开始 debug 之旅了。&lt;/p&gt;
+&lt;p&gt;Enjoy it.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
+    
+      <category term="Xdebug" scheme="http://blog.jayxhj.com/tags/xdebug/"/>
+    
+  </entry>
   
   <entry>
     <title>PHP 发起 curl POST 请求时传递数组</title>
@@ -1069,36 +1149,6 @@
       <category term="mb_strcut()" scheme="http://blog.jayxhj.com/tags/mb-strcut/"/>
     
       <category term="mb_substr()" scheme="http://blog.jayxhj.com/tags/mb-substr/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分组求和，将一列的数据求和</title>
-    <link href="http://blog.jayxhj.com/2013/11/group-then-sum/"/>
-    <id>http://blog.jayxhj.com/2013/11/group-then-sum/</id>
-    <published>2013-11-05T02:04:02.000Z</published>
-    <updated>2016-06-01T09:49:53.000Z</updated>
-    
-    <content type="html">&lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和&lt;/strong&gt;。 需求：将某列数据求和 例子：数据库内容为： &lt;img src=&quot;http://img.jayxhj.com/mysql-group-all-records.png&quot; alt=&quot;数据库内容&quot;&gt;&lt;/p&gt;
-&lt;p&gt;根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 &lt;img src=&quot;http://img.jayxhj.com/mysql-group-by-record-type.png&quot; alt=&quot;根据 record_type 分组&quot;&gt;&lt;/p&gt;
-&lt;p&gt;再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加 &lt;img src=&quot;http://img.jayxhj.com/mysql-group-by-record-date.png&quot; alt=&quot;根据 record_date 进行分组&quot;&gt;&lt;/p&gt;
-&lt;p&gt;总结：当需要进行对某一列的具有相似条件（对应于 where 中的条件）的数据进行合并时，使用 group by 将记录分组，再使用聚合函数对数据进行需要的操作。这样就可以使用一条语句将所有的数据进行分组求和。&lt;/p&gt;
-&lt;p&gt;创建例子中的数据的 SQL 语句为&lt;/p&gt;
-&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!32312 IF NOT EXISTS*/&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;/*!40100 DEFAULT CHARACTER SET utf8 */&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`group`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;comment&quot;&gt;/*Table structure for table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;DROP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt; (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; AUTO_INCREMENT,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PRIMARY &lt;span class=&quot;keyword&quot;&gt;KEY&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;keyword&quot;&gt;ENGINE&lt;/span&gt;=&lt;span class=&quot;keyword&quot;&gt;InnoDB&lt;/span&gt; AUTO_INCREMENT=&lt;span class=&quot;number&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;CHARSET&lt;/span&gt;=utf8;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*Data for the table `test` */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;insert&lt;/span&gt;  &lt;span class=&quot;keyword&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;`test`&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;`id`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_date`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`record_type`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`c`&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;`d`&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;values&lt;/span&gt; (&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;10000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;20000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;30000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-15&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;4000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;40000&lt;/span&gt;),(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;2013-10-14&#39;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt;);&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;查询语句为&lt;/p&gt;
-&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;c&lt;/span&gt;) &lt;span class=&quot;string&quot;&gt;&#39;c 列数据的和&#39;&lt;/span&gt;,&lt;span class=&quot;keyword&quot;&gt;SUM&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;d&lt;/span&gt;)&lt;span class=&quot;string&quot;&gt;&#39;d 列数据的和&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; record_date &lt;span class=&quot;keyword&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-13&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;2013-10-16&#39;&lt;/span&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;BY&lt;/span&gt; record_type &lt;span class=&quot;keyword&quot;&gt;ASC&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 &lt;strong&gt; 分组求和&lt;/strong&gt;。 需求：将某列数据求和 例子：数据库内容为： &lt;img src=&quot;http://img.
-    
-    </summary>
-    
-      <category term="MySQL" scheme="http://blog.jayxhj.com/categories/mysql/"/>
-    
-    
-      <category term="MySQL" scheme="http://blog.jayxhj.com/tags/mysql/"/>
     
   </entry>
   

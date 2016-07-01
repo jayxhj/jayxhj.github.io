@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</loc>
+    
+    <lastmod>2016-07-01T12:33:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.jayxhj.com/2015/12/git-commands/</loc>
     
     <lastmod>2016-06-29T10:00:09.000Z</lastmod>
@@ -93,13 +100,6 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.jayxhj.com/2013/02/page-redirect/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
+    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
+    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -170,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
+    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -184,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
+    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
+    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -205,7 +205,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
+    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -220,6 +220,13 @@
   
   <url>
     <loc>http://blog.jayxhj.com/2013/04/dao-service-action/</loc>
+    
+    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
