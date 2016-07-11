@@ -5,31 +5,28 @@
   
   <title>Git 常用操作 | 徐豪杰写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Git 常用操作
-
-Git 常用操作Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
+  <meta name="description" content="Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
 Git 取消忽略文件的修改(再次追踪此文件)git update-index --no-assume-unchanged /path/to/file
 导入 Git 仓库至 Bitbucket
-create repository in Bi">
+create repository in Bitbucket
+do upstrea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 常用操作">
 <meta property="og:url" content="http://blog.jayxhj.com/2015/12/git-commands/index.html">
 <meta property="og:site_name" content="徐豪杰写字的地方">
-<meta property="og:description" content="Git 常用操作
-
-Git 常用操作Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
+<meta property="og:description" content="Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
 Git 取消忽略文件的修改(再次追踪此文件)git update-index --no-assume-unchanged /path/to/file
 导入 Git 仓库至 Bitbucket
-create repository in Bi">
-<meta property="og:updated_time" content="2016-06-29T10:00:09.000Z">
+create repository in Bitbucket
+do upstrea">
+<meta property="og:updated_time" content="2016-07-11T09:09:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 常用操作">
-<meta name="twitter:description" content="Git 常用操作
-
-Git 常用操作Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
+<meta name="twitter:description" content="Git 忽略已追踪文件的修改git update-index –assume-unchanged /path/to/file
 Git 取消忽略文件的修改(再次追踪此文件)git update-index --no-assume-unchanged /path/to/file
 导入 Git 仓库至 Bitbucket
-create repository in Bi">
+create repository in Bitbucket
+do upstrea">
 <meta name="twitter:creator" content="@jayxhj">
   
     <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
@@ -132,9 +129,8 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Git 常用操作</p>
-<hr>
-<h1 id="Git- 常用操作"><a href="#Git- 常用操作" class="headerlink" title="Git 常用操作"></a>Git 常用操作</h1><h2 id="Git- 忽略已追踪文件的修改"><a href="#Git- 忽略已追踪文件的修改" class="headerlink" title="Git 忽略已追踪文件的修改"></a>Git 忽略已追踪文件的修改</h2><p><code>git update-index –assume-unchanged /path/to/file</code></p>
+        <hr>
+<h2 id="Git- 忽略已追踪文件的修改"><a href="#Git- 忽略已追踪文件的修改" class="headerlink" title="Git 忽略已追踪文件的修改"></a>Git 忽略已追踪文件的修改</h2><p><code>git update-index –assume-unchanged /path/to/file</code></p>
 <h2 id="Git- 取消忽略文件的修改 - 再次追踪此文件"><a href="#Git- 取消忽略文件的修改 - 再次追踪此文件" class="headerlink" title="Git 取消忽略文件的修改(再次追踪此文件)"></a>Git 取消忽略文件的修改(再次追踪此文件)</h2><p><code>git update-index --no-assume-unchanged /path/to/file</code></p>
 <h2 id="导入 -Git- 仓库至 -Bitbucket"><a href="# 导入 -Git- 仓库至 -Bitbucket" class="headerlink" title="导入 Git 仓库至 Bitbucket"></a>导入 Git 仓库至 Bitbucket</h2><ol>
 <li>create repository in <a href="https://bitbucket.org/repo/create" target="_blank" rel="external">Bitbucket</a></li>
@@ -155,7 +151,10 @@ ga('send', 'pageview');
 <h2 id="添加多个远程分支"><a href="# 添加多个远程分支" class="headerlink" title="添加多个远程分支"></a>添加多个远程分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;a remote&gt;</span><br><span class="line">git remote <span class="built_in">set</span>-url origin --push --add &lt;another remote&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="错误 -merge- 了某个分支后撤销"><a href="# 错误 -merge- 了某个分支后撤销" class="headerlink" title="错误 merge 了某个分支后撤销"></a>错误 merge 了某个分支后撤销 </h2><p> 场景：当某个功能开发并自测完毕，需要 merge 到测试环境进行测试时，如果不小心 merge 错了分支，这时候需要撤销这个 merge 。如果是使用 Pull Request 进行分支合并的话，直接 close 就可以了，但如果是使用命令行进行操作的话，本地的分支实际上已经与待 merge 的分支进行合并了，需要回到 merge 前。</p>
 <p>只需要两个一个操作：找到 merge 前的 commit hash ，并 reset –hard</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;git reset --hard &lt;commit <span class="built_in">hash</span>&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit <span class="built_in">hash</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="强制提交，覆盖错误的提交"><a href="# 强制提交，覆盖错误的提交" class="headerlink" title="强制提交，覆盖错误的提交"></a>强制提交，覆盖错误的提交 </h2><p> 场景：如果不小心将某个提交推送到远程，又不想这个提交留在历史里，就需要强制覆盖远程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;branchName&gt; &lt;commit <span class="built_in">hash</span>&gt; <span class="comment"># commit hash 为错误提交的前一个提交 hash</span></span><br><span class="line">git push origin branchName <span class="operator">-f</span> <span class="comment"># 强制提交</span></span><br></pre></td></tr></table></figure>
+<p>备注：对于个人开发或者比较私密的信息不小心提交了才建议这么做，否则还是直接 revert 错误的提交。</p>
 
       
     </div>
