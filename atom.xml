@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-07-01T12:34:08.000Z</updated>
+  <updated>2016-07-13T04:06:48.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/"/>
     <id>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</id>
     <published>2016-07-01T08:04:05.000Z</published>
-    <updated>2016-07-01T12:34:08.000Z</updated>
+    <updated>2016-07-13T04:06:48.000Z</updated>
     
     <content type="html">&lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的方式进行调试，再配合 Chrome 浏览器插件 &lt;del&gt;JSON Viewer&lt;/del&gt; (建议使用 JSON Handler 代替)。&lt;/p&gt;
 &lt;h2 id=&quot;调试方式的对比&quot;&gt;&lt;a href=&quot;# 调试方式的对比&quot; class=&quot;headerlink&quot; title=&quot;调试方式的对比&quot;&gt;&lt;/a&gt;调试方式的对比 &lt;/h2&gt;&lt;p&gt; 手动调试的方式实际上局限性很大，缺点很明显：&lt;/p&gt;
@@ -69,7 +69,7 @@
 &lt;li&gt;接收 Xdebug 与 PHPStorm 的连接，&lt;strong&gt;Can accept external connections&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;当程序运行至端点处时，自动停止，开启这个选项 &lt;strong&gt;Run | Break at first line in PHP scripts&lt;/strong&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;监听外部的 debug 连接，开启这个选项 &lt;strong&gt;Run | Start Listening for PHP debug connections&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;通过上面的配置，就可以在 PHPStorm 运行 Xdebug 了。不过这还不够，需要配置具体的项目，这样 Xdebug 才知道如何运行，并在指定的断点处停止并通知 PHPStorm 。&lt;/p&gt;
@@ -739,7 +739,7 @@
     <link href="http://blog.jayxhj.com/2015/12/git-commands/"/>
     <id>http://blog.jayxhj.com/2015/12/git-commands/</id>
     <published>2015-12-10T12:15:55.000Z</published>
-    <updated>2016-07-11T09:09:59.000Z</updated>
+    <updated>2016-07-11T09:10:22.000Z</updated>
     
     <content type="html">&lt;hr&gt;
 &lt;h2 id=&quot;Git- 忽略已追踪文件的修改&quot;&gt;&lt;a href=&quot;#Git- 忽略已追踪文件的修改&quot; class=&quot;headerlink&quot; title=&quot;Git 忽略已追踪文件的修改&quot;&gt;&lt;/a&gt;Git 忽略已追踪文件的修改&lt;/h2&gt;&lt;p&gt;&lt;code&gt;git update-index –assume-unchanged /path/to/file&lt;/code&gt;&lt;/p&gt;
