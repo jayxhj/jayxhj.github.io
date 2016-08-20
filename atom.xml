@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-08-12T03:49:44.000Z</updated>
+  <updated>2016-08-20T15:22:42.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -14,6 +14,53 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>将文件内的 tab 转化为空格</title>
+    <link href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/"/>
+    <id>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</id>
+    <published>2016-08-20T10:15:46.000Z</published>
+    <updated>2016-08-20T15:22:42.000Z</updated>
+    
+    <content type="html">&lt;p&gt;tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 &lt;a href=&quot;http://programmers.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;讨论&lt;/a&gt; , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。&lt;/p&gt;
+&lt;p&gt;总结了一下，大概有以下几种思路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过程序进行替换&lt;/li&gt;
+&lt;li&gt;通过重定向输入替换，生成新文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一个思路适合大批量的替换，也适合大文件的替换，第二个思路实际上是读取文件替换后生成新文件，和第一种差别其实不大，但是很多软件支持指定参数，就非常适合通过管道及重定向来进行替换了。&lt;/p&gt;
+&lt;h2 id=&quot;通过 -vim&quot;&gt;&lt;a href=&quot;# 通过 -vim&quot; class=&quot;headerlink&quot; title=&quot;通过 vim&quot;&gt;&lt;/a&gt;通过 vim&lt;/h2&gt;&lt;h3 id=&quot;通过配置去格式化&quot;&gt;&lt;a href=&quot;# 通过配置去格式化&quot; class=&quot;headerlink&quot; title=&quot;通过配置去格式化&quot;&gt;&lt;/a&gt;通过配置去格式化 &lt;/h3&gt;&lt;p&gt; 在 ~/.vimrc 中加入以下配置&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;set tabstop=4&amp;#10;set shiftwidth=4&amp;#10;set expandtab&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;打开要格式化的文件，运行 &lt;code&gt;:retab&lt;/code&gt; 即可格式化。&lt;/p&gt;
+&lt;p&gt;或者一行搞定：&lt;code&gt;:set tabstop=4 shiftwidth=4 expandtab | :retab&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这种配置方式对所有的文件都生效，如果需要添加例外，添加下面的配置即可 &lt;code&gt;autocmd FileType make setlocal noexpandtab&lt;/code&gt; FileType 后接文件类型名称。&lt;/p&gt;
+&lt;p&gt;这种方式是通过配置的方式来格式化文本，定制性比较高。&lt;/p&gt;
+&lt;h3 id=&quot;通过正则替换&quot;&gt;&lt;a href=&quot;# 通过正则替换&quot; class=&quot;headerlink&quot; title=&quot;通过正则替换&quot;&gt;&lt;/a&gt;通过正则替换 &lt;/h3&gt;&lt;p&gt; 打开文件，直接运行下面的命令即可：&lt;code&gt;:%s/\t/ /g&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&quot;通过 -expand&quot;&gt;&lt;a href=&quot;# 通过 -expand&quot; class=&quot;headerlink&quot; title=&quot;通过 expand&quot;&gt;&lt;/a&gt;通过 expand&lt;/h2&gt;&lt;p&gt;由于 expand 是通过读取文件或标准输入并重定向至标准输出，故要达到更改的效果，需重新写入原文件。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;expand -t &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt; input &amp;gt; output &lt;span class=&quot;comment&quot;&gt;# 间隔默认为 8&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;通过 -col&quot;&gt;&lt;a href=&quot;# 通过 -col&quot; class=&quot;headerlink&quot; title=&quot;通过 col&quot;&gt;&lt;/a&gt;通过 col&lt;/h2&gt;&lt;p&gt;原理同 expand ：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cat -vt tab_file | col -x &amp;gt; output&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;通过 -sed&quot;&gt;&lt;a href=&quot;# 通过 -sed&quot; class=&quot;headerlink&quot; title=&quot;通过 sed&quot;&gt;&lt;/a&gt;通过 sed&lt;/h2&gt;&lt;p&gt;大杀器登场，通过 sed 来处理文本替换这种事情无疑是科学有效又简洁的姿势。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sed -iE &lt;span class=&quot;string&quot;&gt;&#39;s/\t/    /g&#39;&lt;/span&gt; file &lt;span class=&quot;comment&quot;&gt;# 从头换到底&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;不过在我看来，为什么这么做，比怎么做到更有价值，网上的讨论还是很多的，在我看来最主要的是习惯问题，以及涉及到团队合作时，统一格式及风格，再就是涉及到文件交换及接口约定时，使用符合特定领域约定俗成的规范。基本就是这样的原则。&lt;/p&gt;
+&lt;p&gt;看看西乔给的问卷及统计结果 &lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzAxMzMxNDIyOA==&amp;amp;mid=216031001&amp;amp;idx=2&amp;amp;sn=977df68e90ebce478fe0c14ffc33530b&amp;amp;scene=1&amp;amp;srcid=08209I9tmAKiZMwzhAfEIwUx#rd&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;缩进圣战的统计结果&lt;/a&gt; 。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 &lt;a href=&quot;http://programmers.stackexchange.com/questions/57/tabs-ver
+    
+    </summary>
+    
+    
+      <category term="bash" scheme="http://blog.jayxhj.com/tags/bash/"/>
+    
+      <category term="tab" scheme="http://blog.jayxhj.com/tags/tab/"/>
+    
+      <category term="vim" scheme="http://blog.jayxhj.com/tags/vim/"/>
+    
+  </entry>
   
   <entry>
     <title>男人袜布洛克牛皮鞋，买买买</title>
@@ -72,7 +119,7 @@
     <link href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/"/>
     <id>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</id>
     <published>2016-07-01T08:04:05.000Z</published>
-    <updated>2016-07-13T04:06:48.000Z</updated>
+    <updated>2016-08-20T15:16:05.000Z</updated>
     
     <content type="html">&lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的方式进行调试，再配合 Chrome 浏览器插件 &lt;del&gt;JSON Viewer&lt;/del&gt; (建议使用 JSON Handler 代替)。&lt;/p&gt;
 &lt;h2 id=&quot;调试方式的对比&quot;&gt;&lt;a href=&quot;# 调试方式的对比&quot; class=&quot;headerlink&quot; title=&quot;调试方式的对比&quot;&gt;&lt;/a&gt;调试方式的对比 &lt;/h2&gt;&lt;p&gt; 手动调试的方式实际上局限性很大，缺点很明显：&lt;/p&gt;
@@ -1129,48 +1176,6 @@
       <category term="技能" scheme="http://blog.jayxhj.com/tags/%E6%8A%80%E8%83%BD/"/>
     
       <category term="求职" scheme="http://blog.jayxhj.com/tags/%E6%B1%82%E8%81%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>email 中 To、Cc、Bcc 字段的作用</title>
-    <link href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/"/>
-    <id>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</id>
-    <published>2014-03-30T05:01:43.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
-    
-    <content type="html">&lt;p&gt; 你应该确保你的邮件正确地发给了你想要的人。To、Cc、Bcc 域允许你指定合适的策略让收件人接收信息。&lt;/p&gt;
-&lt;p&gt;To 字段是为那些与邮件信息极度相关且随时需要作出回应的人准备的。如果你认为谁与此极度相关，你应该把他们包含在 To 域中。&lt;/p&gt;
-&lt;p&gt; 在邮件的开头把所有你认为相关的人都写进来是个不错的方法，这样你可以让别人知道谁参与了此事。&lt;/p&gt;
-&lt;p&gt; 比如这样的开头：Hi Bill, Ted, Mary, Suzy,&lt;br&gt; 如果你的收件人超过了四个，那么你最好以 Hi all or Hello team  开头，而不是以上面的方式。&lt;/p&gt;
-&lt;p&gt; 只要你喜欢，你可以添加尽可能多的邮件地址到 To 字段中。有人错误地认为 Cc 域是用来解决收件人过多时的解决方法。&lt;/p&gt;
-&lt;p&gt;Cc 域（抄送）用来发送给那些你认为应该知道这件事情但又不是特别相关的人：他们仅仅需要知道事情的进展而不需要为此做出回应。&lt;/p&gt;
-&lt;p&gt; 对于那些在 80 年代之后出生的人来说，“抄送”来源于用打字机写信。你需要把两张纸同时放入打字机中，中间放一张复写纸。信的内容通过复写纸被复印到底下的那张纸中。这样在底下就留下了与第一个信件相同的副本。&lt;/p&gt;
-&lt;p&gt; 你有很多种使用 Cc 域的理由 &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; 他保证被包含进来的人在这个环内（常被用来让经理们与及时跟进此议题）&lt;/li&gt;
-&lt;li&gt; 他让人们明白他们是应该对此作出回应还是仅仅只需知道就好了 &lt;/li&gt;
-&lt;li&gt; 他允许你让收件人知晓其他的人也知道正在发生什么（万一你想让别人重视这件事情，或者把他作为重要的事情对待）。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Bcc 域（密送）被用来当你希望其他人收到这个邮件，但是你不想除收件人以外的人知道他收到了这封邮件。&lt;/p&gt;
-&lt;p&gt; 当人们收到邮件，他们能看到 To，Cc 域但是看不到 Bcc 域的收件人。当你发送邮件给成千上万的人时，使用 Bcc 无疑是不错的选择。你不想让收件人知道其他收件人的邮件地址，所以你使用它，而不是 To，或 Cc。&lt;/p&gt;
-&lt;p&gt; 总结下来就是这样：&lt;br&gt;To  发送给那些需要响应的人 &lt;br&gt;Cc  发送给那些需要知晓事情进展但是不需要做出行动的人 &lt;br&gt;Bcc 发送给那些不需要知道其他收件人的人或者用于大量的邮件发送 &lt;/p&gt;
-&lt;p&gt; 原文地址:&lt;a href=&quot;http://www.writebetteremails.com/to-cc.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.writebetteremails.com/to-cc.htm&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt; 看国内各大邮箱服务提供商，基本提供了以上三种发送方式，To 对应在收件人中填写多个邮箱地址，Cc 对应于添加抄送，Bcc 对应于添加密送，当然还有分别发送（QQ 邮箱）或群发单显（网易和新浪），这种服务将多个发送任务放入队列中分别发送，收件人会依次收到相同的邮件。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt; 你应该确保你的邮件正确地发给了你想要的人。To、Cc、Bcc 域允许你指定合适的策略让收件人接收信息。&lt;/p&gt;
-&lt;p&gt;To 字段是为那些与邮件信息极度相关且随时需要作出回应的人准备的。如果你认为谁与此极度相关，你应该把他们包含在 To 域中。&lt;/p&gt;
-&lt;p&gt; 在邮件的开头
-    
-    </summary>
-    
-      <category term="翻译文章" scheme="http://blog.jayxhj.com/categories/%E7%BF%BB%E8%AF%91%E6%96%87%E7%AB%A0/"/>
-    
-    
-      <category term="email" scheme="http://blog.jayxhj.com/tags/email/"/>
     
   </entry>
   

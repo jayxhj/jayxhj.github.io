@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: SQLException | 徐豪杰写字的地方</title>
+  <title>将文件内的 tab 转化为空格 | 徐豪杰写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="徐豪杰写字的地方">
-<meta property="og:url" content="http://blog.jayxhj.com/tags/sqlexception/index.html">
+  <meta name="description" content="tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 讨论 , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。
+总结了一下，大概有以下几种思路：
+
+通过程序进行替换
+通过重定向输入替换，生成新文件
+
+第一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将文件内的 tab 转化为空格">
+<meta property="og:url" content="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/index.html">
 <meta property="og:site_name" content="徐豪杰写字的地方">
-<meta property="og:description">
+<meta property="og:description" content="tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 讨论 , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。
+总结了一下，大概有以下几种思路：
+
+通过程序进行替换
+通过重定向输入替换，生成新文件
+
+第一个">
+<meta property="og:updated_time" content="2016-08-20T15:22:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="徐豪杰写字的地方">
-<meta name="twitter:description">
+<meta name="twitter:title" content="将文件内的 tab 转化为空格">
+<meta name="twitter:description" content="tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 讨论 , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。
+总结了一下，大概有以下几种思路：
+
+通过程序进行替换
+通过重定向输入替换，生成新文件
+
+第一个">
 <meta name="twitter:creator" content="@jayxhj">
   
     <link rel="alternate" href="/atom.xml" title="徐豪杰写字的地方" type="application/atom+xml">
@@ -90,39 +109,85 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2013" class="archive-year">2013</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2013/05/caused-by-java-sql-sqlexception/" class="archive-article-date">
-  <time datetime="2013-05-29T12:05:47.000Z" itemprop="datePublished">5月 29</time>
+        <section id="main"><article id="post-ways-to-convert-tabs-to-spaces" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/ways-to-convert-tabs-to-spaces/" class="article-date">
+  <time datetime="2016-08-20T10:15:46.000Z" itemprop="datePublished">2016-08-20</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2013/05/caused-by-java-sql-sqlexception/">Caused by: java.sql.SQLException: 无法转换为内部表示解决方法</a>
+    <h1 class="article-title" itemprop="name">
+      将文件内的 tab 转化为空格
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 <a href="http://programmers.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e" target="_blank" rel="external">讨论</a> , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。</p>
+<p>总结了一下，大概有以下几种思路：</p>
+<ol>
+<li>通过程序进行替换</li>
+<li>通过重定向输入替换，生成新文件</li>
+</ol>
+<p>第一个思路适合大批量的替换，也适合大文件的替换，第二个思路实际上是读取文件替换后生成新文件，和第一种差别其实不大，但是很多软件支持指定参数，就非常适合通过管道及重定向来进行替换了。</p>
+<h2 id="通过 -vim"><a href="# 通过 -vim" class="headerlink" title="通过 vim"></a>通过 vim</h2><h3 id="通过配置去格式化"><a href="# 通过配置去格式化" class="headerlink" title="通过配置去格式化"></a>通过配置去格式化 </h3><p> 在 ~/.vimrc 中加入以下配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set tabstop=4&#10;set shiftwidth=4&#10;set expandtab</span><br></pre></td></tr></table></figure>
+<p>打开要格式化的文件，运行 <code>:retab</code> 即可格式化。</p>
+<p>或者一行搞定：<code>:set tabstop=4 shiftwidth=4 expandtab | :retab</code></p>
+<p>这种配置方式对所有的文件都生效，如果需要添加例外，添加下面的配置即可 <code>autocmd FileType make setlocal noexpandtab</code> FileType 后接文件类型名称。</p>
+<p>这种方式是通过配置的方式来格式化文本，定制性比较高。</p>
+<h3 id="通过正则替换"><a href="# 通过正则替换" class="headerlink" title="通过正则替换"></a>通过正则替换 </h3><p> 打开文件，直接运行下面的命令即可：<code>:%s/\t/ /g</code> 。</p>
+<h2 id="通过 -expand"><a href="# 通过 -expand" class="headerlink" title="通过 expand"></a>通过 expand</h2><p>由于 expand 是通过读取文件或标准输入并重定向至标准输出，故要达到更改的效果，需重新写入原文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expand -t <span class="number">4</span> input &gt; output <span class="comment"># 间隔默认为 8</span></span><br></pre></td></tr></table></figure>
+<h2 id="通过 -col"><a href="# 通过 -col" class="headerlink" title="通过 col"></a>通过 col</h2><p>原理同 expand ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat -vt tab_file | col -x &gt; output</span><br></pre></td></tr></table></figure>
+<h2 id="通过 -sed"><a href="# 通过 -sed" class="headerlink" title="通过 sed"></a>通过 sed</h2><p>大杀器登场，通过 sed 来处理文本替换这种事情无疑是科学有效又简洁的姿势。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -iE <span class="string">'s/\t/    /g'</span> file <span class="comment"># 从头换到底</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>不过在我看来，为什么这么做，比怎么做到更有价值，网上的讨论还是很多的，在我看来最主要的是习惯问题，以及涉及到团队合作时，统一格式及风格，再就是涉及到文件交换及接口约定时，使用符合特定领域约定俗成的规范。基本就是这样的原则。</p>
+<p>看看西乔给的问卷及统计结果 <a href="http://mp.weixin.qq.com/s?__biz=MzAxMzMxNDIyOA==&amp;mid=216031001&amp;idx=2&amp;sn=977df68e90ebce478fe0c14ffc33530b&amp;scene=1&amp;srcid=08209I9tmAKiZMwzhAfEIwUx#rd" target="_blank" rel="external">缩进圣战的统计结果</a> 。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cis3bb5xw0007lp6vaqij7dea" class="article-share-link">分享</a>
+      
+        <a href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/">bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tab/">tab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/brogue-of-nanrenwa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">男人袜布洛克牛皮鞋，买买买</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 </section>
         
@@ -252,11 +317,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'githubiojayxhj';
   
+  var disqus_url = 'http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

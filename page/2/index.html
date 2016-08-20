@@ -92,6 +92,162 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-fix-headers-already-sent-error-in-php" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/fix-headers-already-sent-error-in-php/" class="article-date">
+  <time datetime="2016-03-09T05:32:16.000Z" itemprop="datePublished">2016-03-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/翻译文章/">翻译文章</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章是 stackoverflow 上的一个问题的回答，答案集中了其它答案的想法，并做了归纳，所以翻译过来，以后遇到 “headers already sent” 的错误就可以直接一一排查，或者干脆在代码动手及设计上避免这类问题了。</p>
+<h2 id="发送 -header- 前不要有任何输出"><a href="# 发送 -header- 前不要有任何输出" class="headerlink" title="发送 header 前不要有任何输出"></a>发送 header 前不要有任何输出 </h2><p> 发送或者修改 HTTP 头信息的方法必须在任何输出被输出之前被调用。否则调用将会出错：</p>
+<blockquote>
+<p>Warning: Cannot <strong>modify</strong> header information - headers already sent (<strong>output</strong> started at script:line)</p>
+</blockquote>
+<p>这些方法可以修改（modify） HTTP 头信息：</p>
+<ul>
+<li><a href="http://php.net/header" target="_blank" rel="external">header</a> / <a href="http://php.net/header_remove" target="_blank" rel="external">header_remove</a></li>
+<li><a href="http://php.net/session_start" target="_blank" rel="external">session_start</a> / <a href="http://php.net/session_regenerate_id" target="_blank" rel="external">session_regenerate_id</a></li>
+<li><a href="http://php.net/setcookie" target="_blank" rel="external">setcookie</a> / <a href="http://php.net/setrawcookie" target="_blank" rel="external">setrawcookie</a></li>
+</ul>
+<p>输出（output）可以是：</p>
+<ul>
+<li>无意的：<ul>
+<li><code>&lt;?php</code> 之前或者 <code>?&gt;</code> 之后的空格</li>
+<li><a href="https://zh.wikipedia.org/wiki/ 位元組順序記號" target="_blank" rel="external">UTF-8 BOM</a> </li>
+</ul>
+</li>
+<li>有意的：<ul>
+<li><code>print</code> ，<code>echo</code> 以及其他能产生输出的方法</li>
+<li>在 <code>&lt;?php</code> 前原始的 <code>&lt;html&gt;</code> 区块</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么这个错误会产生"><a href="# 为什么这个错误会产生" class="headerlink" title="为什么这个错误会产生"></a>为什么这个错误会产生 </h2><p> 为了理解为什么 HTTP header 必须在输出之前发送出去，我们有必要了解看一下一个典型的 HTTP 相应。PHP 脚本主要用来生成 HTML ，但它也会发送一系列的 HTTP/CGI 头信息到 web 服务器：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Powered-By: PHP/5.3.7</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>PHP page output page<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">h1</span>&gt;</span>Content<span class="tag">&lt;/<span class="title">h1</span>&gt;</span> <span class="tag">&lt;<span class="title">p</span>&gt;</span>Some more output follows...<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">and <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/"</span>&gt;</span> <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">internal-icon-delayed</span>&gt;</span> <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>页面或者输出总是紧跟在头信息后面。PHP 必须先把头信息发送给 web 服务器，并且它只能发送一次，在这之后就再也不能修改头信息了。</p>
+<p>当 PHP 第一次接收到输出时（<code>print</code> ,<code>echo</code>,<code>&lt;html&gt;</code>） 它会清掉所有收集到的头信息。在此之后它能把输出所有想输出的内容，但是再想发送 HTTP 头信息就不可能了。</p>
+<h2 id="怎么找到到底是哪里提前产生了输出？"><a href="# 怎么找到到底是哪里提前产生了输出？" class="headerlink" title="怎么找到到底是哪里提前产生了输出？"></a>怎么找到到底是哪里提前产生了输出？</h2><p><code>header()</code> 头信息包含所有与问题产生相关的信息：</p>
+<blockquote>
+<p>Warning: Cannot modify header information - headers already sent by (output started at /www/usr2345/htdocs/auth.php:52) in /www/usr2345/htdocs/index.php on line 100</p>
+</blockquote>
+<p>在上面的警告中，<code>line 100</code> 指向调用 <code>header()</code> 失败的脚本行数。</p>
+<p>圆括号里的 <code>output started</code>  这条信息更加重要。它指出了先于 header() 前的输出的源头。在这个例子中是 <code>auth.php</code> 的 第 52 行，这就是你要去找的过早的输出的地方。</p>
+<p>典型的原因有这些：</p>
+<ol>
+<li><p><strong>print</strong>,<strong>echo</strong><br>有意的 <code>print</code> 和 <code>echo</code> 语句输出将会中断输出 HTTP 头信息的机会。应用程序流必须重组以避免这种行为，可以使用 <a href="http://php.net/function" target="_blank" rel="external">function</a> 和模版来重组，从而保证 <code>header()</code> 调用是在信息被写出之前。<br>产生输出的方法包括：    </p>
+<ul>
+<li>print, echo, printf, vprintf</li>
+<li>trigger_error, ob_flush, ob_end_flush, var_dump, print_r</li>
+<li>readfile, passthru, flush, imagepng, imagejpeg    </li>
+</ul>
+<p>以及其他用户自定义的方法。</p>
+</li>
+<li><p><strong>原始的 HTML</strong><br>在一个 PHP 文件中未被解析的 HTML 区块也是输出。脚本中各种可能触发调用 <code>header()</code> 的条件都必须在任何 <code>&lt;html&gt;</code> 区块前声明。</p>
+</li>
+<li><p><strong>&lt;?php 前的空格导致的 <code>&quot;script.php line 1&quot;</code> 警告 </strong><br> 如果警告指向第 <strong>1</strong> 行的输出，那么它很有可能指向的是在 <code>&lt;?php</code> 之前的空格，文本或者 HTML 。    </p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 在 &lt;?php 前有个空格</span></span><br></pre></td></tr></table></figure>
+<p>同样它可能出现在附加的脚本或者脚本区块上:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">&lt;?php</span></span><br></pre></td></tr></table></figure>
+<p>PHP 确实在闭合标签后占据了一个换行符，但是它不会在上面的空白处插入换行符、制表符或者空格（也就是说这是我们自己造成的）。    </p>
+</li>
+<li><p><strong>UTF-8 BOM</strong><br>换行符或者空格可能导致问题，但是不可见的字符序列同样可以。最著名的就是大多数文本编辑器并不会显示的 <strong>UTF-8 BOM</strong> 。它是在 UTF-8 编码的文档里可选甚至是多余的，被标示为 <code>EF BB BF</code> 的字节序列。但是 PHP 必须把它当作原始的输出来处理。它可能以 <code>ï»¿</code> 这样的符号输出（如果客户端以 Latin-1 来解释这个文档）或者其他这样的“非法输出”。<br>以某种图形化的编辑器或者基于 JAVA 的 IDE 查看这类文件时，你可能察觉不到 <strong>UTF-8 BOM</strong> 的存在。它们没有把 <strong>UTF-8 BOM</strong> 形象化（受制于 Unicode 标准）。然而大多数程序编辑器和控制台编辑程序会这样处理：<br><img src="http://i.stack.imgur.com/aXgWY.png" alt=""><br>像这样就能简单地提早发现问题了。其他的编辑器在设置某些选项后也能纠正这样的问题（Windows 上的 Notepad++ 可以识别并且 <a href="http://stackoverflow.com/questions/3589358/fix-utf8-bom"target="_blank"rel="external">纠正 BOM 问题 </a> ），另一个发现 BOM 的方法就是借助十六进制的编辑器。在 *nix 系统上，大都提供了 <a href="http://linux.die.net/man/1/hexdump"target="_blank"rel="external"><code>hexdump</code></a>  ，如果没有的话，其他图形化的变种也可以用来简化审计这些问题的步骤：<br><img src="http://i.stack.imgur.com/QyqUr.png"alt=""><br> 一个简单的修正方法就是将文本编辑器设置为  <strong>以 UTF-8 (no BOM) 保存文件</strong>（<strong>save files as UTF-8 (no BOM)</strong>）或者其他类似的设置。    </p>
+<h3 id="修正程序"><a href="# 修正程序" class="headerlink" title="修正程序"></a>修正程序 </h3><p> 有很多自动化的工具可以检测并修改文本文件（<a href="http://stackoverflow.com/questions/1068650/using-awk-to-remove-the-byte-order-mark" target="_blank" rel="external"><code>sed</code></a> / <a href="http://stackoverflow.com/questions/1068650/using-awk-to-remove-the-byte-order-mark" target="_blank" rel="external"><code>awk</code></a> 或者 <code>recode</code> ）。PHP 里有 <a href="http://freshcode.club/projects/phptags" target="_blank" rel="external"><code>phptags</code></a> 。它可以把打开标签和关闭标签重写成长标签（&lt;?php）或者短标签（&lt;?）的形式。也可以轻松地解决前导或尾随的空格、Unicode 和 UTF-x BOM 问题：    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">phptags  --whitespace  *.php</span><br></pre></td></tr></table></figure>
+<p>同样，你可以在某个目录或整个项目目录使用这个命令。</p>
+</li>
+<li><p><strong>?&gt; 后的空白 </strong><br> 如果错误代码在闭合标签 &gt;? 这一行的前面，那么这就是 &gt;? 后的空格或者原始文本输出导致的问题。PHP 的结束标记并不会在遇到闭合标签时终止执行脚本，任何 ?&gt; 之后的文本或者空格字符都会被当作页面内容输出。<br>通用的被鼓励的做法，特别是针对新手，是避免在 PHP 文件后加上闭合标签 <strong>?&gt;</strong> 。这样就能避免一部分产生这类问题的情况。</p>
+</li>
+<li><p><strong>错误源提示：”Unknown on line 0”</strong><br>如果没有给出具体的错误源，那么这就是典型的 PHP 扩展或者 <code>php.ini</code> 设置的问题：</p>
+<ul>
+<li>偶尔是 <code>gzip</code> 编码设置或者是 <a href="http://stackoverflow.com/questions/622192/php-warning-headers-already-sent-in-unknown" target="_blank" rel="external"><code>ob_gzhandler</code></a></li>
+<li>也有可能是 php.ini 设置里模块加载了两次导致 PHP 产生了启动 / 警告信息</li>
+</ul>
+</li>
+<li><p><strong>先前的错误导致输出了错误信息 </strong><br> 如果前面的 PHP 语句或者表达式造成了 warning 或者 notice 信息导致输出，这些输出也被认为是过早地输出。<br>在这种情况下你需要避免错误，推后这些语句的执行，或者抑制这些信息的输出，可以使用 <code>isset()</code> 进行判断，或者使用抑制符 <code>@</code>，前提是它们不会阻止后续的调试。</p>
+</li>
+</ol>
+<h2 id="没有错误信息输出"><a href="# 没有错误信息输出" class="headerlink" title="没有错误信息输出"></a>没有错误信息输出 </h2><p> 如果你禁用了 php.ini 里的 <code>error_reporting</code> 或者 <code>display_errors</code> 设置，那么将不会产生 warning 。但是忽略错误并不会让问题消失，头信息仍然不能在过早的输出输出之前发送出去。</p>
+<p>所以当 <code>header(&quot;Location: ...&quot;)</code> 跳转静默地失败时，建议你去查看 warnings 。在脚本的最前面用下面的两条命令重新开启错误报告设置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(E_ALL);</span><br><span class="line">ini_set("display_errors", 1);</span><br></pre></td></tr></table></figure>
+<p>或者如果其他的设置都失败了那就设置  <code>set_error_handler(&quot;var_dump&quot;);</code> 。</p>
+<p>至于跳转的 header ，在执行至最后的代码时你应该遵循下面的这种风格：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span>(header(<span class="string">"Location: /finished.html"</span>));</span><br></pre></td></tr></table></figure>
+<p>最好是提供一个方法，特别是当 <code>header()</code> 执行失败时打印出用户信息。</p>
+<h2 id="变通方法：输出缓冲"><a href="# 变通方法：输出缓冲" class="headerlink" title="变通方法：输出缓冲"></a>变通方法：输出缓冲</h2><p>PHP 的输出缓冲的方法是缓解这种问题的一种变通方法。它运行起来可靠，但是你绝不要使用它来替代你架构良好应用程序结构，从控制逻辑中分离输出。它的真实目的是用来减轻大块数据传输至服务器时的压力。</p>
+<ol>
+<li><a href="http://php.net/manual/en/outcontrol.configuration.php" target="_blank" rel="external"><code>output_buffering 设置</code></a> 在 <a href="http://www.php.net/manual/en/configuration.file.php" target="_blank" rel="external">php.ini</a> 或者 <a href="http://www.php.net/manual/en/configuration.changes.php" target="_blank" rel="external">.htaccess</a> 或者甚至在最新的 FPM/FastCGI  的 <a href="http://php.net/manual/en/configuration.file.per-user.php" target="_blank" rel="external">.user.ini</a> 中设置；</li>
+<li>同样你可以在脚本的最前面使用 <a href="http://php.net/ob_start" target="_blank" rel="external"><code>ob_start()</code></a> 来设置，但是它并没那么可靠：  <ul>
+<li>即使 <code>&lt;?php ob_start(); ?&gt;</code> 在第一个脚本里，空格或者 BOM 也有可能在此之前被输出</li>
+<li>它可以隐藏 HTML 输出里的空格（将空格放到 buffer 中），但是只要应用程序逻辑企图发送二进制内容（比如生成的图片），缓冲里的无关的输出就会成为问题（这样 ob_clean() 方法就成为下一步的变通方法了）。</li>
+<li>缓冲有大小限制，并且在默认配置下很容易超出，并且这种情况并不少见，一旦发生也不太容易追踪。</li>
+</ul>
+</li>
+</ol>
+<p>因此这两个方法变得不可靠了，特别是当你需要更改开发环境或者生产环境的配置的时候。这就是为什么输出缓冲被认为只是一种蹩脚的变通方法。</p>
+<p>建议参考官方手册里的基本 <a href="http://www.php.net/manual/en/outcontrol.examples.basic.php" target="_blank" rel="external">使用方法</a> ，以及它的优缺点：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2832010/what-is-output-buffering" target="_blank" rel="external">输出缓冲是什么</a></li>
+<li><a href="http://stackoverflow.com/questions/2148114/why-use-output-buffering-in-php" target="_blank" rel="external">为什么使用 output buffering</a></li>
+<li><a href="http://stackoverflow.com/questions/4731375/is-using-output-buffering-considered-a-bad-practice" target="_blank" rel="external">使用输出缓冲是不好的实践吗？</a></li>
+<li><a href="http://stackoverflow.com/questions/2919569/use-case-for-output-buffering-as-the-correct-solution-to-headers-already-sent" target="_blank" rel="external">正确使用 output buffering 解决 “header already sent” 的例子</a></li>
+</ul>
+<h3 id="但是在其他的服务器上是好的？"><a href="# 但是在其他的服务器上是好的？" class="headerlink" title="但是在其他的服务器上是好的？"></a><strong>但是在其他的服务器上是好的？</strong></h3><p>如果你之前没有收到过头信息的 warning ，那么 php.ini 里的 <a href="http://php.net/manual/zh/outcontrol.configuration.php" target="_blank" rel="external">output_buffering</a> 设置改变了。在现在的／不同的服务器上很有可能没有设置。</p>
+<h2 id="使用 -headers-sent- 检查"><a href="# 使用 -headers-sent- 检查" class="headerlink" title="使用 headers_sent() 检查"></a><strong>使用 <code>headers_sent()</code> 检查 </strong></h2><p> 你可以使用 <a href="http://php.net/headers_sent" target="_blank" rel="external"><code>headers_sent</code></a> 来检查是否可以发送头信息。这种方法可以有效地检查以便输出一个错误信息或是应用其他的逻辑。<br>不错的回退变通方法有：    </p>
+<ul>
+<li><p><strong>HTML<code>&lt;meta&gt;</code> tag</strong><br>  如果你的应用程序很难在结构上解决这个问题，有个简单但显得不专业的做法是在 HTML <meta> 标签中来跳转网页。可以这样实现：    </p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Location"</span> <span class="attribute">content</span>=<span class="value">"http://example.com/"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  或者加上一个延迟时间</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Refresh"</span> <span class="attribute">content</span>=<span class="value">"2; url=../target.html"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript 跳转<br>  另一个可选的方法就是使用 <a href="http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-in-jquery-javascript" target="_blank" rel="external">JavaScript 跳转</a> 来实现网页跳转：</p>
+  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;script&#62; location.replace(&#34;target.html&#34;); &#60;/script&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这种方式相比较 <meta> 方法起来更兼容 HTML 标准，它只依赖于可以运行 JavaScript 的客户端。</p>
+<p>这两种方式在 HTTP header() 调用失败时都提供了可以接受的回退方式。理想化的处理方式应该是将跳转与其它方式结合，给出对用户友好的辅助信息并且提供一个可点的链接以供后续操作。</p>
+<h2 id="为什么 -setcookie- 和 -session-start- 都会被影响"><a href="# 为什么 -setcookie- 和 -session-start- 都会被影响" class="headerlink" title="为什么 setcookie() 和 session_start() 都会被影响"></a><strong>为什么 <code>setcookie()</code> 和 <code>session_start()</code> 都会被影响</strong></h2><p><code>setcookie()</code> 和 <code>session_start()</code> 都需要发送一个 <code>set-cookie:</code> 的 HTTP 头信息。这种情况就和前面输出 header() 的情况类似，所以同样会出现由于过早地输出错误信息导致的错误。</p>
+<p>（当然它们受影响也有可能是因为客户端禁止了 cookie 导致的，设置可能是代理的问题。很明显，session 也取决去剩余磁盘空间大小或者 php.ini 里的其它设置）</p>
+<hr>
+<p>原文链接：<a href="http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php" target="_blank" rel="external">http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/" data-id="cis3bb60h004elp6vxylhxdrq" class="article-share-link">分享</a>
+      
+        <a href="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/header/">header()</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-understanding-exit-codes-and-how-to-use-them-in-bash-scripts" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" class="article-date">
@@ -157,7 +313,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" data-id="cirr8f9ee000a2c6v7np0e9zf" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/" data-id="cis3bb5y2000hlp6vhy5n5sha" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -236,7 +392,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/" data-id="cirr8f9eb00072c6vv9nz8a0f" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/" data-id="cis3bb5xz000elp6v9hwejzae" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -324,7 +480,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/" data-id="cirr8f9hv004f2c6v5h7ohma4" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/" data-id="cis3bb60m004llp6vu34iifzz" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -393,7 +549,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="cirr8f9hl00402c6v35s4zkmq" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2015/12/git-commands/" data-id="cis3bb60b0046lp6vo1c4qdjf" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2015/12/git-commands/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -483,7 +639,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="cirr8f9iy005o2c6vgbm5w6ee" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/" data-id="cis3bb62e005ulp6vwqo6jaey" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -550,7 +706,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="cirr8f9h1003n2c6vhrjvh6ra" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2014/08/index-type/" data-id="cis3bb5zz003tlp6vt6zekiq0" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2014/08/index-type/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -610,7 +766,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="cirr8f9iw005l2c6vgk0qu827" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/" data-id="cis3bb629005rlp6v70yh3r8n" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -708,7 +864,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="cirr8f9en000q2c6vj4qkyx8a" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/" data-id="cis3bb5y9000wlp6v54qgw9u2" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -786,75 +942,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="cirr8f9go00312c6vn3lff2to" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/" data-id="cis3bb5zn0037lp6vexdiy7su" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技能/">技能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/求职/">求职</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-to-cc-and-bcc-in-email" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/03/to-cc-and-bcc-in-email/" class="article-date">
-  <time datetime="2014-03-30T05:01:43.000Z" itemprop="datePublished">2014-03-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/翻译文章/">翻译文章</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/to-cc-and-bcc-in-email/">email 中 To、Cc、Bcc 字段的作用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 你应该确保你的邮件正确地发给了你想要的人。To、Cc、Bcc 域允许你指定合适的策略让收件人接收信息。</p>
-<p>To 字段是为那些与邮件信息极度相关且随时需要作出回应的人准备的。如果你认为谁与此极度相关，你应该把他们包含在 To 域中。</p>
-<p> 在邮件的开头把所有你认为相关的人都写进来是个不错的方法，这样你可以让别人知道谁参与了此事。</p>
-<p> 比如这样的开头：Hi Bill, Ted, Mary, Suzy,<br> 如果你的收件人超过了四个，那么你最好以 Hi all or Hello team  开头，而不是以上面的方式。</p>
-<p> 只要你喜欢，你可以添加尽可能多的邮件地址到 To 字段中。有人错误地认为 Cc 域是用来解决收件人过多时的解决方法。</p>
-<p>Cc 域（抄送）用来发送给那些你认为应该知道这件事情但又不是特别相关的人：他们仅仅需要知道事情的进展而不需要为此做出回应。</p>
-<p> 对于那些在 80 年代之后出生的人来说，“抄送”来源于用打字机写信。你需要把两张纸同时放入打字机中，中间放一张复写纸。信的内容通过复写纸被复印到底下的那张纸中。这样在底下就留下了与第一个信件相同的副本。</p>
-<p> 你有很多种使用 Cc 域的理由 </p>
-<ul>
-<li> 他保证被包含进来的人在这个环内（常被用来让经理们与及时跟进此议题）</li>
-<li> 他让人们明白他们是应该对此作出回应还是仅仅只需知道就好了 </li>
-<li> 他允许你让收件人知晓其他的人也知道正在发生什么（万一你想让别人重视这件事情，或者把他作为重要的事情对待）。</li>
-</ul>
-<p>Bcc 域（密送）被用来当你希望其他人收到这个邮件，但是你不想除收件人以外的人知道他收到了这封邮件。</p>
-<p> 当人们收到邮件，他们能看到 To，Cc 域但是看不到 Bcc 域的收件人。当你发送邮件给成千上万的人时，使用 Bcc 无疑是不错的选择。你不想让收件人知道其他收件人的邮件地址，所以你使用它，而不是 To，或 Cc。</p>
-<p> 总结下来就是这样：<br>To  发送给那些需要响应的人 <br>Cc  发送给那些需要知晓事情进展但是不需要做出行动的人 <br>Bcc 发送给那些不需要知道其他收件人的人或者用于大量的邮件发送 </p>
-<p> 原文地址:<a href="http://www.writebetteremails.com/to-cc.htm" target="_blank" rel="external">http://www.writebetteremails.com/to-cc.htm</a></p>
-<p> 看国内各大邮箱服务提供商，基本提供了以上三种发送方式，To 对应在收件人中填写多个邮箱地址，Cc 对应于添加抄送，Bcc 对应于添加密送，当然还有分别发送（QQ 邮箱）或群发单显（网易和新浪），这种服务将多个发送任务放入队列中分别发送，收件人会依次收到相同的邮件。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/" data-id="cirr8f9ek000m2c6v9da9823p" class="article-share-link">分享</a>
-      
-        <a href="http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/email/">email</a></li></ul>
 
     </footer>
   </div>
@@ -878,6 +971,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/ways-to-convert-tabs-to-spaces/">将文件内的 tab 转化为空格</a>
+          </li>
         
           <li>
             <a href="/2016/08/brogue-of-nanrenwa/">男人袜布洛克牛皮鞋，买买买</a>
@@ -915,10 +1012,6 @@ ga('send', 'pageview');
             <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
           </li>
         
-          <li>
-            <a href="/2016/03/fix-headers-already-sent-error-in-php/">解决 PHP &quot;headers already sent&quot; 错误</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -929,7 +1022,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -938,7 +1031,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

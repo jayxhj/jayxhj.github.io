@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/</loc>
+    <loc>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</loc>
     
-    <lastmod>2016-08-12T03:49:44.000Z</lastmod>
+    <lastmod>2016-08-20T15:22:42.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</loc>
     
-    <lastmod>2016-07-13T04:06:48.000Z</lastmod>
+    <lastmod>2016-08-20T15:16:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/</loc>
+    
+    <lastmod>2016-08-12T03:49:44.000Z</lastmod>
     
   </url>
   
@@ -114,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
+    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -128,7 +135,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
+    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -142,7 +149,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
+    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
@@ -226,14 +233,14 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
+    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
+    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
     
     <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
