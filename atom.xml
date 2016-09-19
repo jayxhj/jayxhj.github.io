@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-08-20T15:22:42.000Z</updated>
+  <updated>2016-08-21T14:55:34.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/"/>
     <id>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</id>
     <published>2016-08-20T10:15:46.000Z</published>
-    <updated>2016-08-20T15:22:42.000Z</updated>
+    <updated>2016-08-21T14:55:34.000Z</updated>
     
     <content type="html">&lt;p&gt;tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 &lt;a href=&quot;http://programmers.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;讨论&lt;/a&gt; , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。&lt;/p&gt;
 &lt;p&gt;总结了一下，大概有以下几种思路：&lt;/p&gt;
@@ -119,7 +119,7 @@
     <link href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/"/>
     <id>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</id>
     <published>2016-07-01T08:04:05.000Z</published>
-    <updated>2016-08-20T15:16:05.000Z</updated>
+    <updated>2016-08-20T15:23:07.000Z</updated>
     
     <content type="html">&lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的方式进行调试，再配合 Chrome 浏览器插件 &lt;del&gt;JSON Viewer&lt;/del&gt; (建议使用 JSON Handler 代替)。&lt;/p&gt;
 &lt;h2 id=&quot;调试方式的对比&quot;&gt;&lt;a href=&quot;# 调试方式的对比&quot; class=&quot;headerlink&quot; title=&quot;调试方式的对比&quot;&gt;&lt;/a&gt;调试方式的对比 &lt;/h2&gt;&lt;p&gt; 手动调试的方式实际上局限性很大，缺点很明显：&lt;/p&gt;
