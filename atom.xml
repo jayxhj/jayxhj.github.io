@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2016-08-21T14:55:34.000Z</updated>
+  <updated>2016-12-15T14:13:34.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -14,6 +14,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>调试线上 JS 的几种姿势</title>
+    <link href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/"/>
+    <id>http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/</id>
+    <published>2016-12-15T10:16:20.000Z</published>
+    <updated>2016-12-15T14:13:34.000Z</updated>
+    
+    <content type="html">&lt;p&gt;线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面解释，一方面是如何去复现问题，第二步是根据第一步的信息，如何更快更科学地 debug 。&lt;/p&gt;
+&lt;h1 id=&quot;问题的定位&quot;&gt;&lt;a href=&quot;# 问题的定位&quot; class=&quot;headerlink&quot; title=&quot;问题的定位&quot;&gt;&lt;/a&gt;问题的定位 &lt;/h1&gt;&lt;h2 id=&quot;本地复现、调试、解决、上线&quot;&gt;&lt;a href=&quot;# 本地复现、调试、解决、上线&quot; class=&quot;headerlink&quot; title=&quot;本地复现、调试、解决、上线&quot;&gt;&lt;/a&gt; 本地复现、调试、解决、上线 &lt;/h2&gt;&lt;p&gt; 有些问题其实不用在线上调试，如果场景容易满足，case 容易在线下构造，那么直接在本地改就好了，这种方式比较适合简单的问题，无需特定场景和环境，bug 就能修复。&lt;/p&gt;
+&lt;h2 id=&quot;使用 -Chrome- 浏览器进行 -debug&quot;&gt;&lt;a href=&quot;# 使用 -Chrome- 浏览器进行 -debug&quot; class=&quot;headerlink&quot; title=&quot;使用 Chrome 浏览器进行 debug&quot;&gt;&lt;/a&gt;使用 Chrome 浏览器进行 debug&lt;/h2&gt;&lt;p&gt;调试页面的问题，使用最多的浏览器就是 Chrome 和 Firefox ，而我习惯于使用 Chrome ，就介绍一下使用 Chrome debug JS 的姿势。&lt;/p&gt;
+&lt;p&gt;Google 官方给出了 &lt;a href=&quot;https://developers.google.com/web/tools/chrome-devtools/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DevTools&lt;/a&gt; 的介绍，里面有很多案例介绍及使用方法介绍，以博客的形式给出，很方便。&lt;/p&gt;
+&lt;p&gt;下面介绍的内容实际上就是从 &lt;a href=&quot;https://developers.google.com/web/tools/chrome-devtools/javascript/add-breakpoints&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Set Breakpoints&lt;/a&gt; 这个小节学习的。摘录某个调试方法。&lt;/p&gt;
+&lt;h3 id=&quot;设置 -DOM- 改变时的断点&quot;&gt;&lt;a href=&quot;# 设置 -DOM- 改变时的断点&quot; class=&quot;headerlink&quot; title=&quot;设置 DOM 改变时的断点&quot;&gt;&lt;/a&gt;设置 DOM 改变时的断点 &lt;/h3&gt;&lt;p&gt; 你代码的某个地方出现了 bug ，它错误地改变、删除或者增加一个 DOM 点。DevTools 提供了一个快速找到 bug 根源的工具：针对 DOM 改变的断点。&lt;/p&gt;
+&lt;p&gt;DevTools 让你可以在某个节点上打断点，让你不用手动地在代码里四处寻找是哪里导致了 DOM 的变化。无论在哪个节点，或是节点的子节点，当它们背添加、删除、改变时，DevTools 都能让页面暂停，然后把你带到引起 DOM 改变的具体代码行。&lt;/p&gt;
+&lt;p&gt;添加 DOM 改变的断点 的方式： 右键单击要监控的节点，选择要监控的行为，当节点发生改变时，JS 将停止执行，页面将显示引起监控的 DOM 节点改变的 JS 代码行。另外，从 Call Stack 可以查看引发当前监控 DOM 发生改变的 JS 调用栈。&lt;/p&gt;
+&lt;p&gt;监控节点断点类型：&lt;/p&gt;
+&lt;p&gt;以下是各个类型的 DOM 节点改变时的断点详细说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Subtree modifications&lt;/strong&gt; .&lt;/p&gt;
+&lt;p&gt;当当前选择的节点的子节点被删除、添加、或者内容发生变化时触发。当子节点的属性改变或者当前节点发生改变时不会触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Attributes modifications&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;当当前节点的属性被添加或者删除，或者当前节点的某个属性的值发生变化时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Node Removal&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;当当前节点被删除时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;设置 DOM change 相关的断点最大的好处在于，能准确定位到是哪里引起了改变，缺点在于，当出现不对 DOM 产生改变的 bug 时，这种方法就失效了。这种情况，就得确定 bug 的代码范围，再使用断点逐步追踪。&lt;/p&gt;
+&lt;h1 id=&quot;JS- 的调试&quot;&gt;&lt;a href=&quot;#JS- 的调试&quot; class=&quot;headerlink&quot; title=&quot;JS 的调试&quot;&gt;&lt;/a&gt;JS 的调试 &lt;/h1&gt;&lt;p&gt; 众所周知，静态文件会存在缓存问题。一个页面的加载，如果包含多个 JS ，如何定位到具体的 JS 以及如何使用修改后的 JS 来查看页面效果就很是问题了。下面介绍的方式可以解决前面的问题，原理都是使用本地的 JS 做代理，来接管线上的 JS ，这样线上的调试就转移到本地了。由于线上的 JS 一般都经过压缩、混淆、合并，故最好本地有合成线上 JS 的子 JS ，下面介绍的方式是直接用本地的 JS 替代线上的 JS ，如果是前面说的那种情况，用合并后的 JS 替换线上 JS 即可。&lt;/p&gt;
+&lt;h2 id=&quot;使用代理软件&quot;&gt;&lt;a href=&quot;# 使用代理软件&quot; class=&quot;headerlink&quot; title=&quot;使用代理软件&quot;&gt;&lt;/a&gt;使用代理软件&lt;/h2&gt;&lt;p&gt;macOS 系统下，Web 调试代理软件一般使用 &lt;a href=&quot;https://www.charlesproxy.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Charles&lt;/a&gt; , 使用代理软件的好处是，网络请求的所有资源，请求的细节，都能记录下来，另外它能作为系统代理接管浏览器的网络访问，将这些请求记录下来，是 Web debugging 的利器。&lt;/p&gt;
+&lt;p&gt;下面要介绍的方式就是 Charles 的代理功能，使用本地的 JS 代理线上的 JS 。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;设置 Charles 为系统代理，代理 Chrome 的网络连接。&lt;/p&gt;
+&lt;p&gt;这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 &lt;strong&gt;系统偏好设置 -&amp;gt; 网络 -&amp;gt; 高级 -&amp;gt; 代理&lt;/strong&gt; 一图胜千言 &lt;img src=&quot;http://img.jayxhj.com/ServeAsSystemProxy.jpeg&quot; alt=&quot;系统代理&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Map Local&lt;/p&gt;
+&lt;p&gt;使用 Chrome 请求网页， 即可在 Charles 中查看到当前网页所有资源对应的请求，将某个 JS 文件映射到要用作代理的本地 JS 文件，或者粗暴点，直接代理目录，就可以代理文件夹下的所有 JS 了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.jayxhj.com/MapLocal.jpeg&quot; alt=&quot;map local&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个方式下，当在本地修改 JS 后，能直接在线上环境看到效果，最重要的是，免去了修改 JS 后上线 JS 不生效的问题。归根结底，本地修改，上线再看效果这种原始的方式，本该淘汰。&lt;/p&gt;
+&lt;p&gt;但此方式有个缺点，需要来回切换，你需要切换到编辑器或者 IDE 改好后再回 Chrome 刷新页面看效果，而且不能实时编辑，下面的使用 &lt;strong&gt;Chrome workspace&lt;/strong&gt; 的方式无疑是效果最好而且最省时省力的。&lt;/p&gt;
+&lt;h2 id=&quot;使用 -Chrome-workspace&quot;&gt;&lt;a href=&quot;# 使用 -Chrome-workspace&quot; class=&quot;headerlink&quot; title=&quot;使用 Chrome workspace&quot;&gt;&lt;/a&gt;使用 &lt;a href=&quot;https://developers.google.com/web/tools/setup/setup-workflow&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Chrome workspace&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;此方式实际上也是使用本地的文件做代理，但区别于其他方式的是，它与 Chrome 无缝集成，是 Chrome DevTools 提供的功能，支持断点，支持将修改持久化到本地。下面介绍配置方式。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;将本地文件添加到 workspace&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开启调试面板，切换至 Sources 选项卡&lt;/li&gt;
+&lt;li&gt;右击选择 &lt;strong&gt;Add Folder to Workspace&lt;/strong&gt; &lt;img src=&quot;http://img.jayxhj.com/addfolder.png&quot; alt=&quot;Add Folder to Workspace&quot;&gt;&lt;/li&gt;
+&lt;li&gt;选择要代理的本地的文件夹&lt;/li&gt;
+&lt;li&gt;点击地址栏下方弹出来的窗口，选择 &lt;strong&gt;允许&lt;/strong&gt; ，Chrome 才能获得访问本地文件的权限&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Map to File System Resource&lt;/p&gt;
+&lt;p&gt;选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 &lt;img src=&quot;http://img.jayxhj.com/maptoresource.png&quot; alt=&quot;Map to File System Resource&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;设置好之后当 debug 好之后，可以直接将修改持久化到本地的文件，再也不用复制粘贴了。&lt;/p&gt;
+&lt;p&gt;其他用法见官方介绍：&lt;a href=&quot;https://developers.google.com/web/tools/setup/setup-workflow&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developers.google.com/web/tools/setup/setup-workflow&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面
+    
+    </summary>
+    
+    
+      <category term="JS" scheme="http://blog.jayxhj.com/tags/js/"/>
+    
+      <category term="debugging" scheme="http://blog.jayxhj.com/tags/debugging/"/>
+    
+  </entry>
   
   <entry>
     <title>将文件内的 tab 转化为空格</title>
@@ -1114,68 +1188,6 @@
       <category term="markdown" scheme="http://blog.jayxhj.com/tags/markdown/"/>
     
       <category term="web" scheme="http://blog.jayxhj.com/tags/web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>找工作及基本技能储备</title>
-    <link href="http://blog.jayxhj.com/2014/05/job-and-skill-inventory/"/>
-    <id>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</id>
-    <published>2014-05-21T13:25:12.000Z</published>
-    <updated>2016-03-21T03:17:06.000Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;面试准备&quot;&gt;&lt;a href=&quot;# 面试准备&quot; class=&quot;headerlink&quot; title=&quot;面试准备&quot;&gt;&lt;/a&gt;面试准备&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;技能准备：数据库、数据结构、算法、HTTP、程序语言&lt;/li&gt;
-&lt;li&gt;目标公司寻找及相关技能准备&lt;/li&gt;
-&lt;li&gt;应聘方式：内推、校园招聘、社会招聘&lt;/li&gt;
-&lt;li&gt;自我项目展示：博客、论坛、开源项目参与等&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;网站搭建&quot;&gt;&lt;a href=&quot;# 网站搭建&quot; class=&quot;headerlink&quot; title=&quot;网站搭建&quot;&gt;&lt;/a&gt;网站搭建&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;域名购买、DNS 配置&lt;/li&gt;
-&lt;li&gt;开发环境 (IDE、编辑器 VIM emacs、调试环境 WAMP、设备)&lt;/li&gt;
-&lt;li&gt;需求分析及了解&lt;/li&gt;
-&lt;li&gt;原型设计&lt;/li&gt;
-&lt;li&gt;前端界面设计&lt;/li&gt;
-&lt;li&gt;后台程序开发&lt;/li&gt;
-&lt;li&gt;代码调试&lt;/li&gt;
-&lt;li&gt;网站上线&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;团队构成&quot;&gt;&lt;a href=&quot;# 团队构成&quot; class=&quot;headerlink&quot; title=&quot;团队构成&quot;&gt;&lt;/a&gt;团队构成&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;技术研发部：开发部、前端&lt;/li&gt;
-&lt;li&gt;无线部门&lt;/li&gt;
-&lt;li&gt;运行维护部门&lt;/li&gt;
-&lt;li&gt;测试部门&lt;/li&gt;
-&lt;li&gt;产品设计部：设计部、产品部&lt;/li&gt;
-&lt;li&gt;人力资源部&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;PHP 笔试题、知识结构、进阶书籍&quot;&gt;&lt;a href=&quot;#PHP 笔试题、知识结构、进阶书籍&quot; class=&quot;headerlink&quot; title=&quot;PHP 笔试题、知识结构、进阶书籍&quot;&gt;&lt;/a&gt;PHP 笔试题、知识结构、进阶书籍&lt;/h2&gt;&lt;h3 id=&quot;PHP 基础&quot;&gt;&lt;a href=&quot;#PHP 基础&quot; class=&quot;headerlink&quot; title=&quot;PHP 基础&quot;&gt;&lt;/a&gt;PHP 基础&lt;/h3&gt;&lt;p&gt;PHP 手册（时常翻阅）、《PHP 和 MySQL web 开发》、《PHP 经典实例》、《PHP 与 MYSQL 权威指南》、《PHP 必须知道的 300 个问题》、《PHP 实战 1200 例》、《PHP 模块开发大全》、《PHP MVC 开发实战》一般来说所有的 PHP 应用程序可以在 CMS/Shop/BBS 这三种网站的模块中找到逻辑。&lt;/p&gt;
-&lt;h3 id=&quot;PHP 提高&quot;&gt;&lt;a href=&quot;#PHP 提高&quot; class=&quot;headerlink&quot; title=&quot;PHP 提高&quot;&gt;&lt;/a&gt;PHP 提高&lt;/h3&gt;&lt;p&gt;《高性能 PHP》《PHP 应用程序安全编程》《PHP 开发与最佳实践》《PHP MVC 开发实战》 《精粹 PHP》。&lt;/p&gt;
-&lt;h3 id=&quot;软件架构&quot;&gt;&lt;a href=&quot;# 软件架构&quot; class=&quot;headerlink&quot; title=&quot;软件架构&quot;&gt;&lt;/a&gt;软件架构&lt;/h3&gt;&lt;p&gt;soap  mvc socket 了解就行了  框架了解就行了&lt;br&gt;MongoDB、Redis、memcache 知道基本的使用就行  分布式 主从和优化&lt;/p&gt;
-&lt;h3 id=&quot;数据库方面&quot;&gt;&lt;a href=&quot;# 数据库方面&quot; class=&quot;headerlink&quot; title=&quot;数据库方面&quot;&gt;&lt;/a&gt;数据库方面 &lt;/h3&gt;&lt;p&gt; 基础：MySQL 手册 、《MySQL 经典》、《SQL 基础教程》&lt;br&gt;提高：《高性能 MySQL》 、《高可用 MySQL》、《MySQL 的架构设计和性能调优》&lt;/p&gt;
-&lt;h3 id=&quot;中间件方面&quot;&gt;&lt;a href=&quot;# 中间件方面&quot; class=&quot;headerlink&quot; title=&quot;中间件方面&quot;&gt;&lt;/a&gt;中间件方面 &lt;/h3&gt;&lt;p&gt; 了解 CDN 、Vanish、 Squid 、 thrift 、PHPRPC&lt;/p&gt;
-&lt;h3 id=&quot;HTTP&quot;&gt;&lt;a href=&quot;#HTTP&quot; class=&quot;headerlink&quot; title=&quot;HTTP&quot;&gt;&lt;/a&gt;HTTP&lt;/h3&gt;&lt;p&gt;《图解 HTTP》、《HTTP 权威指南》&lt;/p&gt;
-&lt;h3 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h3&gt;&lt;p&gt;《鸟哥的 Linux 私房菜: 基础学习篇》、《Linux 系统命令及 Shell 脚本实践指南》&lt;/p&gt;
-&lt;h3 id=&quot;架构方面&quot;&gt;&lt;a href=&quot;# 架构方面&quot; class=&quot;headerlink&quot; title=&quot;架构方面&quot;&gt;&lt;/a&gt;架构方面&lt;/h3&gt;&lt;p&gt;《构建高性能 web 站点》 《负载均衡优化策略》&lt;/p&gt;
-&lt;h3 id=&quot;算法数据结构&quot;&gt;&lt;a href=&quot;# 算法数据结构&quot; class=&quot;headerlink&quot; title=&quot;算法数据结构&quot;&gt;&lt;/a&gt;算法数据结构 &lt;/h3&gt;&lt;p&gt; 严蔚敏的《数据结构》&lt;br&gt;链表、栈、二叉树、&lt;br&gt;排序的那些东西一般排序（快速  二分查找）&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;面试准备&quot;&gt;&lt;a href=&quot;# 面试准备&quot; class=&quot;headerlink&quot; title=&quot;面试准备&quot;&gt;&lt;/a&gt;面试准备&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;技能准备：数据库、数据结构、算法、HTTP、程序语言&lt;/li&gt;
-&lt;li&gt;目标公司寻找及相关技能准备&lt;/li&gt;
-
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/categories/php/"/>
-    
-    
-      <category term="PHP" scheme="http://blog.jayxhj.com/tags/php/"/>
-    
-      <category term="技能" scheme="http://blog.jayxhj.com/tags/%E6%8A%80%E8%83%BD/"/>
-    
-      <category term="求职" scheme="http://blog.jayxhj.com/tags/%E6%B1%82%E8%81%8C/"/>
     
   </entry>
   

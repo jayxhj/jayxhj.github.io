@@ -92,6 +92,99 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-ways-to-debug-js-files-online" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/ways-to-debug-js-files-online/" class="article-date">
+  <time datetime="2016-12-15T10:16:20.000Z" itemprop="datePublished">2016-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/ways-to-debug-js-files-online/">调试线上 JS 的几种姿势</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面解释，一方面是如何去复现问题，第二步是根据第一步的信息，如何更快更科学地 debug 。</p>
+<h1 id="问题的定位"><a href="# 问题的定位" class="headerlink" title="问题的定位"></a>问题的定位 </h1><h2 id="本地复现、调试、解决、上线"><a href="# 本地复现、调试、解决、上线" class="headerlink" title="本地复现、调试、解决、上线"></a> 本地复现、调试、解决、上线 </h2><p> 有些问题其实不用在线上调试，如果场景容易满足，case 容易在线下构造，那么直接在本地改就好了，这种方式比较适合简单的问题，无需特定场景和环境，bug 就能修复。</p>
+<h2 id="使用 -Chrome- 浏览器进行 -debug"><a href="# 使用 -Chrome- 浏览器进行 -debug" class="headerlink" title="使用 Chrome 浏览器进行 debug"></a>使用 Chrome 浏览器进行 debug</h2><p>调试页面的问题，使用最多的浏览器就是 Chrome 和 Firefox ，而我习惯于使用 Chrome ，就介绍一下使用 Chrome debug JS 的姿势。</p>
+<p>Google 官方给出了 <a href="https://developers.google.com/web/tools/chrome-devtools/" target="_blank" rel="external">DevTools</a> 的介绍，里面有很多案例介绍及使用方法介绍，以博客的形式给出，很方便。</p>
+<p>下面介绍的内容实际上就是从 <a href="https://developers.google.com/web/tools/chrome-devtools/javascript/add-breakpoints" target="_blank" rel="external">Set Breakpoints</a> 这个小节学习的。摘录某个调试方法。</p>
+<h3 id="设置 -DOM- 改变时的断点"><a href="# 设置 -DOM- 改变时的断点" class="headerlink" title="设置 DOM 改变时的断点"></a>设置 DOM 改变时的断点 </h3><p> 你代码的某个地方出现了 bug ，它错误地改变、删除或者增加一个 DOM 点。DevTools 提供了一个快速找到 bug 根源的工具：针对 DOM 改变的断点。</p>
+<p>DevTools 让你可以在某个节点上打断点，让你不用手动地在代码里四处寻找是哪里导致了 DOM 的变化。无论在哪个节点，或是节点的子节点，当它们背添加、删除、改变时，DevTools 都能让页面暂停，然后把你带到引起 DOM 改变的具体代码行。</p>
+<p>添加 DOM 改变的断点 的方式： 右键单击要监控的节点，选择要监控的行为，当节点发生改变时，JS 将停止执行，页面将显示引起监控的 DOM 节点改变的 JS 代码行。另外，从 Call Stack 可以查看引发当前监控 DOM 发生改变的 JS 调用栈。</p>
+<p>监控节点断点类型：</p>
+<p>以下是各个类型的 DOM 节点改变时的断点详细说明：</p>
+<ul>
+<li><p><strong>Subtree modifications</strong> .</p>
+<p>当当前选择的节点的子节点被删除、添加、或者内容发生变化时触发。当子节点的属性改变或者当前节点发生改变时不会触发。</p>
+</li>
+<li><p><strong>Attributes modifications</strong>.</p>
+<p>当当前节点的属性被添加或者删除，或者当前节点的某个属性的值发生变化时触发。</p>
+</li>
+<li><p><strong>Node Removal</strong>.</p>
+<p>当当前节点被删除时触发。</p>
+</li>
+</ul>
+<p>设置 DOM change 相关的断点最大的好处在于，能准确定位到是哪里引起了改变，缺点在于，当出现不对 DOM 产生改变的 bug 时，这种方法就失效了。这种情况，就得确定 bug 的代码范围，再使用断点逐步追踪。</p>
+<h1 id="JS- 的调试"><a href="#JS- 的调试" class="headerlink" title="JS 的调试"></a>JS 的调试 </h1><p> 众所周知，静态文件会存在缓存问题。一个页面的加载，如果包含多个 JS ，如何定位到具体的 JS 以及如何使用修改后的 JS 来查看页面效果就很是问题了。下面介绍的方式可以解决前面的问题，原理都是使用本地的 JS 做代理，来接管线上的 JS ，这样线上的调试就转移到本地了。由于线上的 JS 一般都经过压缩、混淆、合并，故最好本地有合成线上 JS 的子 JS ，下面介绍的方式是直接用本地的 JS 替代线上的 JS ，如果是前面说的那种情况，用合并后的 JS 替换线上 JS 即可。</p>
+<h2 id="使用代理软件"><a href="# 使用代理软件" class="headerlink" title="使用代理软件"></a>使用代理软件</h2><p>macOS 系统下，Web 调试代理软件一般使用 <a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a> , 使用代理软件的好处是，网络请求的所有资源，请求的细节，都能记录下来，另外它能作为系统代理接管浏览器的网络访问，将这些请求记录下来，是 Web debugging 的利器。</p>
+<p>下面要介绍的方式就是 Charles 的代理功能，使用本地的 JS 代理线上的 JS 。</p>
+<ol>
+<li><p>设置 Charles 为系统代理，代理 Chrome 的网络连接。</p>
+<p>这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 <strong>系统偏好设置 -&gt; 网络 -&gt; 高级 -&gt; 代理</strong> 一图胜千言 <img src="http://img.jayxhj.com/ServeAsSystemProxy.jpeg" alt="系统代理"></p>
+</li>
+<li><p>Map Local</p>
+<p>使用 Chrome 请求网页， 即可在 Charles 中查看到当前网页所有资源对应的请求，将某个 JS 文件映射到要用作代理的本地 JS 文件，或者粗暴点，直接代理目录，就可以代理文件夹下的所有 JS 了。</p>
+<p><img src="http://img.jayxhj.com/MapLocal.jpeg" alt="map local"></p>
+</li>
+</ol>
+<p>这个方式下，当在本地修改 JS 后，能直接在线上环境看到效果，最重要的是，免去了修改 JS 后上线 JS 不生效的问题。归根结底，本地修改，上线再看效果这种原始的方式，本该淘汰。</p>
+<p>但此方式有个缺点，需要来回切换，你需要切换到编辑器或者 IDE 改好后再回 Chrome 刷新页面看效果，而且不能实时编辑，下面的使用 <strong>Chrome workspace</strong> 的方式无疑是效果最好而且最省时省力的。</p>
+<h2 id="使用 -Chrome-workspace"><a href="# 使用 -Chrome-workspace" class="headerlink" title="使用 Chrome workspace"></a>使用 <a href="https://developers.google.com/web/tools/setup/setup-workflow" target="_blank" rel="external">Chrome workspace</a></h2><p>此方式实际上也是使用本地的文件做代理，但区别于其他方式的是，它与 Chrome 无缝集成，是 Chrome DevTools 提供的功能，支持断点，支持将修改持久化到本地。下面介绍配置方式。</p>
+<ol>
+<li><p>将本地文件添加到 workspace</p>
+<ul>
+<li>开启调试面板，切换至 Sources 选项卡</li>
+<li>右击选择 <strong>Add Folder to Workspace</strong> <img src="http://img.jayxhj.com/addfolder.png" alt="Add Folder to Workspace"></li>
+<li>选择要代理的本地的文件夹</li>
+<li>点击地址栏下方弹出来的窗口，选择 <strong>允许</strong> ，Chrome 才能获得访问本地文件的权限</li>
+</ul>
+</li>
+<li><p>Map to File System Resource</p>
+<p>选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 <img src="http://img.jayxhj.com/maptoresource.png" alt="Map to File System Resource"></p>
+</li>
+</ol>
+<p>设置好之后当 debug 好之后，可以直接将修改持久化到本地的文件，再也不用复制粘贴了。</p>
+<p>其他用法见官方介绍：<a href="https://developers.google.com/web/tools/setup/setup-workflow" target="_blank" rel="external">https://developers.google.com/web/tools/setup/setup-workflow</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="ciwqg83o100070p6vxbwe0om5" class="article-share-link">分享</a>
+      
+        <a href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/">debugging</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ways-to-convert-tabs-to-spaces" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/08/ways-to-convert-tabs-to-spaces/" class="article-date">
@@ -141,7 +234,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cit9l9af20007ym6v71fxzu06" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="ciwqg83o3000c0p6vufakqfcs" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -191,7 +284,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cit9l9aig0058ym6vn1dc8bt1" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="ciwqg83rj005d0p6vjms2r4nl" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -292,7 +385,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cit9l9aia004vym6v2xflozj0" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="ciwqg83re00500p6vrpsm9ncn" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -347,7 +440,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cit9l9ag60026ym6vrmmngqj7" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="ciwqg83pi002b0p6v7tkj4hnb" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -434,7 +527,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cit9l9ah3003dym6vy5fbxdzh" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="ciwqg83q6003i0p6vcsycshed" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -521,7 +614,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cit9l9aii005fym6v7l2su9zb" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="ciwqg83rn005k0p6v8m9ndve3" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -569,7 +662,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cit9l9ahs004aym6v6hsbfv2j" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="ciwqg83qw004f0p6vpdd1l0jg" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -620,7 +713,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cit9l9agk002wym6vbhcijb2m" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="ciwqg83pv00310p6vf3ihbkd7" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/lumen-tricks/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -677,7 +770,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="cit9l9ag1001wym6vudqn9a3i" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="ciwqg83pc00210p6vtrsdvls5" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -692,78 +785,10 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-single-double-quote-and-backtick" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/single-double-quote-and-backtick/" class="article-date">
-  <time datetime="2016-03-20T10:32:36.000Z" itemprop="datePublished">2016-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>反引号 <code>` </code> (backtick) 与单引号 <code>&#39;</code>(single quote) 以及双引号 <code>&quot;</code> (double quote) 在 PHP 及 MySQL 中都有不同的含义，下面将分别说明并给出它们在 PHP 和 MySQL 结合使用时的一些注意事项。</p>
-<h2 id="在 -PHP- 中"><a href="# 在 -PHP- 中" class="headerlink" title="在 PHP 中"></a>在 PHP 中 </h2><p><code>` </code> 在 PHP 中是 <a href="http://php.net/manual/zh/language.operators.execution.php" target="_blank" rel="external"> 执行运算符</a>，效果与调用 <a href="http://php.net/manual/zh/function.shell-exec.php" target="_blank" rel="external">shell_exec()</a>  相同 。</p>
-<p><code>&#39;</code> 在 PHP 中用来输出字面量值，被单引号括起来的内容会被原样输出。</p>
-<p><code>&quot;</code> 在 PHP 中可以用来解析变量。</p>
-<h2 id="在 -MySQL- 中"><a href="# 在 -MySQL- 中" class="headerlink" title="在 MySQL 中"></a>在 MySQL 中</h2><p><code>` </code> 被用来在查询，告诉解析器反引号内的内容表示一个字面量，直接读取而不用做变量替换。</p>
-<p><code>&quot;</code> 与 <code>&#39;</code> 用来均被用来解析 MySQL 字符串及 <a href="http://dev.mysql.com/doc/refman/5.7/en/string-literals.html#character-escape-sequences" target="_blank" rel="external">特殊字符</a> ，不过这与 MySQL 的 SQL mode 设置有关。当 <code>ANSI_QUOTES</code> 开启时，<code>&quot;</code> 将被当作标识符。</p>
-<h3 id="SQL-mode"><a href="#SQL-mode" class="headerlink" title="SQL mode"></a>SQL mode</h3><p>MySQL 中开启 ANSI mode 时将会使用 <code>&#39;</code> 来告诉解析器，<code>&#39;</code> 内包裹的字符串字面量直接读取，无需解析。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET SESSION sql_mode ='ANSI_QUOTES';</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT 'hello', '"hello"', '""hello""', 'hel''lo','\'hello','\r';</span><br><span class="line">+-------+---------+-----------+--------+--------+---+</span><br><span class="line">| hello | "hello" | ""hello"" | hel'lo |'hello |   |</span><br><span class="line">+-------+---------+-----------+--------+--------+---+</span><br><span class="line"> |hello | "hello" | ""hello"" | hel'lo |'hello |</span><br><span class="line">+-------+---------+-----------+--------+--------+---+</span><br><span class="line">1 row in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT "hello", '"hello"', '""hello""', 'hel''lo','\'hello','\r';</span><br><span class="line">ERROR 1054 (42S22): Unknown column 'hello' in 'field list'</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT hello, '"hello"', '""hello""', 'hel''lo','\'hello','\r';</span><br><span class="line">ERROR 1054 (42S22): Unknown column 'hello' in 'field list'</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT `hello`, '"hello"', '""hello""', 'hel''lo','\'hello','\r';</span><br><span class="line">ERROR 1054 (42S22): Unknown column 'hello' in 'field list'</span><br></pre></td></tr></table></figure>
-<h2 id="PHP- 执行 -MySQL- 查询"><a href="#PHP- 执行 -MySQL- 查询" class="headerlink" title="PHP 执行 MySQL 查询"></a>PHP 执行 MySQL 查询 </h2><p> 为了防止 SQL 注入，最好使用预处理语句及参数绑定来执行查询。建议使用 <a href="http://php.net/manual/en/book.pdo.php" target="_blank" rel="external">PDO</a> 或者 <a href="http://php.net/manual/en/book.mysqli.php" target="_blank" rel="external">MySQLi</a></p>
-<ul>
-<li><p>PDO    </p>
-  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span>    </span><br><span class="line"><span class="variable">$dbh</span> = <span class="keyword">new</span> PDO(<span class="string">'mysql:host=localhost;dbname=test'</span>, <span class="variable">$user</span>, <span class="variable">$pass</span>);</span><br><span class="line"><span class="variable">$stmt</span> = <span class="variable">$dbh</span>-&gt;prepare(<span class="string">"INSERT INTO REGISTRY (name, value) VALUES (:name, :value)"</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;bindParam(<span class="string">':name'</span>, <span class="variable">$name</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;bindParam(<span class="string">':value'</span>, <span class="variable">$value</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>MySQLi</p>
-  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$mysqli</span> = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"user"</span>, <span class="string">"password"</span>, <span class="string">"database"</span>);</span><br><span class="line"><span class="variable">$stmt</span> = <span class="variable">$mysqli</span>-&gt;prepare(<span class="string">"INSERT INTO `test`(`id`) VALUES (?)"</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;bind_param(<span class="string">"i"</span>, <span class="variable">$id</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="实践"><a href="# 实践" class="headerlink" title="实践"></a>实践</h2><p>SQL 标准规定使用 <code>&#39;</code> 来包裹字符串，但不同的数据库有不同的实现，最好的方式，当然是使用 PDO ，这样就不用对 sql 语句单独进行处理，而且在转换数据库时业务逻辑中的 sql 也无需修改和转换。</p>
-<p>最好的实践其实应该在代码设计上规避错误：</p>
-<ol>
-<li>取名不与 <a href="http://dev.mysql.com/doc/refman/5.5/en/reserved-words.html" target="_blank" rel="external">MySQL 保留字</a> 冲突 </li>
-<li>清楚 MySQL 服务器 SQL mode <strong><code>SELECT @@sql_mode</code></strong></li>
-<li>使用 <code>` </code> 包裹表名及列名</li>
-<li>使用 <code>&#39;</code> 包裹查询条件</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/" data-id="cit9l9afx001qym6vmrhpozg3" class="article-share-link">分享</a>
-      
-        <a href="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/quote/">quote</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 </section>
         
@@ -774,6 +799,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/12/ways-to-debug-js-files-online/">调试线上 JS 的几种姿势</a>
+          </li>
         
           <li>
             <a href="/2016/08/ways-to-convert-tabs-to-spaces/">将文件内的 tab 转化为空格</a>
@@ -811,10 +840,6 @@ ga('send', 'pageview');
             <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
           </li>
         
-          <li>
-            <a href="/2016/03/single-double-quote-and-backtick/">反引号 (`)  与 单引号 (&#39;) 以及 双引号 (&#39;&#39;) 的使用</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -825,7 +850,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/js/" style="font-size: 10px;">JS</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/debugging/" style="font-size: 10px;">debugging</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -834,7 +859,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
