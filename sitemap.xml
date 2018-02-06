@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/</loc>
+    
+    <lastmod>2018-02-06T12:54:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</loc>
     
     <lastmod>2018-02-06T09:05:49.000Z</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
-    
-    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</loc>
     
     <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
@@ -128,6 +128,13 @@
   </url>
   
   <url>
+    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.jayxhj.com/2016/04/lumen-tricks/</loc>
     
     <lastmod>2018-02-06T08:31:31.000Z</lastmod>
@@ -156,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
+    <loc>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</loc>
     
     <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     

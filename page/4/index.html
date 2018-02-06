@@ -92,6 +92,57 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-dao-service-action" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/dao-service-action/" class="article-date">
+  <time datetime="2013-04-21T15:01:11.000Z" itemprop="datePublished">2013-04-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">JAVA</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/dao-service-action/">DAO，Service，Action 三者的含义</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Action 主要的功能就是组织 service 的，比如你要做权限验证，那么请求会被 Action 获取，那么如何验证呢？Action 可不管他要问 service 该怎么办。当得到 service 返回的结果后根据结果判断下一跳是哪里（如果验证用户存在且密码正确则跳转到登录成功的页面，反之则回跳到登录页面）</p>
+<p> 现在轮到 service 了，ta 是管理业务的，延续上面的例子的话，action 问这个用户是否合法有效的时候 sevice 就去调用 dao 看看 dao 能不能找到相应的记录，当业务受到 dao 的结果后就根据得到的记录回答 action 的问题“ 用户是否合法有效”</p>
+<p> 最后就是 dao 喽，作为工作于最“ 基层” 的部分，ta 倔强的只去实现增删查改，甚至这些增删查改之间有什么关系？dao 一概不问，爱谁是谁。dao 很倔强，ta 只保证和数据库的关系良好，</p>
+<p> 归纳一下，Action 就是管理业务（servcie）调度和管理跳转的。service，ta 是管理具体的功能的，这个很容易和 Action 混淆，你可以这样理解，Action 只负责管理，而 service 负责实施，dao 只完成增删查改，当然你可以 1-n，n-n，1-1 关联，模糊 、动态 、子查询都可以。但是无论多么复杂的 dao，ta 只是封装增删查改。至于增删查改如何实现一个功能，ta 是不管的。</p>
+<p> 总结这三者，可以举个例子，action 像是服务员，顾客点什么菜，菜上给几号桌，都是 ta 的职责；sevice 是厨师，action 送来的菜单上的菜全是 ta 做的；dao 是厨房的小工，和原材料打交道的事情全是 ta 管。所以小工（dao）的工作是要满足厨师（service）的要求，厨师要满足服务员（action）转达的客户（页面用户）的要求，服务员自然就是为客户服务喽。</p>
+<p> 本文是张老师给我解释的，张老师博客链接 <a href="http://user.qzone.qq.com/953133372" target="_blank" rel="external">http://user.qzone.qq.com/953133372</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2013/04/dao-service-action/" data-id="cjdbn013v0053ds6vfznrj1v8" class="article-share-link">分享</a>
+      
+        <a href="http://blog.jayxhj.com/2013/04/dao-service-action/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dao，action，service/">DAO，ACTION，SERVICE</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-aspectj-annotation-aop" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/03/aspectj-annotation-aop/" class="article-date">
@@ -134,7 +185,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/" data-id="cjdbjcayt005pxh6vysctx1nz" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/" data-id="cjdbn014p005wds6vnrkvtj92" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -203,7 +254,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/03/spring-aop/" data-id="cjdbjcaw1001hxh6v82133cq6" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/03/spring-aop/" data-id="cjdbn00zb001hds6vbco5jb88" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/03/spring-aop/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -265,7 +316,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/03/databasedesign/" data-id="cjdbjcayc004sxh6vjtz2su23" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/03/databasedesign/" data-id="cjdbn013r004zds6vglvjtw6z" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/03/databasedesign/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -316,7 +367,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/02/page-redirect/" data-id="cjdbjcaws002uxh6vtumb67vb" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/02/page-redirect/" data-id="cjdbn011b002uds6vf2m0q6sw" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/02/page-redirect/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -378,7 +429,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/02/google-advice/" data-id="cjdbjcaxw0047xh6vup20j1mc" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/02/google-advice/" data-id="cjdbn0132004eds6v7idpmg4t" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/02/google-advice/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -432,7 +483,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/02/internet-term/" data-id="cjdbjcaxe003nxh6v4t423d6z" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/02/internet-term/" data-id="cjdbn012g003uds6vaaaym99v" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/02/internet-term/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -484,7 +535,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/01/treasureyourtime/" data-id="cjdbjcaud000uxh6vtbfk6j33" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/01/treasureyourtime/" data-id="cjdbn00yp000uds6v3xtzejml" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/01/treasureyourtime/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -538,7 +589,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2012/12/modify-password/" data-id="cjdbjcawv002zxh6vf2nwkvyq" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2012/12/modify-password/" data-id="cjdbn011h002zds6vi3nks6n3" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2012/12/modify-password/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -588,67 +639,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2012/12/jspproject/" data-id="cjdbjcax10038xh6v4q3jftei" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2012/12/jspproject/" data-id="cjdbn011w003fds6vvyx7nu8y" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2012/12/jspproject/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jsp路径/">jsp路径</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-kernelvalues" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/kernelvalues/" class="article-date">
-  <time datetime="2012-12-05T08:20:00.000Z" itemprop="datePublished">2012-12-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/校园论坛/">校园论坛</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/kernelvalues/">长久的核心价值</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个网站可以生存下来，是因为他有自己的核心价值。你上微博上人人玩 QQ 是因为很多人在上面，你可以获得存在感。假如哪天我们不用了，不是因为他不好，而是我们不需要了。多么像爱情。</p>
-<p>观察我们的团队，人员更多了，必然会带来组织病，但是这是任何一个团队或是集体变大变强所必须经历的，经受不了这些洗礼，管理方无法成长，团队就会失去方向，最严重的是组织从大再回到小的过程却是相当困难的，很容易导致不欢而散。要引起足够重视！ 再谈核心价值：</p>
-<ul>
-<li><p>从组成上看，我们现在还不够。但是成长空间很多。<br><strong>编辑团队 </strong>：负责核心内容的收集与发布，大众需求的常用信息（等考，放假，考试，补考等），力争成为沟通南北区的桥梁。注重内容的编辑整理，对内容进行整理与规范，以求内容的美观规范实用性。<br><strong> 运营团队 </strong>：负责与用户进行沟通与协作，及时收集用户意见与建议，引导论坛核心价值走向正轨，从用户角度思考如何优化使用，分析用户行为，反馈优化方案给网站技术人员。<br><strong> 美工团队 </strong>：负责用户体验的优化，活动海报的设计，版块图标的制作等，多角度地为用户及团队提供更好的体验。<br><strong> 网站技术团队 </strong>：负责网站的技术方面，及时解决问题，从多方面优化网站（SEO、服务器、功能），保证网站的持续长久安全地运行。<br><strong> 管理团 </strong> 队：管理工作室多个团队，合理分配任务，建立良好的制度，协调团队的分工与合作，保证团队的和谐友好，制定工作目标并保证目标的有效执行。</p>
-</li>
-<li><p>从形式上看，有微信、微博、人人等新式媒体的出现。<br>表面上他们只是一堆工具，但大家要看到社会化媒体的影响。没有影响就无所谓的竞争力，多个媒体的博弈不是为了了解谁好谁坏，而是从多角度积攒人气，从多方面施加影响力。专注是一件好事情，但不能固步自封，否则用户还是会抛弃你。新兴媒体的趋势不容阻挡，但是我们得抓住根基才能茁壮成长。</p>
-</li>
-<li>从功能上划分：失物招领，物品置换，电脑维修，网站 <br> 这么长时间来，我们做的比较好的就是这些具体可感的事情。其实这是最本真的需求，抛开这些，用户黏性很难保证。真正的需求都是从生活中来，到生活中去，失去了他存在的土壤，他会死去，那片土壤就是日常生活。施加影响并获得影响力是长久的不是一朝一夕的事情，妄想通过一两次活动来获得认可，看看周围就能猜到结局。深耕细作，在自己所在的地方不断改良，让他变得更好，这是大家都能做的事情。</li>
-</ul>
-<p><strong>在真正的竞争下才会有持续长久的发展，一家独大，小心老化。记得警钟时刻长鸣。</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2012/12/kernelvalues/" data-id="cjdbjcawz0034xh6vhiwzj5f4" class="article-share-link">分享</a>
-      
-        <a href="http://blog.jayxhj.com/2012/12/kernelvalues/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/核心价值/">核心价值</a></li></ul>
 
     </footer>
   </div>
@@ -672,6 +668,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/migrate-images-from-qiniu-to-github/">把图床从七牛迁移到 GitHub</a>
+          </li>
         
           <li>
             <a href="/2016/12/ways-to-debug-js-files-online/">调试线上 JS 的几种姿势</a>
@@ -709,10 +709,6 @@ ga('send', 'pageview');
             <a href="/2016/04/lumen-tricks/">Lumen 常用开发技巧</a>
           </li>
         
-          <li>
-            <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -723,7 +719,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/js/" style="font-size: 10px;">JS</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/debugging/" style="font-size: 10px;">debugging</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/js/" style="font-size: 10px;">JS</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/debugging/" style="font-size: 10px;">debugging</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/迁移/" style="font-size: 10px;">迁移</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -732,7 +728,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">2018 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

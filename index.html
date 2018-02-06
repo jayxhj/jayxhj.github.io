@@ -92,6 +92,78 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-migrate-images-from-qiniu-to-github" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/migrate-images-from-qiniu-to-github/" class="article-date">
+  <time datetime="2018-02-06T11:10:31.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/migrate-images-from-qiniu-to-github/">把图床从七牛迁移到 GitHub</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事情是这样，国内的域名是需要备案的，备案其实是备案服务器，这样通信管理局就能知道你的网站在哪里托管，在哪台服务器。这里有详细介绍为何要备案 <del><a href="https://help.aliyun.com/knowledge_detail/36907.html?spm=a2c4g.11174283.6.539.HMkMNn" target="_blank" rel="external">为什么要备案</a></del> 这实在是个神奇的规定，哪些网站能访问，居然是别人替你做决定。</p>
+<p>问题就来了，没备案，不仅解析会有问题，连 CDN 都是用不了的，人在屋檐下不得不低头？所以就有了这篇，如何将七牛的图片迁移至 GitHub。</p>
+<p>共有以下几个步骤：</p>
+<ol>
+<li>获取文章中的图片 url</li>
+<li>将 CDN 上的图片下载下来</li>
+<li>移动至 Hexo source/images 目录</li>
+<li>推送至 GitHub</li>
+</ol>
+<p>问题有几个（方案放括号里）：</p>
+<ol>
+<li>博客的链接需要更改，如 img.jayxhj.com 需要改为 blog.jayxhj.com/images （sed 替换）</li>
+<li>图片 url 在 Markdown 文件内 （grep 就好）</li>
+<li>由于域名下线，那么直接按原有的 url 访问获取不到对应图片的 （将域名替换为七牛分配的 CDN 加速域名）</li>
+<li>显然手动一个个下载图片是不好的 （awk 循环顺序下载）</li>
+</ol>
+<p>以上问题，用命令解释就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -ohE <span class="string">"\!\[.*\]\(.*\)"</span> ./<span class="built_in">source</span>/_posts/* | grep -oE <span class="string">"blog.jayxhj.com/images[a-zA-Z0-9./?=_-]*"</span> | sed <span class="string">'s/blog.jayxhj.com\/images/oiiz5quoo.qnssl.com/g'</span> | awk <span class="string">'&#123;sysetm("curl -O"$0)&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>下面一步步说明。</p>
+<h2 id="获取文章中的图片 -url"><a href="# 获取文章中的图片 -url" class="headerlink" title="获取文章中的图片 url"></a>获取文章中的图片 url</h2><p>由于 Hexo 的文章源文档都是 Markdown 文档，因此需要将所有的图片地址获取出来，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -ohE <span class="string">"\!\[.*\]\(.*\)"</span> ./<span class="built_in">source</span>/_posts/* | grep -oE <span class="string">"blog.jayxhj.com/images[a-zA-Z0-9./?=_-]*"</span></span><br></pre></td></tr></table></figure>
+<p>第一件事，是匹配 MarkDown 中的图片 url，<code>grep -ohE &quot;\!\[.*\]\(.*\)&quot; ./source/_posts/*</code> 命令的作用是匹配 <code>![]()</code> 这样的 url，再提取链接。</p>
+<p>由于我们的目的是获取对应 url，现在是知道了域名的链接及前缀 <strong>blog.jayxhj.com/images</strong>，那么做以下事情，使用正则表达式匹配 url，对应 <code>-E &quot;blog.jayxhj.com/images[a-zA-Z0-9./?=_-]*&quot;</code>，仅截取匹配到的部分，那就是 -o，表示 –only-matching ，-h 表示 –no-filename ，这样获取从多个文件获取时，就不会有文件名了。</p>
+<h2 id="将 -CDN- 上的图片下载下来"><a href="# 将 -CDN- 上的图片下载下来" class="headerlink" title="将 CDN 上的图片下载下来"></a>将 CDN 上的图片下载下来 </h2><p> 所有文章的 url 获取到了，但是这些图片没法访问，因为域名未备案，七牛会将资源屏蔽，但是通过七牛提供的 CDN 域名是可以下载的，我的是 <strong>oiiz5quoo.qnssl.com</strong> 。</p>
+<p>前面获取到了，那么现在只需要替换域名，curl 下载即可。命令为 <code>sed &#39;s/blog.jayxhj.com\/images/oiiz5quoo.qnssl.com/g&#39; | awk &#39;{sysetm(&quot;curl -O&quot; $0)}</code></p>
+<p>此处有提醒：如果图片存放在七牛的文件夹里，那么应该按照在七牛定义的分割符来拼接出目录名，再递归创建目录，mkdir -p 即可。</p>
+<p>希望以后备案这个词可以消失 😊 。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/" data-id="cjdbn011j0031ds6v437lzhkh" class="article-share-link">分享</a>
+      
+        <a href="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/迁移/">迁移</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ways-to-debug-js-files-online" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/12/ways-to-debug-js-files-online/" class="article-date">
@@ -170,7 +242,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbjcatz0007xh6vu6xsizzo" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbn00y00007ds6vet8gbjep" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -234,7 +306,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cjdbjcau3000cxh6vudkjq6yn" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cjdbn00y5000cds6v3qcl2txx" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -284,7 +356,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cjdbjcayo005dxh6vn2f9vvgw" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cjdbn014f005kds6v5ogd9ccl" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -385,7 +457,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cjdbjcayk0050xh6v42vkjl3b" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cjdbn01420057ds6v8os3grir" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -440,7 +512,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cjdbjcawg002bxh6v77bymjpq" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cjdbn010p002bds6ve6t0endh" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -527,7 +599,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cjdbjcaxb003ixh6v5gqv88z0" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cjdbn012c003pds6vglglyprc" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -614,7 +686,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cjdbjcayq005kxh6vmd3in7cf" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cjdbn014k005rds6vk0lm4jao" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -662,7 +734,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cjdbjcay1004fxh6vxky62rd1" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cjdbn013c004mds6vj0vd2hxb" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -713,69 +785,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cjdbjcawx0031xh6v7mvfucud" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cjdbn011o0038ds6v6jthkmut" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/lumen-tricks/#disqus_thread" class="article-comment-link">留言</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lumen/">lumen</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-setting-timezones-in-lumen" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/setting-timezones-in-lumen/" class="article-date">
-  <time datetime="2016-03-24T11:17:10.000Z" itemprop="datePublished">2016-03-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目使用了 Laravel 的精简版 Lumen 来做 api 和 sso 的服务。今天在提交代码时发现，生成的 database migration 代码时间相差八个小时。看来是时区设置的问题，查找了一下，发现有好几个地方都有时区的设置，那就简单总结一下。</p>
-<h2 id="PHP- 时区设置"><a href="#PHP- 时区设置" class="headerlink" title="PHP 时区设置"></a>PHP 时区设置</h2><p>PHP 里可以在 php.ini 中设置 <strong><code>date.timezone</code></strong> 选项来设置时区，也可以在脚本中动态制定时区，如使用 <strong><code>date_default_timezone_set()</code></strong> 来动态指定时区。使用脚本指定时会覆盖 php.ini 中的设置。时区列表可以使用 <strong><code>\DateTimeZone::listIdentifiers()</code></strong> 来获取。也可以到 <a href="http://lxr.php.net/xref/PHP_5_6/ext/date/lib/timezonemap.h" target="_blank" rel="external">timezonemap.h</a> 来查看对应的可选项。</p>
-<p>中国的时区设置可以使用以下选项：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Chongqing"</span>                &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Chungking"</span>                &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Harbin"</span>                   &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Macao"</span>                    &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Macau"</span>                    &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Shanghai"</span>                 &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"Asia/Taipei"</span>                   &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"PRC"</span>                           &#125;,</span><br><span class="line">&#123; <span class="string">"cst"</span>,   <span class="number">0</span>,  <span class="number">28800</span>, <span class="string">"ROC"</span>                           &#125;,</span><br></pre></td></tr></table></figure></p>
-<h2 id="lumen- 时区设置"><a href="#lumen- 时区设置" class="headerlink" title="lumen 时区设置"></a>lumen 时区设置</h2><p>lumen 的时区设置有数据库操作的时区设置以及与使用时间相关的函数的时区设置。</p>
-<h3 id="日期相关设置"><a href="# 日期相关设置" class="headerlink" title="日期相关设置"></a>日期相关设置 </h3><p> 在 lumen 中应用程序的入口，会 new 一个 Application 实例，这个实例会读取 env 配置文件中的 <strong>APP_TIMEZONE</strong> 配置，若没有配置则会使用 UTC 时间。Application 位于 <code>/path/to/project/vendor/laravel/lumen-framework/src/Application.php</code> 。所以最好是在 .env 中设置时区 <code>APP_TIMEZONE=PRC</code> 。</p>
-<h3 id="数据库"><a href="# 数据库" class="headerlink" title="数据库"></a>数据库 </h3><p> 数据库的时区设置可以在 config 的 database 文件中设置。database 文件分两个，一个是框架级别，一个是项目级别。框架级别的文件位于 <code>/path/to/project/vendor/laravel/lumen-framework/config/database.php</code> ，而项目级别的文件位于 <code>/path/to/project/config/database.php</code> 。</p>
-<p>此配置是和 MySQL 相关的，所以关键字当然是去 MySQL 中找。在 <a href="https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html" target="_blank" rel="external">MySQL 时区设置</a> 文档中可以看到，有以下三种配置</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. SYSTEM 表示与系统时区相同</span><br><span class="line">2. '+10:00' or '-6:00' 表示与 UTC 时间的一个偏移量</span><br><span class="line">3. 'Europe/Helsinki', 'US/Eastern', or 'MET' 表示命名时区，命名时区必须在 mysql 库下的 time_zone_name 有注册</span><br></pre></td></tr></table></figure>
-<p>导入时区的命令为 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root --database=mysql -p</span><br></pre></td></tr></table></figure>
-<p>建议是在项目级别设置时区。在 .env 中指定 <code>DB_TIMEZONE=+08:00</code> 和在 database 中指定 <code>&#39;timezone&#39;  =&gt; env(&#39;DB_TIMEZONE&#39;, &#39;+08:00&#39;)</code> 均可。</p>
-<h2 id="总结"><a href="# 总结" class="headerlink" title="总结"></a>总结 </h2><p> 时区设置分为 PHP 时区设置和 MySQL 的时区设置。PHP 时区设置涉及到 php.ini 配置以及运行时配置，而在 lumen 中还涉及到环境变量的配置。lumen 中既可以在 config 目录下的文件中指定，也可以在 .env 文件中指定。建议既指定 PHP 的配置又指定环境变量的配置，环境变量的配置可供整个应用程序使用，是项目级别的共享配置。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="cjdbjcawc0021xh6vob598hqv" class="article-share-link">分享</a>
-      
-        <a href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/laravel/">laravel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lumen/">lumen</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/timezone/">timezone</a></li></ul>
 
     </footer>
   </div>
@@ -799,6 +814,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最近文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/migrate-images-from-qiniu-to-github/">把图床从七牛迁移到 GitHub</a>
+          </li>
         
           <li>
             <a href="/2016/12/ways-to-debug-js-files-online/">调试线上 JS 的几种姿势</a>
@@ -836,10 +855,6 @@ ga('send', 'pageview');
             <a href="/2016/04/lumen-tricks/">Lumen 常用开发技巧</a>
           </li>
         
-          <li>
-            <a href="/2016/03/setting-timezones-in-lumen/">在 lumen 中设置日期与数据库时区</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -850,7 +865,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/js/" style="font-size: 10px;">JS</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/debugging/" style="font-size: 10px;">debugging</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+      <a href="/tags/aop/" style="font-size: 13.33px;">AOP</a> <a href="/tags/annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/apache/" style="font-size: 10px;">Apache</a> <a href="/tags/aspectj/" style="font-size: 10px;">Aspectj</a> <a href="/tags/dao，action，service/" style="font-size: 10px;">DAO，ACTION，SERVICE</a> <a href="/tags/git/" style="font-size: 10px;">Git</a> <a href="/tags/http/" style="font-size: 10px;">HTTP</a> <a href="/tags/hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/js/" style="font-size: 10px;">JS</a> <a href="/tags/master/" style="font-size: 10px;">Master</a> <a href="/tags/mysql/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/oracle/" style="font-size: 13.33px;">Oracle</a> <a href="/tags/php/" style="font-size: 20px;">PHP</a> <a href="/tags/php5-5/" style="font-size: 10px;">PHP5.5</a> <a href="/tags/sqlexception/" style="font-size: 10px;">SQLException</a> <a href="/tags/slave/" style="font-size: 10px;">Slave</a> <a href="/tags/xdebug/" style="font-size: 10px;">Xdebug</a> <a href="/tags/bash/" style="font-size: 13.33px;">bash</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/brogue/" style="font-size: 10px;">brogue</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/debugging/" style="font-size: 10px;">debugging</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/exit-code/" style="font-size: 10px;">exit code</a> <a href="/tags/extensions/" style="font-size: 10px;">extensions</a> <a href="/tags/google搜索技巧/" style="font-size: 10px;">google搜索技巧</a> <a href="/tags/header/" style="font-size: 10px;">header()</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/instantclient/" style="font-size: 10px;">instantclient</a> <a href="/tags/jsp路径/" style="font-size: 10px;">jsp路径</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/lumen/" style="font-size: 13.33px;">lumen</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mb-strcut/" style="font-size: 10px;">mb_strcut()</a> <a href="/tags/mb-substr/" style="font-size: 10px;">mb_substr()</a> <a href="/tags/nanrenwa/" style="font-size: 10px;">nanrenwa</a> <a href="/tags/php/" style="font-size: 16.67px;">php</a> <a href="/tags/quote/" style="font-size: 10px;">quote</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/tab/" style="font-size: 10px;">tab</a> <a href="/tags/timezone/" style="font-size: 10px;">timezone</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/技能/" style="font-size: 10px;">技能</a> <a href="/tags/无法转化为内部格式/" style="font-size: 10px;">无法转化为内部格式</a> <a href="/tags/术语/" style="font-size: 10px;">术语</a> <a href="/tags/杏林地儿/" style="font-size: 10px;">杏林地儿</a> <a href="/tags/核心价值/" style="font-size: 10px;">核心价值</a> <a href="/tags/求职/" style="font-size: 13.33px;">求职</a> <a href="/tags/网页跳转/" style="font-size: 10px;">网页跳转</a> <a href="/tags/迁移/" style="font-size: 10px;">迁移</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
   </div>
 
@@ -859,7 +874,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">2018 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">2016 年 06 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">2016 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">2016 年 04 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">2016 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016 年 02 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">2016 年 01 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015 年 12 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">2014 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">2014 年 07 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">2014 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">2014 年 03 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">2013 年 11 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">2013 年 09 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">2013 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">2013 年 05 月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">2013 年 04 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">2013 年 03 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">2013 年 02 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">2013 年 01 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">2012 年 12 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">2012 年 11 月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
