@@ -15,10 +15,10 @@
 <meta property="og:description" content="在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是  分组求和。 需求：将某列数据求和 例子：数据库内容为： 
 根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 
 再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一">
-<meta property="og:image" content="http://img.jayxhj.com/mysql-group-all-records.png">
-<meta property="og:image" content="http://img.jayxhj.com/mysql-group-by-record-type.png">
-<meta property="og:image" content="http://img.jayxhj.com/mysql-group-by-record-date.png">
-<meta property="og:updated_time" content="2016-06-01T09:49:53.000Z">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/mysql-group-all-records.png">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/mysql-group-by-record-type.png">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/mysql-group-by-record-date.png">
+<meta property="og:updated_time" content="2018-02-06T08:31:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分组求和，将一列的数据求和">
 <meta name="twitter:description" content="在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是  分组求和。 需求：将某列数据求和 例子：数据库内容为： 
@@ -126,9 +126,9 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 <strong> 分组求和</strong>。 需求：将某列数据求和 例子：数据库内容为： <img src="http://img.jayxhj.com/mysql-group-all-records.png" alt="数据库内容"></p>
-<p>根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 <img src="http://img.jayxhj.com/mysql-group-by-record-type.png" alt="根据 record_type 分组"></p>
-<p>再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加 <img src="http://img.jayxhj.com/mysql-group-by-record-date.png" alt="根据 record_date 进行分组"></p>
+        <p>在数据库操作中常常会将某一列的具有相似性质的数据进行求和，昨天在做的项目中遇到了。 后来请教了一下自己又摸索了一下，得出了解决方案，那就是 <strong> 分组求和</strong>。 需求：将某列数据求和 例子：数据库内容为： <img src="//blog.jayxhj.com/images/mysql-group-all-records.png" alt="数据库内容"></p>
+<p>根据 record_type 进行分组再求和，也就是将 1、2、3 三种类型进行分组，所以结果预期为三行 <img src="//blog.jayxhj.com/images/mysql-group-by-record-type.png" alt="根据 record_type 分组"></p>
+<p>再一种是根据 record_date 来分组，由于日期有两组，故预期分组也为两组，结果为同一日期的 c、d 列数据相加 <img src="//blog.jayxhj.com/images/mysql-group-by-record-date.png" alt="根据 record_date 进行分组"></p>
 <p>总结：当需要进行对某一列的具有相似条件（对应于 where 中的条件）的数据进行合并时，使用 group by 将记录分组，再使用聚合函数对数据进行需要的操作。这样就可以使用一条语句将所有的数据进行分组求和。</p>
 <p>创建例子中的数据的 SQL 语句为</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="comment">/*!32312 IF NOT EXISTS*/</span><span class="string">`group`</span> <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span>;</span></span><br><span class="line"> <span class="operator"><span class="keyword">USE</span> <span class="string">`group`</span>;</span></span><br><span class="line"> <span class="comment">/*Table structure for table `test` */</span></span><br><span class="line"><span class="operator"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`test`</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`test`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line"><span class="string">`record_date`</span> <span class="built_in">date</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, <span class="string">`record_type`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`c`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`d`</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line"> <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">13</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*Data for the table `test` */</span></span><br><span class="line"><span class="operator"><span class="keyword">insert</span>  <span class="keyword">into</span> <span class="string">`test`</span>(<span class="string">`id`</span>,<span class="string">`record_date`</span>,<span class="string">`record_type`</span>,<span class="string">`c`</span>,<span class="string">`d`</span>) <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">'2013-10-14'</span>,<span class="number">1</span>,<span class="number">1000</span>,<span class="number">10000</span>),(<span class="number">2</span>,<span class="string">'2013-10-15'</span>,<span class="number">1</span>,<span class="number">2000</span>,<span class="number">20000</span>),(<span class="number">3</span>,<span class="string">'2013-10-14'</span>,<span class="number">2</span>,<span class="number">3000</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="string">'2013-10-15'</span>,<span class="number">2</span>,<span class="number">4000</span>,<span class="number">40000</span>),(<span class="number">5</span>,<span class="string">'2013-10-14'</span>,<span class="number">3</span>,<span class="number">5000</span>,<span class="number">50000</span>);</span></span><br></pre></td></tr></table></figure>
@@ -138,7 +138,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="cj9e3wnk60044176v05it0v05" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2013/11/group-then-sum/" data-id="cjdbjcaxs0044xh6vioohe6ik" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2013/11/group-then-sum/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -287,7 +287,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 jayxhj<br>
+      &copy; 2018 jayxhj<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -2,107 +2,289 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/</loc>
+    <loc>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</loc>
     
-    <lastmod>2016-12-15T14:13:34.000Z</lastmod>
+    <lastmod>2018-02-06T09:05:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</loc>
     
-    <lastmod>2016-08-21T14:55:34.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</loc>
+    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
     
-    <lastmod>2016-08-20T15:23:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/</loc>
-    
-    <lastmod>2016-08-12T03:49:44.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2015/12/git-commands/</loc>
+    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
     
-    <lastmod>2016-07-11T09:10:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/</loc>
-    
-    <lastmod>2016-06-29T09:50:03.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</loc>
+    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
     
-    <lastmod>2016-06-01T10:03:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2012/12/jspproject/</loc>
-    
-    <lastmod>2016-06-01T09:57:31.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/11/group-then-sum/</loc>
+    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
     
-    <lastmod>2016-06-01T09:49:53.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.jayxhj.com/2013/03/spring-aop/</loc>
     
-    <lastmod>2016-06-01T09:38:14.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</loc>
+    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
     
-    <lastmod>2016-06-01T09:27:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/05/basic-composer-package-development/</loc>
-    
-    <lastmod>2016-05-14T02:48:01.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2013/05/caused-by-java-sql-sqlexception/</loc>
+    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
     
-    <lastmod>2016-05-14T02:37:25.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/</loc>
+    <loc>http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/</loc>
     
-    <lastmod>2016-04-26T12:03:07.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/02/page-redirect/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2012/12/modify-password/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.jayxhj.com/2016/04/lumen-tricks/</loc>
     
-    <lastmod>2016-04-09T15:22:26.000Z</lastmod>
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2012/12/kernelvalues/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2012/12/jspproject/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/02/internet-term/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/05/instantclient-plsql-oracle/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2014/08/index-type/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/11/group-then-sum/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/02/google-advice/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2015/12/git-commands/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/03/databasedesign/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/04/dao-service-action/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/05/caused-by-java-sql-sqlexception/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2016/05/basic-composer-package-development/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/</loc>
+    
+    <lastmod>2018-02-06T08:31:31.000Z</lastmod>
     
   </url>
   
@@ -110,188 +292,6 @@
     <loc>http://blog.jayxhj.com//404.html</loc>
     
     <lastmod>2016-04-01T02:39:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/</loc>
-    
-    <lastmod>2016-03-25T10:28:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2014/05/job-and-skill-inventory/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/01/treasureyourtime/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2012/12/kernelvalues/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2014/03/to-cc-and-bcc-in-email/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2014/07/the-road-to-my-web-development-learning/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/09/telephone-interview/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/02/internet-term/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/05/instantclient-plsql-oracle/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2014/08/index-type/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2012/11/xinglindier/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/02/google-advice/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/11/split-string-with-chinese-characters/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/03/databasedesign/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/04/dao-service-action/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/09/php5-5-apache2-4-integration/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/08/php5-2-with-apache2-2/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/02/page-redirect/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2013/03/aspectj-annotation-aop/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.jayxhj.com/2012/12/modify-password/</loc>
-    
-    <lastmod>2016-03-21T03:17:06.000Z</lastmod>
     
   </url>
   

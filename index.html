@@ -141,11 +141,11 @@ ga('send', 'pageview');
 <p>下面要介绍的方式就是 Charles 的代理功能，使用本地的 JS 代理线上的 JS 。</p>
 <ol>
 <li><p>设置 Charles 为系统代理，代理 Chrome 的网络连接。</p>
-<p>这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 <strong>系统偏好设置 -&gt; 网络 -&gt; 高级 -&gt; 代理</strong> 一图胜千言 <img src="http://img.jayxhj.com/ServeAsSystemProxy.jpeg" alt="系统代理"></p>
+<p>这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 <strong>系统偏好设置 -&gt; 网络 -&gt; 高级 -&gt; 代理</strong> 一图胜千言 <img src="//blog.jayxhj.com/images/ServeAsSystemProxy.jpeg" alt="系统代理"></p>
 </li>
 <li><p>Map Local</p>
 <p>使用 Chrome 请求网页， 即可在 Charles 中查看到当前网页所有资源对应的请求，将某个 JS 文件映射到要用作代理的本地 JS 文件，或者粗暴点，直接代理目录，就可以代理文件夹下的所有 JS 了。</p>
-<p><img src="http://img.jayxhj.com/MapLocal.jpeg" alt="map local"></p>
+<p><img src="//blog.jayxhj.com/images/MapLocal.jpeg" alt="map local"></p>
 </li>
 </ol>
 <p>这个方式下，当在本地修改 JS 后，能直接在线上环境看到效果，最重要的是，免去了修改 JS 后上线 JS 不生效的问题。归根结底，本地修改，上线再看效果这种原始的方式，本该淘汰。</p>
@@ -155,13 +155,13 @@ ga('send', 'pageview');
 <li><p>将本地文件添加到 workspace</p>
 <ul>
 <li>开启调试面板，切换至 Sources 选项卡</li>
-<li>右击选择 <strong>Add Folder to Workspace</strong> <img src="http://img.jayxhj.com/addfolder.png" alt="Add Folder to Workspace"></li>
+<li>右击选择 <strong>Add Folder to Workspace</strong> <img src="//blog.jayxhj.com/images/addfolder.png" alt="Add Folder to Workspace"></li>
 <li>选择要代理的本地的文件夹</li>
 <li>点击地址栏下方弹出来的窗口，选择 <strong>允许</strong> ，Chrome 才能获得访问本地文件的权限</li>
 </ul>
 </li>
 <li><p>Map to File System Resource</p>
-<p>选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 <img src="http://img.jayxhj.com/maptoresource.png" alt="Map to File System Resource"></p>
+<p>选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 <img src="//blog.jayxhj.com/images/maptoresource.png" alt="Map to File System Resource"></p>
 </li>
 </ol>
 <p>设置好之后当 debug 好之后，可以直接将修改持久化到本地的文件，再也不用复制粘贴了。</p>
@@ -170,7 +170,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cj9e3wnhm0007176vxzykrk72" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbjcatz0007xh6vu6xsizzo" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -234,7 +234,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cj9e3wnhp000c176vhdgc96fm" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cjdbjcau3000cxh6vudkjq6yn" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -284,7 +284,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cj9e3wnky005d176vgqc1j39h" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cjdbjcayo005dxh6vn2f9vvgw" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -377,7 +377,7 @@ ga('send', 'pageview');
 </ol>
 <p>通过上面的配置，就可以在 PHPStorm 运行 Xdebug 了。不过这还不够，需要配置具体的项目，这样 Xdebug 才知道如何运行，并在指定的断点处停止并通知 PHPStorm 。</p>
 <h2 id="配置实例运行具体的 -debug- 项目"><a href="# 配置实例运行具体的 -debug- 项目" class="headerlink" title="配置实例运行具体的 debug 项目"></a>配置实例运行具体的 debug 项目 </h2><p> 下图中显示了如何配置某个 debug 项目。</p>
-<p><img src="http://img.jayxhj.com/add-debug-configuration.png" alt="debug configuration"></p>
+<p><img src="//blog.jayxhj.com/images/add-debug-configuration.png" alt="debug configuration"></p>
 <p>选择 <strong>PHP Web Application</strong> 即可配置某个 web 项目，设置项目的 url 及当前配置的名称即可。</p>
 <p>以上这些步骤走完，一个 web 项目的 Xdebug 配置就做好了，只需设置断点，再点击 Run -&gt; Debug ‘你的 debug 项目名称’ ，即可开始 debug 之旅了。</p>
 <p>Enjoy it.</p>
@@ -385,7 +385,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cj9e3wnkt0050176vdcdp0t05" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cjdbjcayk0050xh6v42vkjl3b" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -440,7 +440,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cj9e3wniq002b176vrhkqwcxz" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cjdbjcawg002bxh6v77bymjpq" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -483,8 +483,8 @@ ga('send', 'pageview');
 <h2 id="Avatars-for-Github"><a href="#Avatars-for-Github" class="headerlink" title="Avatars for Github"></a>Avatars for Github</h2><p>一句话介绍：在 GitHub feed 页展示你关注人的头像。</p>
 <p>地址：<a href="https://chrome.google.com/webstore/detail/avatars-for-github/pgjmdbklnfklcjfbonjfkdhaonlfogbb" target="_blank" rel="external">https://chrome.google.com/webstore/detail/avatars-for-github/pgjmdbklnfklcjfbonjfkdhaonlfogbb</a></p>
 <p>开发者网站：<a href="https://github.com/anasnakawa/chrome-github-avatars" target="_blank" rel="external">https://github.com/anasnakawa/chrome-github-avatars</a></p>
-<p><img src="http://img.jayxhj.com/GitHub-feed-before.png" alt="GitHub-feed-before"></p>
-<p><img src="http://img.jayxhj.com/GitHub-feed-before.png" alt="GitHub-feed-after"></p>
+<p><img src="//blog.jayxhj.com/images/GitHub-feed-before.png" alt="GitHub-feed-before"></p>
+<p><img src="//blog.jayxhj.com/images/GitHub-feed-before.png" alt="GitHub-feed-after"></p>
 <h2 id="Axure-RP-Extension-for-Chrome"><a href="#Axure-RP-Extension-for-Chrome" class="headerlink" title="Axure RP Extension for Chrome"></a>Axure RP Extension for Chrome</h2><p>一句话介绍：web 版的 Axure 客户端。</p>
 <p>地址：<a href="https://chrome.google.com/webstore/detail/dogkpdfcklifaemcdfbildhcofnopogp" target="_blank" rel="external">https://chrome.google.com/webstore/detail/dogkpdfcklifaemcdfbildhcofnopogp</a></p>
 <p>开发者网站：<a href="http://www.axure.com/" target="_blank" rel="external">http://www.axure.com/</a></p>
@@ -497,7 +497,7 @@ ga('send', 'pageview');
 <p>地址：<a href="https://chrome.google.com/webstore/detail/kpfmckjjpabojdhlncnccfhkfhbmnjfi" target="_blank" rel="external">https://chrome.google.com/webstore/detail/kpfmckjjpabojdhlncnccfhkfhbmnjfi</a></p>
 <p>开发者网站：<a href="https://github.com/gbk/chrome-hosts-manager" target="_blank" rel="external">https://github.com/gbk/chrome-hosts-manager</a></p>
 <p>使用：主要用来进行 ip 与 host 之间的绑定，另外可以对域名 ip 进行分组，非常适合用来进行切换环境。另外一个主要功能就是显示当前 ip ，在没有挂代理的情况下，可以显示当前页面的服务器 ip 。</p>
-<p><img src="http://img.jayxhj.com/chrome-hosts-manager.jpg" alt="显示当前页面 ip"></p>
+<p><img src="//blog.jayxhj.com/images/chrome-hosts-manager.jpg" alt="显示当前页面 ip"></p>
 <h2 id="JSON-Editor"><a href="#JSON-Editor" class="headerlink" title="JSON Editor"></a>JSON Editor</h2><p>一句话介绍：JSON 在线解析及编辑器。</p>
 <p>地址：<a href="https://chrome.google.com/webstore/detail/lhkmoheomjbkfloacpgllgjcamhihfaj" target="_blank" rel="external">https://chrome.google.com/webstore/detail/lhkmoheomjbkfloacpgllgjcamhihfaj</a></p>
 <p>开发者网站：<a href="http://jsoneditoronline.org/" target="_blank" rel="external">http://jsoneditoronline.org/</a></p>
@@ -527,7 +527,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cj9e3wnjq003i176vx8tia33p" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cjdbjcaxb003ixh6v5gqv88z0" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -614,7 +614,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cj9e3wnl1005k176vwxxlvjrz" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cjdbjcayq005kxh6vmd3in7cf" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -662,7 +662,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cj9e3wnkd004f176vg0m8xu20" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cjdbjcay1004fxh6vxky62rd1" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -713,7 +713,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cj9e3wnj60031176vrfqvrc9b" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cjdbjcawx0031xh6v7mvfucud" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/lumen-tricks/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -770,7 +770,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="cj9e3wnim0021176v53yyeo7m" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/" data-id="cjdbjcawc0021xh6vob598hqv" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -899,7 +899,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 jayxhj<br>
+      &copy; 2018 jayxhj<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

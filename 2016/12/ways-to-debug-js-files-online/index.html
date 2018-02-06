@@ -13,11 +13,11 @@
 <meta property="og:site_name" content="徐豪杰写字的地方">
 <meta property="og:description" content="线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面解释，一方面是如何去复现问题，第二步是根据第一步的信息，如何更快更科学地 debug 。
 问题的定位  本地复现、调试、解决、">
-<meta property="og:image" content="http://img.jayxhj.com/ServeAsSystemProxy.jpeg">
-<meta property="og:image" content="http://img.jayxhj.com/MapLocal.jpeg">
-<meta property="og:image" content="http://img.jayxhj.com/addfolder.png">
-<meta property="og:image" content="http://img.jayxhj.com/maptoresource.png">
-<meta property="og:updated_time" content="2016-12-15T14:13:34.000Z">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/ServeAsSystemProxy.jpeg">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/MapLocal.jpeg">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/addfolder.png">
+<meta property="og:image" content="http://blog.jayxhj.com//blog.jayxhj.com/images/maptoresource.png">
+<meta property="og:updated_time" content="2018-02-06T08:31:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调试线上 JS 的几种姿势">
 <meta name="twitter:description" content="线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面解释，一方面是如何去复现问题，第二步是根据第一步的信息，如何更快更科学地 debug 。
@@ -147,11 +147,11 @@ ga('send', 'pageview');
 <p>下面要介绍的方式就是 Charles 的代理功能，使用本地的 JS 代理线上的 JS 。</p>
 <ol>
 <li><p>设置 Charles 为系统代理，代理 Chrome 的网络连接。</p>
-<p>这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 <strong>系统偏好设置 -&gt; 网络 -&gt; 高级 -&gt; 代理</strong> 一图胜千言 <img src="http://img.jayxhj.com/ServeAsSystemProxy.jpeg" alt="系统代理"></p>
+<p>这个步骤，需要开启 Charles ，并设置 Charles 为系统代理。Firefox 可以直接设置，Chrome 网络设置实际上就是修改的系统的网络设置，步骤为 <strong>系统偏好设置 -&gt; 网络 -&gt; 高级 -&gt; 代理</strong> 一图胜千言 <img src="//blog.jayxhj.com/images/ServeAsSystemProxy.jpeg" alt="系统代理"></p>
 </li>
 <li><p>Map Local</p>
 <p>使用 Chrome 请求网页， 即可在 Charles 中查看到当前网页所有资源对应的请求，将某个 JS 文件映射到要用作代理的本地 JS 文件，或者粗暴点，直接代理目录，就可以代理文件夹下的所有 JS 了。</p>
-<p><img src="http://img.jayxhj.com/MapLocal.jpeg" alt="map local"></p>
+<p><img src="//blog.jayxhj.com/images/MapLocal.jpeg" alt="map local"></p>
 </li>
 </ol>
 <p>这个方式下，当在本地修改 JS 后，能直接在线上环境看到效果，最重要的是，免去了修改 JS 后上线 JS 不生效的问题。归根结底，本地修改，上线再看效果这种原始的方式，本该淘汰。</p>
@@ -161,13 +161,13 @@ ga('send', 'pageview');
 <li><p>将本地文件添加到 workspace</p>
 <ul>
 <li>开启调试面板，切换至 Sources 选项卡</li>
-<li>右击选择 <strong>Add Folder to Workspace</strong> <img src="http://img.jayxhj.com/addfolder.png" alt="Add Folder to Workspace"></li>
+<li>右击选择 <strong>Add Folder to Workspace</strong> <img src="//blog.jayxhj.com/images/addfolder.png" alt="Add Folder to Workspace"></li>
 <li>选择要代理的本地的文件夹</li>
 <li>点击地址栏下方弹出来的窗口，选择 <strong>允许</strong> ，Chrome 才能获得访问本地文件的权限</li>
 </ul>
 </li>
 <li><p>Map to File System Resource</p>
-<p>选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 <img src="http://img.jayxhj.com/maptoresource.png" alt="Map to File System Resource"></p>
+<p>选择要代理的文件，Chrome 将自动列出可以映射的文件，此时就建立了远程文件与本地文件的映射。 <img src="//blog.jayxhj.com/images/maptoresource.png" alt="Map to File System Resource"></p>
 </li>
 </ol>
 <p>设置好之后当 debug 好之后，可以直接将修改持久化到本地的文件，再也不用复制粘贴了。</p>
@@ -176,7 +176,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cj9e3wnhm0007176vxzykrk72" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbjcatz0007xh6vu6xsizzo" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -316,7 +316,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 jayxhj<br>
+      &copy; 2018 jayxhj<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
