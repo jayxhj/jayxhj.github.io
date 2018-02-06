@@ -144,12 +144,13 @@ ga('send', 'pageview');
 <h2 id="将 -CDN- 上的图片下载下来"><a href="# 将 -CDN- 上的图片下载下来" class="headerlink" title="将 CDN 上的图片下载下来"></a>将 CDN 上的图片下载下来 </h2><p> 所有文章的 url 获取到了，但是这些图片没法访问，因为域名未备案，七牛会将资源屏蔽，但是通过七牛提供的 CDN 域名是可以下载的，我的是 <strong>oiiz5quoo.qnssl.com</strong> 。</p>
 <p>前面获取到了，那么现在只需要替换域名，curl 下载即可。命令为 <code>sed &#39;s/blog.jayxhj.com\/images/oiiz5quoo.qnssl.com/g&#39; | awk &#39;{sysetm(&quot;curl -O&quot; $0)}</code></p>
 <p>此处有提醒：如果图片存放在七牛的文件夹里，那么应该按照在七牛定义的分割符来拼接出目录名，再递归创建目录，mkdir -p 即可。</p>
+<h2 id="将文章内的图片域名替换"><a href="# 将文章内的图片域名替换" class="headerlink" title="将文章内的图片域名替换"></a>将文章内的图片域名替换</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsed -i <span class="string">'s/http:\/\/img.jayxhj.com/\/\/blog.jayxhj.com\/images/g'</span> ./<span class="built_in">source</span>/_posts/*</span><br></pre></td></tr></table></figure>
 <p>希望以后备案这个词可以消失 😊 。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/" data-id="cjdbn011j0031ds6v437lzhkh" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/" data-id="cjdbnolcb00314w6vzgyfzmll" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -242,7 +243,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbn00y00007ds6vet8gbjep" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/" data-id="cjdbnol4p00074w6vg4nh0ogd" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -306,7 +307,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cjdbn00y5000cds6v3qcl2txx" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/" data-id="cjdbnol6v000c4w6v620twjau" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -356,7 +357,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cjdbn014f005kds6v5ogd9ccl" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/" data-id="cjdbnolit005k4w6v7paxxr1i" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -457,7 +458,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cjdbn01420057ds6v8os3grir" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/" data-id="cjdbnolic00574w6v30wk3da7" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -512,7 +513,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cjdbn010p002bds6ve6t0endh" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/" data-id="cjdbnolbi002b4w6vrmbxata0" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -599,7 +600,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cjdbn012c003pds6vglglyprc" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/" data-id="cjdbnold6003p4w6vk8mrq95j" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -686,7 +687,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cjdbn014k005rds6vk0lm4jao" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/05/basic-composer-package-development/" data-id="cjdbnolix005r4w6vcn76pdyv" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -734,7 +735,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cjdbn013c004mds6vj0vd2hxb" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/" data-id="cjdbnolfv004m4w6vzs1pb4nu" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -785,7 +786,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cjdbn011o0038ds6v6jthkmut" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2016/04/lumen-tricks/" data-id="cjdbnolcf00384w6vgvvqulcc" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2016/04/lumen-tricks/#disqus_thread" class="article-comment-link">留言</a>
       

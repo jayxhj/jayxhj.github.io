@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.jayxhj.com/"/>
-  <updated>2018-02-06T12:54:43.000Z</updated>
+  <updated>2018-02-06T13:03:36.000Z</updated>
   <id>http://blog.jayxhj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/"/>
     <id>http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/</id>
     <published>2018-02-06T11:10:31.000Z</published>
-    <updated>2018-02-06T12:54:43.000Z</updated>
+    <updated>2018-02-06T13:03:36.000Z</updated>
     
     <content type="html">&lt;p&gt;事情是这样，国内的域名是需要备案的，备案其实是备案服务器，这样通信管理局就能知道你的网站在哪里托管，在哪台服务器。这里有详细介绍为何要备案 &lt;del&gt;&lt;a href=&quot;https://help.aliyun.com/knowledge_detail/36907.html?spm=a2c4g.11174283.6.539.HMkMNn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;为什么要备案&lt;/a&gt;&lt;/del&gt; 这实在是个神奇的规定，哪些网站能访问，居然是别人替你做决定。&lt;/p&gt;
 &lt;p&gt;问题就来了，没备案，不仅解析会有问题，连 CDN 都是用不了的，人在屋檐下不得不低头？所以就有了这篇，如何将七牛的图片迁移至 GitHub。&lt;/p&gt;
@@ -48,6 +48,7 @@
 &lt;h2 id=&quot;将 -CDN- 上的图片下载下来&quot;&gt;&lt;a href=&quot;# 将 -CDN- 上的图片下载下来&quot; class=&quot;headerlink&quot; title=&quot;将 CDN 上的图片下载下来&quot;&gt;&lt;/a&gt;将 CDN 上的图片下载下来 &lt;/h2&gt;&lt;p&gt; 所有文章的 url 获取到了，但是这些图片没法访问，因为域名未备案，七牛会将资源屏蔽，但是通过七牛提供的 CDN 域名是可以下载的，我的是 &lt;strong&gt;oiiz5quoo.qnssl.com&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;前面获取到了，那么现在只需要替换域名，curl 下载即可。命令为 &lt;code&gt;sed &amp;#39;s/blog.jayxhj.com\/images/oiiz5quoo.qnssl.com/g&amp;#39; | awk &amp;#39;{sysetm(&amp;quot;curl -O&amp;quot; $0)}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;此处有提醒：如果图片存放在七牛的文件夹里，那么应该按照在七牛定义的分割符来拼接出目录名，再递归创建目录，mkdir -p 即可。&lt;/p&gt;
+&lt;h2 id=&quot;将文章内的图片域名替换&quot;&gt;&lt;a href=&quot;# 将文章内的图片域名替换&quot; class=&quot;headerlink&quot; title=&quot;将文章内的图片域名替换&quot;&gt;&lt;/a&gt;将文章内的图片域名替换&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gsed -i &lt;span class=&quot;string&quot;&gt;&#39;s/http:\/\/img.jayxhj.com/\/\/blog.jayxhj.com\/images/g&#39;&lt;/span&gt; ./&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;/_posts/*&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;希望以后备案这个词可以消失 😊 。&lt;/p&gt;
 </content>
     
@@ -71,7 +72,7 @@
     <link href="http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/"/>
     <id>http://blog.jayxhj.com/2016/12/ways-to-debug-js-files-online/</id>
     <published>2016-12-15T10:16:20.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;线上某个页面出问题时，我们需要查看日志，需要看页面表现，需要定位问题在哪里以便及时修复。一般后端会通过打日志的形式来确定 bug 的起源，前端就不一样了，上线前 JS 经过混淆、压缩、合并，代码已经不是原来的样子了，无疑给调试带来了困难。那么如何定位问题呢？本文希望从两方面解释，一方面是如何去复现问题，第二步是根据第一步的信息，如何更快更科学地 debug 。&lt;/p&gt;
 &lt;h1 id=&quot;问题的定位&quot;&gt;&lt;a href=&quot;# 问题的定位&quot; class=&quot;headerlink&quot; title=&quot;问题的定位&quot;&gt;&lt;/a&gt;问题的定位 &lt;/h1&gt;&lt;h2 id=&quot;本地复现、调试、解决、上线&quot;&gt;&lt;a href=&quot;# 本地复现、调试、解决、上线&quot; class=&quot;headerlink&quot; title=&quot;本地复现、调试、解决、上线&quot;&gt;&lt;/a&gt; 本地复现、调试、解决、上线 &lt;/h2&gt;&lt;p&gt; 有些问题其实不用在线上调试，如果场景容易满足，case 容易在线下构造，那么直接在本地改就好了，这种方式比较适合简单的问题，无需特定场景和环境，bug 就能修复。&lt;/p&gt;
@@ -145,7 +146,7 @@
     <link href="http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/"/>
     <id>http://blog.jayxhj.com/2016/08/ways-to-convert-tabs-to-spaces/</id>
     <published>2016-08-20T10:15:46.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;tab 与 space 孰好孰坏这个问题是程序界的圣战之一。StackExchange 旗下的 programmers 就有关于这个问题的 &lt;a href=&quot;http://programmers.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;讨论&lt;/a&gt; , 没有必要大打出手，倒是可以了解下各种情况下使用这两者的差异及各自的优势。不过本篇不准备讨论这个问题，本篇只想解决日常开发中的需求：将 tab 转化为空格。&lt;/p&gt;
 &lt;p&gt;总结了一下，大概有以下几种思路：&lt;/p&gt;
@@ -192,7 +193,7 @@
     <link href="http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/"/>
     <id>http://blog.jayxhj.com/2016/08/brogue-of-nanrenwa/</id>
     <published>2016-08-10T14:47:58.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt; 我喜欢 &lt;a href=&quot;http://t.cn/RZ9OcKw&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 男人袜 &lt;/a&gt; 的产品，他们给我带来了惊喜和良好的体验，以及不错的产品。我会向我的朋友们推荐它。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -244,7 +245,7 @@
     <link href="http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/"/>
     <id>http://blog.jayxhj.com/2016/07/configure-xdebug-in-phpstorm/</id>
     <published>2016-07-01T08:04:05.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;在 &lt;a href=&quot;/2016/01/using-json-viewer-for-debugging/&quot;&gt;使用 Chrome 扩展程序 JSON Viewer 进行调试&lt;/a&gt; 这片文章中我曾介绍过，使用 &lt;code&gt;echo json_encode()&lt;/code&gt; 的方式进行调试，再配合 Chrome 浏览器插件 &lt;del&gt;JSON Viewer&lt;/del&gt; (建议使用 JSON Handler 代替)。&lt;/p&gt;
 &lt;h2 id=&quot;调试方式的对比&quot;&gt;&lt;a href=&quot;# 调试方式的对比&quot; class=&quot;headerlink&quot; title=&quot;调试方式的对比&quot;&gt;&lt;/a&gt;调试方式的对比 &lt;/h2&gt;&lt;p&gt; 手动调试的方式实际上局限性很大，缺点很明显：&lt;/p&gt;
@@ -324,7 +325,7 @@
     <link href="http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/"/>
     <id>http://blog.jayxhj.com/2016/06/post-array-data-in-php-curl/</id>
     <published>2016-06-03T02:42:03.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt; 使用 PHP 的 curl 可以发起 HTTP 外部请求，但是发起 POST 请求时，是无法直接传递数组的，从 curl 层面来说，也没有所谓的数组的概念，而更加通用也更合理的传递数据的格式其实是键值对（key value pair）。&lt;/p&gt;
 &lt;p&gt; 那么，我们先得知道，为什么要传递数组。&lt;/p&gt;
@@ -361,7 +362,7 @@
     <link href="http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/"/>
     <id>http://blog.jayxhj.com/2016/05/jayxhjs-chrome-extensions/</id>
     <published>2016-05-26T08:27:35.000Z</published>
-    <updated>2018-02-06T09:05:49.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;Chrome 浏览器和 Firefox 浏览器为何大受欢迎，其中一个重要原因就是因为有数量巨大的扩展库，而 360 之类的浏览器内核也是基于 Chromium 内核和 IE 内核，因为这些扩展，可以让应用（浏览器就是应用）的功能变得无比丰富和强大。&lt;/p&gt;
 &lt;p&gt;这篇文章会列举本人平常使用的插件，并介绍常用的用法，但由于扩展使用的主观性太强，每个人都有不同的偏好，所以此篇会把重点放在扩展的使用上，并会不定时更新。扩展排名不分先后。&lt;/p&gt;
@@ -430,7 +431,7 @@
     <link href="http://blog.jayxhj.com/2016/05/basic-composer-package-development/"/>
     <id>http://blog.jayxhj.com/2016/05/basic-composer-package-development/</id>
     <published>2016-05-13T07:28:41.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;composer 是 PHP 的依赖管理工具，本篇文章就来说明如何构建一个包，并提交到 &lt;a href=&quot;https://packagist.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Packagist&lt;/a&gt; ，这样别人就可以方便地通过 composer 使用你的包了。&lt;/p&gt;
 &lt;p&gt;开发 composer 包有以下几个步骤：&lt;/p&gt;
@@ -496,7 +497,7 @@
     <link href="http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/"/>
     <id>http://blog.jayxhj.com/2016/04/get-week-number-in-month-from-date-in-php/</id>
     <published>2016-04-26T11:44:42.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;a href=&quot;# 获取当前日期在本月的第几周&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期在本月的第几周&quot;&gt;&lt;/a&gt;获取当前日期在本月的第几周 &lt;/h1&gt;&lt;p&gt; 使用 &lt;strong&gt;date()&lt;/strong&gt; 函数可以获取某个日期的当前星期数，此星期数为当前日期在一整年中的星期数。假如要获取当前日期在当前月份的星期数，只需用当前日期的星期数减去当前月份第一天的星期数加 1 即可。&lt;/p&gt;
 &lt;h2 id=&quot;获取当前日期的星期数&quot;&gt;&lt;a href=&quot;# 获取当前日期的星期数&quot; class=&quot;headerlink&quot; title=&quot;获取当前日期的星期数&quot;&gt;&lt;/a&gt;获取当前日期的星期数&lt;/h2&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;echo&lt;/span&gt; date(&lt;span class=&quot;string&quot;&gt;&#39;W&#39;&lt;/span&gt;,time());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -521,7 +522,7 @@
     <link href="http://blog.jayxhj.com/2016/04/lumen-tricks/"/>
     <id>http://blog.jayxhj.com/2016/04/lumen-tricks/</id>
     <published>2016-04-09T14:09:26.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;密码加密与验证&quot;&gt;&lt;a href=&quot;# 密码加密与验证&quot; class=&quot;headerlink&quot; title=&quot;密码加密与验证&quot;&gt;&lt;/a&gt;密码加密与验证 &lt;/h1&gt;&lt;p&gt; 加密&lt;/p&gt;
 &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* 密码入库加密&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; string $password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt; string&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;passwordEncrypt&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; app(&lt;span class=&quot;string&quot;&gt;&#39;hash&#39;&lt;/span&gt;)-&amp;gt;make(&lt;span class=&quot;variable&quot;&gt;$password&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -550,7 +551,7 @@
     <link href="http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/"/>
     <id>http://blog.jayxhj.com/2016/03/setting-timezones-in-lumen/</id>
     <published>2016-03-24T11:17:10.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;项目使用了 Laravel 的精简版 Lumen 来做 api 和 sso 的服务。今天在提交代码时发现，生成的 database migration 代码时间相差八个小时。看来是时区设置的问题，查找了一下，发现有好几个地方都有时区的设置，那就简单总结一下。&lt;/p&gt;
 &lt;h2 id=&quot;PHP- 时区设置&quot;&gt;&lt;a href=&quot;#PHP- 时区设置&quot; class=&quot;headerlink&quot; title=&quot;PHP 时区设置&quot;&gt;&lt;/a&gt;PHP 时区设置&lt;/h2&gt;&lt;p&gt;PHP 里可以在 php.ini 中设置 &lt;strong&gt;&lt;code&gt;date.timezone&lt;/code&gt;&lt;/strong&gt; 选项来设置时区，也可以在脚本中动态制定时区，如使用 &lt;strong&gt;&lt;code&gt;date_default_timezone_set()&lt;/code&gt;&lt;/strong&gt; 来动态指定时区。使用脚本指定时会覆盖 php.ini 中的设置。时区列表可以使用 &lt;strong&gt;&lt;code&gt;\DateTimeZone::listIdentifiers()&lt;/code&gt;&lt;/strong&gt; 来获取。也可以到 &lt;a href=&quot;http://lxr.php.net/xref/PHP_5_6/ext/date/lib/timezonemap.h&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;timezonemap.h&lt;/a&gt; 来查看对应的可选项。&lt;/p&gt;
@@ -591,7 +592,7 @@
     <link href="http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/"/>
     <id>http://blog.jayxhj.com/2016/03/single-double-quote-and-backtick/</id>
     <published>2016-03-20T10:32:36.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;反引号 &lt;code&gt;` &lt;/code&gt; (backtick) 与单引号 &lt;code&gt;&amp;#39;&lt;/code&gt;(single quote) 以及双引号 &lt;code&gt;&amp;quot;&lt;/code&gt; (double quote) 在 PHP 及 MySQL 中都有不同的含义，下面将分别说明并给出它们在 PHP 和 MySQL 结合使用时的一些注意事项。&lt;/p&gt;
 &lt;h2 id=&quot;在 -PHP- 中&quot;&gt;&lt;a href=&quot;# 在 -PHP- 中&quot; class=&quot;headerlink&quot; title=&quot;在 PHP 中&quot;&gt;&lt;/a&gt;在 PHP 中 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;` &lt;/code&gt; 在 PHP 中是 &lt;a href=&quot;http://php.net/manual/zh/language.operators.execution.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 执行运算符&lt;/a&gt;，效果与调用 &lt;a href=&quot;http://php.net/manual/zh/function.shell-exec.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;shell_exec()&lt;/a&gt;  相同 。&lt;/p&gt;
@@ -642,7 +643,7 @@
     <link href="http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/"/>
     <id>http://blog.jayxhj.com/2016/03/fix-headers-already-sent-error-in-php/</id>
     <published>2016-03-09T05:32:16.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;这篇文章是 stackoverflow 上的一个问题的回答，答案集中了其它答案的想法，并做了归纳，所以翻译过来，以后遇到 “headers already sent” 的错误就可以直接一一排查，或者干脆在代码动手及设计上避免这类问题了。&lt;/p&gt;
 &lt;h2 id=&quot;发送 -header- 前不要有任何输出&quot;&gt;&lt;a href=&quot;# 发送 -header- 前不要有任何输出&quot; class=&quot;headerlink&quot; title=&quot;发送 header 前不要有任何输出&quot;&gt;&lt;/a&gt;发送 header 前不要有任何输出 &lt;/h2&gt;&lt;p&gt; 发送或者修改 HTTP 头信息的方法必须在任何输出被输出之前被调用。否则调用将会出错：&lt;/p&gt;
@@ -780,7 +781,7 @@
     <link href="http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/"/>
     <id>http://blog.jayxhj.com/2016/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/</id>
     <published>2016-02-27T10:51:02.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Exit-Codes- 是什么&quot;&gt;&lt;a href=&quot;#Exit-Codes- 是什么&quot; class=&quot;headerlink&quot; title=&quot;Exit Codes 是什么&quot;&gt;&lt;/a&gt;Exit Codes 是什么 &lt;/h2&gt;&lt;p&gt; 在 Unix 和 Linux 系统中，程序可以在执行终止后传递值给其父进程。这个值被称为退出码（exit code）或退出状态（exit status）。在 POSIX 系统中，惯例做法是当程序成功执行时传递 0 ，当程序执行失败时传递 1 或比 1 大的值。&lt;/p&gt;
 &lt;p&gt;传递状态码为何重要？如果你在命令行脚本上下文中查看状态码，答案显而易见。任何有用的脚本，它将不可避免地要么被其他脚本所使用，要么被 bash 单行脚本包裹所使用。特别是脚本被用来与自动化工具 SaltStack 或者监测工具 Nagios 配合使用。这些工具会执行脚本并检查它的状态，来确定脚本是否执行成功。&lt;/p&gt;
@@ -841,7 +842,7 @@
     <link href="http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/"/>
     <id>http://blog.jayxhj.com/2016/01/using-json-viewer-for-debugging/</id>
     <published>2016-01-23T11:05:50.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;PHP 调试时有很多种方法，其中最简单的无非是 echo 与 var_dump 、 print_r 以及 debug_backtrace 了。这篇文章要介绍的是平常用的比较多的，适合在调 HTTP 接口以及平常开发中需要输出变量内容的情况。其实在 IDE 中比较适合使用 XDebug 或者断点调试，这样能在运行时直接查看当前上下文的各个变量，不过这种情况不在此篇讨论之列，后续我也将介绍相关的方法，来完善这个系列。&lt;/p&gt;
 &lt;p&gt; 现在步入正题。在平常和前端的配合中经常会有一些 RESTful 接口输出，而其中最常用的内容传输格式就是 JSON ，JSON 在 PHP 中可以很方便地转化为对象或者数组，在打印变量时使用 JSON 再配合浏览器的扩展进行解析，无疑能提高开发效率。&lt;/p&gt;
@@ -895,7 +896,7 @@
     <link href="http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/"/>
     <id>http://blog.jayxhj.com/2016/01/facebook-command-line-ui-pathpicker/</id>
     <published>2016-01-17T09:40:38.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;p&gt;早先在逛 Facebook 后端开源项目时看到了一个命令行工具 PathPicker ，安装后试用了一下感觉还不错，恰好项目开发时在使用 Git ，发现结合 PathPicker 后免去了很多麻烦。&lt;/p&gt;
 &lt;p&gt;试想以下场景：&lt;/p&gt;
@@ -963,7 +964,7 @@
     <link href="http://blog.jayxhj.com/2015/12/git-commands/"/>
     <id>http://blog.jayxhj.com/2015/12/git-commands/</id>
     <published>2015-12-10T12:15:55.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;hr&gt;
 &lt;h2 id=&quot;Git- 忽略已追踪文件的修改&quot;&gt;&lt;a href=&quot;#Git- 忽略已追踪文件的修改&quot; class=&quot;headerlink&quot; title=&quot;Git 忽略已追踪文件的修改&quot;&gt;&lt;/a&gt;Git 忽略已追踪文件的修改&lt;/h2&gt;&lt;p&gt;&lt;code&gt;git update-index –assume-unchanged /path/to/file&lt;/code&gt;&lt;/p&gt;
@@ -1012,7 +1013,7 @@
     <link href="http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/"/>
     <id>http://blog.jayxhj.com/2015/09/achieve-replication-using-multi-mysql-instance-in-a-single-machine/</id>
     <published>2015-09-22T14:37:32.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;environment&quot;&gt;&lt;a href=&quot;#environment&quot; class=&quot;headerlink&quot; title=&quot;environment&quot;&gt;&lt;/a&gt;environment&lt;/h2&gt;&lt;p&gt;  [root@iZ25qtxg0q6Z ~]# uname -a&lt;br&gt;  Linux iZ25qtxg0q6Z 2.6.32-431.23.3.el6.x86_64 #1 SMP Thu Jul 31 17:20:51 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux&lt;br&gt;  [root@iZ25qtxg0q6Z ~]# cat /etc/redhat-release&lt;br&gt;  CentOS release 6.7 (Final)&lt;br&gt;  [root@iZ25qtxg0q6Z ~]# mysql –version&lt;br&gt;  mysql Ver 14.14 Distrib 5.1.73, for redhat-linux-gnu (x86_64) using readline 5.1&lt;/p&gt;
 &lt;h2 id=&quot;set-up-replication-steps&quot;&gt;&lt;a href=&quot;#set-up-replication-steps&quot; class=&quot;headerlink&quot; title=&quot;set-up replication steps&quot;&gt;&lt;/a&gt;set-up replication steps&lt;/h2&gt;&lt;ol&gt;
@@ -1081,7 +1082,7 @@
     <link href="http://blog.jayxhj.com/2014/08/index-type/"/>
     <id>http://blog.jayxhj.com/2014/08/index-type/</id>
     <published>2014-08-08T08:07:59.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;hr&gt;
 &lt;p&gt;有必要对数据库的索引类型及其实现做个了解及总结。&lt;/p&gt;
@@ -1130,7 +1131,7 @@
     <link href="http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/"/>
     <id>http://blog.jayxhj.com/2014/07/add-a-site-wide-link-parameter/</id>
     <published>2014-07-19T08:40:06.000Z</published>
-    <updated>2018-02-06T08:31:31.000Z</updated>
+    <updated>2018-02-06T13:02:10.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;需求&quot;&gt;&lt;a href=&quot;# 需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求 &lt;/h3&gt;&lt;p&gt; 为网站链接添加参数，可以统计用户在网站中的流向，以及确定网站经常访问的部分。&lt;/p&gt;
 &lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;# 解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;ol&gt;

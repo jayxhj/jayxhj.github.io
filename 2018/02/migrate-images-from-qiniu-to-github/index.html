@@ -19,7 +19,7 @@
 共有以下几个步骤：
 
 获取文章中的图片 u">
-<meta property="og:updated_time" content="2018-02-06T12:54:43.000Z">
+<meta property="og:updated_time" content="2018-02-06T13:03:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="把图床从七牛迁移到 GitHub">
 <meta name="twitter:description" content="事情是这样，国内的域名是需要备案的，备案其实是备案服务器，这样通信管理局就能知道你的网站在哪里托管，在哪台服务器。这里有详细介绍为何要备案 为什么要备案 这实在是个神奇的规定，哪些网站能访问，居然是别人替你做决定。
@@ -155,12 +155,13 @@ ga('send', 'pageview');
 <h2 id="将 -CDN- 上的图片下载下来"><a href="# 将 -CDN- 上的图片下载下来" class="headerlink" title="将 CDN 上的图片下载下来"></a>将 CDN 上的图片下载下来 </h2><p> 所有文章的 url 获取到了，但是这些图片没法访问，因为域名未备案，七牛会将资源屏蔽，但是通过七牛提供的 CDN 域名是可以下载的，我的是 <strong>oiiz5quoo.qnssl.com</strong> 。</p>
 <p>前面获取到了，那么现在只需要替换域名，curl 下载即可。命令为 <code>sed &#39;s/blog.jayxhj.com\/images/oiiz5quoo.qnssl.com/g&#39; | awk &#39;{sysetm(&quot;curl -O&quot; $0)}</code></p>
 <p>此处有提醒：如果图片存放在七牛的文件夹里，那么应该按照在七牛定义的分割符来拼接出目录名，再递归创建目录，mkdir -p 即可。</p>
+<h2 id="将文章内的图片域名替换"><a href="# 将文章内的图片域名替换" class="headerlink" title="将文章内的图片域名替换"></a>将文章内的图片域名替换</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsed -i <span class="string">'s/http:\/\/img.jayxhj.com/\/\/blog.jayxhj.com\/images/g'</span> ./<span class="built_in">source</span>/_posts/*</span><br></pre></td></tr></table></figure>
 <p>希望以后备案这个词可以消失 😊 。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/" data-id="cjdbn011j0031ds6v437lzhkh" class="article-share-link">分享</a>
+      <a data-url="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/" data-id="cjdbnolcb00314w6vzgyfzmll" class="article-share-link">分享</a>
       
         <a href="http://blog.jayxhj.com/2018/02/migrate-images-from-qiniu-to-github/#disqus_thread" class="article-comment-link">留言</a>
       
